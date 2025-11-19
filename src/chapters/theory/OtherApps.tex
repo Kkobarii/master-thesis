@@ -11,6 +11,7 @@ Analýza se nejprve zaměří na vizualizaci datových struktur a následně na 
 
 Nástroje popsané v této kapitole se zaměřují na vizualizaci různých datových struktur, jako jsou stromy, grafy, zásobníky a fronty.
 
+
 \subsection{Gnarley Trees}
 \label{sec:other_apps_ds_gnarley_trees}
 
@@ -20,16 +21,74 @@ První aplikací, kterou tato práce analyzuje, je \devTool{Gnarley Trees}{https
 
 Aplikace se zaměřuje především na stromy a haldy, v kontextu různých způsobů ukládání dat a jejich efektivity. U stromů jde například o binární vyhledávací stromy, červeno-černé stromy, AVL stromy, B-stromy a různé další varianty těchto struktur. U front a hald jsou to například prioritní fronty implementované pomocí běžných hald, binárních hald, Fibonacciho hald a dalších.
 
-Každý typ datové struktury má možnost vizualizace základních operací, u stromů například vkládání, mazání a vyhledávání uzlů, u hald a front pak vkládání, inkrementaci hodnoty prvku a odstraňování prvků s nejvyšší prioritou. Tyto interakce jsou prováděny pomocí uživatelského rozhraní, které umožňuje uživatelům zadávat hodnoty a sledovat, jak se datová struktura mění v reálném čase. Vizualizace je doplněna o animace, které umožňují mimo jiné i krokování operací, což usnadňuje pochopení dynamiky datových struktur. Animace jsou jednoduché, ale efektivní, včetně možnosti krokování vpřed i vzad.
+Každý typ datové struktury má možnost vizualizace základních operací, u stromů například vkládání, mazání a vyhledávání uzlů, u hald a front pak vkládání, inkrementaci hodnoty prvku a odstraňování prvků s nejvyšší prioritou. Dále je zde také možnost vložit předem definovaný počet náhodných prvků a tím rychle zaplnit danou strukturu. Tyto interakce jsou prováděny pomocí uživatelského rozhraní, které umožňuje uživatelům zadávat hodnoty a sledovat, jak se datová struktura mění v reálném čase. Vizualizace je doplněna o animace, které umožňují mimo jiné i krokování operací, což usnadňuje pochopení dynamiky datových struktur. Animace jsou jednoduché, ale efektivní, včetně možnosti krokování vpřed i vzad.
+
+\subsubsection*{Vizuál}
+
+Jedná se o webovou aplikaci napsanou v jazyce Java, vykreslování grafů je realizováno pomocí knihovny CheerpJ. Uživatelské rozhraní je přehledné, umožňuje snadný přístup k různým datovým strukturám a jejich operacím. Kromě toho aplikace ke všemu přikládá vysvětlivky, což je užitečné pro uživatele, kteří se s těmito koncepty teprve seznamují.
+
+Co se týče uživatelského přizpůsobení, stránka má pouze základní stylování, bez možnosti výběru barevných schémat nebo přizpůsobení vzhledu. Stránka také zřejmě má možnost změny jazyka z angličtiny do slovenštiny, ale její zapnutí není na první pohled zřejmé.
+
 
 \subsection{Data Structure Visualizations}
 \label{sec:other_apps_ds_data_structure_visualizations}
 
+Další aplikací je \devTool{Data Structure Visualizations}{https://www.cs.usfca.edu/~galles/visualization/}, výukový nástroj z Univerzity San Francisco, který nabízí vizualizace různých datových struktur a algoritmů.
+
+\subsubsection*{Obsah}
+
+Aplikace pokrývá širokou škálu témat, jak v oblasti datových struktur, tak i algoritmů. Mezi datové struktury patří například zásobníky, fronty, spojové seznamy, stromy (včetně binárních vyhledávacích stromů a hald) a grafy. U každé datové struktury jsou k dispozici vizualizace základních operací, jako je vkládání, mazání a vyhledávání prvků. U algoritmů jsou zahrnuty různé třídící algoritmy (například Bubble Sort, Insertion Sort, Merge Sort) a algoritmy pro prohledávání grafů (například Dijkstrův algoritmus nebo algoritmy na získání kostry grafu).
+
+Interakce s vizualizacemi není sjednocená jako u minulé aplikace, každá datová struktura ji má implementovanou jinak. Animace pro jednotlivé operace jsou velmi jednoduché a oproti předchozí aplikaci postrádají vysvětlivky. Krokování funguje opět vpřed i vzad, včetně možnosti nastavení rychlosti animace. Jako nedostatek lze uvést i absenci možnosti naplnění datové struktury náhodnými hodnotami, což by zrychlilo testování a experimentování s různými scénáři. Třídící algoritmy jsou velmi jednoduché, umožňují uživateli náhodně zamíchat pole čísel, zvolit si třídící algoritmus a sledovat jeho průběh. Jako velmi zajímavé rozšíření aplikace poskytuje možnost napsat si vlastní algoritmus v jazyce JavaScript a vizualizovat jeho průběh.
+
+\subsubsection*{Vizuál}
+
+Aplikace je webová, napsaná v jazyce JavaScript, s jednoduchým uživatelským rozhraním. Celkový vzhled není příliš moderní a uživatelsky přívětivý, ale funkční. Navigace na stránce je mírně komplikovaná, protože uživatel musí procházet různými odkazy, aby se dostal k požadované datové struktuře nebo algoritmu. Ovládání vizualizací je stylováno pomocí tlačítek a vstupních polí, ve stejném duchu jako předchozí aplikace.
+
+Možnosti přizpůsobení jsou omezené, bez možnosti změny barevných schémat nebo vzhledu vizualizací. Responzivita stránky je značně omezená, což může ztížit použití na různých zařízeních. Aplikace je dostupná pouze v angličtině.
+
+
 \subsection{B Plus Tree}
 \label{sec:other_apps_ds_b_plus_tree}
 
+Poslední aplikací zaměřující se na datové struktury, jejíž analýzu tato práce provede, je \devTool{B Plus Tree}{https://bplustree.app/}, interaktivní nástroj pro vizualizaci B+ stromů.
+
+\subsubsection*{Obsah}
+
+Aplikace se specializuje výhradně na B+ stromy, neobsahuje tedy jiné datové struktury. U B+ stromů jsou k dispozici vizualizace základních operací, jako je vkládání, mazání a vyhledávání klíčů. Mimo tyto poskytuje i možnost nastavit danému stromu maximální počet klíčů na vnitřní uzel nebo list a také možnost generování náhodných klíčů pro rychlé naplnění stromu. Chybí zde vysvětlivky k jednotlivým operacím, krátký popis struktury se věnuje spíše využití B+ stromů v databázových systémech.
+
+Interakce s vizualizacemi je intuitivní, uživatel může zadávat hodnoty prostřednictvím vstupních polí a sledovat, jak se strom mění v reálném čase. Animace nemají možnost krokování, po provedení operace se strom aktualizuje rovnou do nového stavu, a také je není možné krokovat zpět.
+
+\subsubsection*{Vizuál}
+
+Tato aplikace je rovněž webová, s velmi jednoduchým ale moderním uživatelským rozhraním. Obsah je tak malý, že není potřeba složitější navigace, vše je dostupné přímo na hlavní stránce. Ovládání vizualizací je realizováno pomocí tlačítek a vstupních polí. Stránka nenabízí žádné možnosti přizpůsobení vzhledu nebo změnu jazyka. Aplikace je velmi responzivní a funguje dobře na různých zařízeních.
+
+
 \subsection{Porovnání}
 \label{sec:other_apps_ds_comparison}
+
+V této sekci jsou shrnuty klady a zápory jednotlivých analyzovaných aplikací zaměřených na vizualizaci datových struktur. Následující tabulka \tableref{tab:other_apps_ds_comparison} poskytuje přehledné srovnání jejich vlastností.
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{l c c c}
+        \toprule
+        \textbf{Vlastnost} & \textbf{Gnarley Trees} & \textbf{Data Structure Visualizations} & \textbf{B Plus Tree} \\
+        \midrule
+        Podpora více datových struktur & Ano & Ano & Ne \\
+        Uživatelské přizpůsobení & Omezené & Omezené & Žádné \\
+        Krokování animací & Ano (vpřed i vzad) & Ano (vpřed i vzad) & Ne \\
+        Vysvětlivky k operacím & Ano & Ne & Ne \\
+        Generování náhodných dat & Ano & Ne & Ano \\
+        Responzivita & Dobrá & Slabá & Výborná \\
+        Jazyková podpora & Angličtina, slovenština & Angličtina & Angličtina \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Porovnání analyzovaných aplikací pro vizualizaci datových struktur}
+    \label{tab:other_apps_ds_comparison}
+\end{table}
+
 
 
 \section{Simulace třídících algoritmů}
