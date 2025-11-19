@@ -89,6 +89,32 @@ V této sekci jsou shrnuty klady a zápory jednotlivých analyzovaných aplikac�
     \label{tab:other_apps_ds_comparison}
 \end{table}
 
+Dále byla provedena analýza a porovnání konkrétních datových struktur, které výše zmíněné aplikace podporují. \customref{Tabulka}{tab:other_apps_ds_structures} shrnuje, které datové struktury jsou v jednotlivých aplikacích podporovány. 
+
+\todo{checknout co to reálně má}
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{l c c c}
+        \toprule
+        \textbf{Datová struktura} & \textbf{Gnarley Trees} & \textbf{Data Structure Visualizations} & \textbf{B Plus Tree} \\
+        \midrule
+        Binární vyhledávací strom   & Ano & Ano & Ne \\
+        AVL strom                   & Ano & Ne  & Ne \\
+        Červeno-černý strom         & Ano & Ne  & Ne \\
+        B-strom                     & Ano & Ne  & Ne \\
+        B+ strom                    & Ne  & Ne  & Ano \\
+        Spojový seznam              & Ne  & Ano & Ne \\
+        Zásobník                    & Ne  & Ano & Ne \\
+        Fronta                      & Ne  & Ano & Ne \\
+        Halda                       & Ne  & Ano & Ne \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Podporované datové struktury v analyzovaných aplikacích}
+    \label{tab:other_apps_ds_structures}
+\end{table}
+
 
 
 \section{Simulace třídících algoritmů}
@@ -99,14 +125,88 @@ Tato kapitola se věnuje aplikacím, které umožňují vizualizaci a simulaci r
 \subsection{Sort Visualizer}
 \label{sec:other_apps_sa_sort_visualizer}
 
+Aplikace \devTool{Sort Visualizer}{https://www.sortvisualizer.com/} je interaktivní nástroj pro vizualizaci různých třídících algoritmů, který umožňuje uživatelům sledovat průběh třídění v reálném čase spolu s popisem algoritmů a jejich časovou a prostorovou složitostí.
+
+\subsubsection*{Obsah}
+
+Sort Visualizer nabízí simulace několika běžných třídících algoritmů, které dělí na logaritmické (Quick Sort, Merge Sort, Heap Sort), kvadratické (Bubble Sort, Insertion Sort, Selection Sort) a další (např. Radix Sort). Přidává také možnost, jak si uživatel může vytvořit vlastní algoritmus pomocí jazyka JavaScript a vizualizovat jeho průběh.
+
+Interakce se simulací je značně omezená, uživatel si může pouze zvolit algoritmus, velikost pole a rychlost animace. Animace spočívá v zobrazení sloupců reprezentujících hodnoty v poli, které se mění podle průběhu třídění. Zajímavé zpestření animace jsou zvukové efekty, které doprovázejí porovnávání a výměny prvků a svým tónem reprezentují hodnotu daného prvku. Krokování animace není možné.
+
+Každý algoritmus je doplněn o krátký popis jeho principu, časové složitosti v nejlepším, průměrném a nejhorším případě a také o prostorovou složitost. Přiloženy jsou také zdrojové kódy daného algoritmu v několika programovacích jazycích. Zdrojové kódy jsou však statické, nelze je během simulace nijak měnit a také nejsou zvýrazněny části kódu, které se právě vykonávají.
+
+\subsubsection*{Vizuál}
+
+Tato webová aplikace je napsaná pomocí webového frameworku Flask, s moderním a přehledným uživatelským rozhraním. Navigace na stránce je jednoduchá, všechny třídící algoritmy jsou vždy dostupné z navigačního panelu. Samotná vizualizace je vizuálně velmi poutavá a v doprovodu se zvukovými efekty působí přívětivě.
+
+Aplikace nenabízí žádné možnosti přizpůsobení vzhledu nebo změnu jazyka. Výchozí barevné schéma je v temném režimu. Responzivita stránky je skvělá, stránka funguje dobře téměř v jakémkoliv rozlišení.
+
+
 \subsection{VisuAlgo}
 \label{sec:other_apps_sa_visualgo}
+
+Jedná se o další webovou aplikaci, sloužící jako výukový nástroj pro vizualizaci všemožných algoritmů a datových struktur. Aplikace \devTool{VisuAlgo}{https://visualgo.net/en} nabízí širokou škálu vizualizací, včetně třídících algoritmů.
+
+\subsubsection*{Obsah}
+
+Rozsah této aplikace je velmi široký, pokrývá mnoho témat v oblasti algoritmů a datových struktur. Stránka nabízí vizualizace pro různé datové struktury, jako jsou zásobníky, fronty, spojové seznamy, stromy a grafy. Kromě toho obsahuje i vizualizace různých algoritmů, včetně třídících algoritmů, algoritmů pro prohledávání grafů a dalších. Obsahuje i interaktivní cvičení a kvízy, které pomáhají uživatelům lépe pochopit koncepty.
+
+V kontextu třídících algoritmů nabízí vizualizace pro algoritmy jako Bubble Sort, Insertion Sort, Selection Sort, Merge Sort, Quick Sort a Heap Sort. Animace jsou jednoduše znázorněny opět pomocí sloupců reprezentujících hodnoty v poli. Uživatel má možnosti nastavení rychlosti přehrávání, plné krokování animace vpřed i vzad a také možnost pozastavení animace. Kromě toho aplikace poskytuje i podrobné vysvětlení principu každého algoritmu, včetně jeho časové a prostorové složitosti. Během animace je přístupný i pseudokód algoritmu, který je zvýrazňován podle aktuálně vykonávané části.
+
+\subsubsection*{Vizuál}
+
+Webové stránky mají značně zaplněné uživatelské rozhraní, což může být pro nové uživatele trochu matoucí. Navigace na stránce je relativně dobře organizovaná, s jasnými odkazy na různé sekce a témata. Stránka s vizualizacemi se může zdát přeplněná ještě více, protože obsahuje mnoho ovládacích prvků a informací. Toto okno také obsahuje vysvětlivky, které jsou provedeny ve vyskakovacích oknech, které uživatele zahltí při prvním použití.
+
+Výchozí barevné schéma je světlé, uživatel si nemůže změnit režim na tmavý. Responzivita stránky je dobrá, když se rozlišení zmenší na nedostatečnou šířku, aplikace uživatele upozorní, že vizualizace nemusí fungovat správně. Aplikace podporuje změnu jazyka, na výběr uživatelé mají z angličtiny, čínštiny a indonéštiny. 
+
 
 \subsection{Toptal Sorting Algorithms Animations}
 \label{sec:other_apps_sa_toptal}
 
+Poslední analyzovanou aplikací je \devTool{Toptal Sorting Algorithms Animations}{https://www.toptal.com/developers/sorting-algorithms}, téměř jednostránkový webový nástroj pro vizualizaci a porovnání různých třídících algoritmů.
+
+\subsubsection*{Obsah}
+
+Aplikace nabízí vizualizace pro několik běžných třídících algoritmů, které již byly zmíněny výše. Jednotlivé algoritmy jsou umístěny v matici, kde každý sloupec reprezentuje jeden algoritmus a každý řádek představuje typ vstupních dat (např. náhodná data, téměř seřazená data nebo obráceně seřazená data). Pomocí tohoto rozložení může uživatel snadno porovnat výkon různých algoritmů na různých typech vstupů.
+
+Interakce s vizualizacemi je velmi omezená, uživatel si může pouze zvolit algoritmus a typ vstupních dat. Animace jsou jednoduché, zobrazují sloupce reprezentující hodnoty v poli, které se mění podle průběhu třídění. Krokování animace není možné.
+
+Uživatel má také možnost zobrazit si detail konkrétního algoritmu, kde je k němu přiložena vysvětlivka, pseudokód a časová a prostorová složitost. Rozkliknutí konkrétního datového typu zase zobrazí konkrétní porovnání časové složitosti všech algoritmů na daném typu vstupu a výčet poznatků o jejich výkonu.
+
+\subsubsection*{Vizuál}
+
+Jedná se o velmi jednoduchou webovou aplikaci. Hlavní stránka obsahuje pouze výše uvedenou matici algoritmů a typů vstupních dat spolu s obecnou diskuzí na téma třídících algoritmů. Detail algoritmu je veden ve stejném stylu, animace jsou pouze větší a jsou doplněny o pseudokód a diskuzi ke konkrétnímu algoritmu.
+
+Stránka nemá žádné možnosti přizpůsobení vzhledu nebo změnu jazyka. Výchozí barevné schéma je světlé. Jako jediná z dosud analyzovaných aplikací také obsahuje reklamy. Responzivita stránky je dobrá, funguje dobře na různých zařízeních. 
+
+
 \subsection{Porovnání}
 \label{sec:other_apps_sa_comparison}
 
+V této sekci jsou shrnuty klady a zápory jednotlivých analyzovaných aplikací zaměřených na vizualizaci třídících algoritmů. Následující tabulka \tableref{tab:other_apps_sa_comparison} poskytuje přehledné srovnání jejich vlastností.
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{l c c c c}
+        \toprule
+        \textbf{Vlastnost} & \textbf{Sort Visualizer} & \textbf{VisuAlgo} & \textbf{Toptal Sorting Algorithms Animations} \\
+        \midrule
+        Uživatelské přizpůsobení & Žádné & Žádné & Žádné \\
+        Krokování animací & Ne & Ano (vpřed i vzad) & Ne \\
+        Vysvětlivky k operacím & Ano & Ano & Ano \\
+        Zvukové efekty & Ano & Ne & Ne \\
+        Responzivita & Výborná & Dobrá & Dobrá \\
+        Jazyková podpora & Angličtina & Angličtina, čínština, indonéština & Angličtina \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Porovnání analyzovaných aplikací pro vizualizaci třídících algoritmů}
+    \label{tab:other_apps_sa_comparison}
+\end{table}
+
+\todo{dodělat porovnání}
+
 \section{Shrnutí}
 \label{sec:other_apps_summary}
+
+\todo{nějak shrnout, co jsem zjistila}
