@@ -91,8 +91,6 @@ V této sekci jsou shrnuty klady a zápory jednotlivých analyzovaných aplikac�
 
 Dále byla provedena analýza a porovnání konkrétních datových struktur, které výše zmíněné aplikace podporují. \customref{Tabulka}{tab:other_apps_ds_structures} shrnuje, které datové struktury jsou v jednotlivých aplikacích podporovány. 
 
-\todo{checknout co to reálně má}
-
 \begin{table}[H]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -101,20 +99,21 @@ Dále byla provedena analýza a porovnání konkrétních datových struktur, kt
         \textbf{Datová struktura} & \textbf{Gnarley Trees} & \textbf{Data Structure Visualizations} & \textbf{B Plus Tree} \\
         \midrule
         Binární vyhledávací strom   & Ano & Ano & Ne \\
-        AVL strom                   & Ano & Ne  & Ne \\
-        Červeno-černý strom         & Ano & Ne  & Ne \\
-        B-strom                     & Ano & Ne  & Ne \\
-        B+ strom                    & Ne  & Ne  & Ano \\
-        Spojový seznam              & Ne  & Ano & Ne \\
-        Zásobník                    & Ne  & Ano & Ne \\
-        Fronta                      & Ne  & Ano & Ne \\
-        Halda                       & Ne  & Ano & Ne \\
+        AVL strom                   & Ano & Ano  & Ne \\
+        Červeno-černý strom         & Ano & Ano  & Ne \\
+        B-strom                     & Ano & Ano  & Ne \\
+        B+ strom                    & Ne  & Ano  & Ano \\
+        Spojový seznam              & Ano\tablefootnote{Pouze v teoretické části.\label{t}} & Ne & Ne \\
+        Zásobník                    & Ano\footref{t} & Ano & Ne \\
+        Fronta                      & Ano\footref{t}  & Ano & Ne \\
+        Halda                       & Ano  & Ano & Ne \\
         \bottomrule
     \end{tabular}}
     \caption{Podporované datové struktury v analyzovaných aplikacích}
     \label{tab:other_apps_ds_structures}
 \end{table}
 
+Z uvedeného shrnutí je patrné, že nejkomplexnější podporu datových struktur nabízí aplikace \textit{Data Structure Visualizations}, která pokrývá téměř všechny uvedené struktury. \textit{Gnarley Trees} nabízí také širokou škálu datových struktur, ale některé z nich jsou dostupné pouze v teoretické části aplikace a nejsou vizualizovány. Nejméně obsáhlá je aplikace \textit{B Plus Tree}, která se sice specializuje pouze na B+ stromy, ale zato je v této oblasti velmi dobře propracovaná.
 
 
 \section{Simulace třídících algoritmů}
@@ -204,9 +203,21 @@ V této sekci jsou shrnuty klady a zápory jednotlivých analyzovaných aplikac�
     \label{tab:other_apps_sa_comparison}
 \end{table}
 
-\todo{dodělat porovnání}
+Z konkrétní analýzy vyšlo najevo, že všechny tři aplikace podporují základní množinu nejznámějších třídících algoritmů, ale liší se v možnostech interakce a uživatelského přizpůsobení. \textit{VisuAlgo} nabízí nejvíce možností interakce, včetně krokování animací a podrobného pseudokódu, zatímco \textit{Sort Visualizer} a \textit{Toptal Sorting Algorithms Animations} mají omezené možnosti interakce. Zvukové efekty jsou unikátní funkcí \textit{Sort Visualizer}, která přidává další vrstvu zážitku z vizualizace.
+
 
 \section{Shrnutí}
 \label{sec:other_apps_summary}
 
-\todo{nějak shrnout, co jsem zjistila}
+Analýza existujících řešení, provedená v této kapitole, poskytla cenné poznatky o současných nástrojích pro vizualizaci datových struktur a třídících algoritmů. Z analýzy vyplynulo, že zatímco některé aplikace nabízejí širokou škálu funkcí a interakcí, jiné se zaměřují na specifické datové struktury nebo algoritmy s omezenými možnostmi přizpůsobení.
+
+Na základě porovnání podporovaných datových struktur bylo rozhodnuto, že modelová aplikace bude zahrnovat vizualizaci následujících datových struktur: binární vyhledávací strom, AVL strom, červeno-černý strom, B-strom, B+ strom, spojový seznam, zásobník, fronta a halda. Tato volba byla učiněna s ohledem na jejich význam v oblasti informatiky a jejich časté využití v praxi.
+
+Co se týče třídících algoritmů, modelová aplikace bude podporovat vizualizaci následujících algoritmů: Bubble Sort, Insertion Sort, Selection Sort, Merge Sort, Quick Sort a Heap Sort. Tyto algoritmy byly vybrány na základě jejich rozšířenosti a různorodosti přístupů k třídění dat.
+
+Zdůrazněna byla také potřeba uživatelsky přívětivého rozhraní, které umožní snadnou navigaci a interakci s vizualizacemi. Dále bylo identifikováno několik klíčových funkcí, které by měly být zahrnuty do modelové aplikace, včetně možnosti krokování animací, generování náhodných dat a poskytování vysvětlivek k jednotlivým operacím.
+
+
+
+
+% modelová aplikace?
