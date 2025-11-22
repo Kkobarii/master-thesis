@@ -65,17 +65,26 @@ jobs:
       - name: Replace PDF in thesis repo
         run: cp artifact/master.pdf thesis/static/master.pdf
 
+      - name: Get messages of new commits
+        id: commits
+        run: |
+          echo "messages<<EOF" >> $GITHUB_OUTPUT
+          git log --format="%h %s" ${{ github.event.before }}..${{ github.sha }} >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Commit and push
         run: |
           cd thesis
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add static/master.pdf
+
           if git diff-index --quiet HEAD; then
             echo "No changes to commit"
           else
-            git commit -m "Update master.pdf from master-thesis CI"
+            git commit -m "Update master.pdf from master-thesis CI" \
+                        -m "Updated based on these commits:\n${{ steps.commits.outputs.messages }}"
             git push
           fi
-
           
