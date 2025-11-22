@@ -65,9 +65,16 @@ jobs:
       - name: Replace PDF in thesis repo
         run: cp artifact/master.pdf thesis/static/master.pdf
 
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+        with:
+          path: source
+          fetch-depth: 0
+
       - name: Get messages of new commits
         id: commits
         run: |
+          cd source
           echo "messages<<EOF" >> $GITHUB_OUTPUT
           git log --format="%h %s" ${{ github.event.before }}..${{ github.sha }} >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
