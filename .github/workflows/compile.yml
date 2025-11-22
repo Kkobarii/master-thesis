@@ -90,8 +90,15 @@ jobs:
           if git diff-index --quiet HEAD; then
             echo "No changes to commit"
           else
-            git commit -m "Update master.pdf from master-thesis CI" \
-                        -m "Updated based on these commits:\n${{ steps.commits.outputs.messages }}"
+            COMMIT_FILE=$(mktemp)
+
+            {
+              echo "Update master.pdf from master-thesis CI"
+              echo
+              echo "Updated based on these commits:"
+              echo "${{ steps.commits.outputs.messages }}"
+            } > "$COMMIT_FILE"
+
+            git commit -F "$COMMIT_FILE"
             git push
           fi
-          
