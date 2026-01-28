@@ -1,0 +1,128 @@
+\chapter{Požadavky na výukovou aplikaci}
+\label{chap:requirements}
+
+Pro úspěšný vývoj a implementaci webové aplikace pro vizualizaci datových struktur a algoritmů je nezbytné stanovit jasné požadavky, které budou sloužit jako vodítko během celého vývojového procesu. Jako inspirace pro tyto požadavky byly použity existující nástroje popsané v \customref{Kapitole}{chap:other_apps}. Požadavky jsou rozděleny do několika klíčových kategorií, zahrnujících funkcionalitu, použitelnost, spolehlivost, výkonnost a podporovatelnost a jsou popsány v následujících sekcích.
+
+\section{Funkcionalita}
+\label{sec:functionality}
+Tato sekce definuje klíčové funkční požadavky na systém, které zahrnují vizualizační schopnosti, interaktivní prvky a vzdělávací obsah.
+
+\begin{enumerate}
+    \item \textbf{Moduly pro vizualizaci datových struktur}
+    \begin{itemize}
+        \item Implementace a vizualizace struktur: zásobník, fronta, lineární seznamy, pole a stromy.
+        \item Grafická simulace standardních operací nad těmito strukturami.
+    \end{itemize}
+    
+    \item \textbf{Moduly pro simulaci algoritmů}
+    \begin{itemize}
+        \item Algoritmy řazení: Bubble sort, Merge sort, Quick sort a další.
+        \item Algoritmy vyhledávání: lineární a binární vyhledávání.
+    \end{itemize}
+    
+    \item \textbf{Interaktivní ovládání simulací}
+    \begin{itemize}
+        \item Funkce krokování algoritmu (vpřed i vzad) pro detailní analýzu průběhu.
+        \item Možnost modifikace vstupních dat v reálném čase s okamžitým promítnutím do vizualizace.
+    \end{itemize}
+    
+    \item \textbf{Teoretický a metodický podklad}
+    \begin{itemize}
+        \item Formální vysvětlení principů a typických scénářů užití u každé struktury a algoritmu.
+        \item Specifikace časové a prostorové algoritmické složitosti.
+        \item Zobrazení odpovídajícího pseudokódu pro lepší pochopení implementace.
+    \end{itemize}
+    
+    \item \textbf{Lokalizace rozhraní}
+    \begin{itemize}
+        \item Plná podpora vícejazyčného rozhraní, minimálně v rozsahu českého a anglického jazyka.
+    \end{itemize}
+    
+    \item \textbf{Architektura na straně klienta}
+    \begin{itemize}
+        \item Provoz aplikace v rámci webového prohlížeče bez nutnosti instalace dodatečných doplňků.
+        \item Provádění veškerých simulací a interakcí lokálně na zařízení uživatele.
+        \item Perzistence uživatelského nastavení a historie prostřednictvím webového úložiště (local storage).
+    \end{itemize}
+\end{enumerate}
+
+\section{Použitelnost}
+\label{sec:usability}
+Cílem požadavků na použitelnost je zajistit nízkou bariéru vstupu a intuitivní ovládání pro cílovou skupinu studentů.
+
+\begin{enumerate}
+    \item \textbf{Ergonomie a ovládání}
+    \begin{itemize}
+        \item Intuitivní uživatelské rozhraní doplněné o kontextové nápovědy pro složitější ovládací prvky.
+        \item Konzistentní navigační systém pro přehledný přechod mezi moduly struktur a algoritmů.
+    \end{itemize}
+    
+    \item \textbf{Didaktická podpora}
+    \begin{itemize}
+        \item Synergie vizualizace, teorie a vysvětlujících textů pro podporu uživatelů s různou úrovní vstupních znalostí.
+    \end{itemize}
+    
+    \item \textbf{Vizuální prezentace}
+    \begin{itemize}
+        \item Implementace plynulých animací pro jasnou identifikaci změn stavu datových struktur.
+        \item Moderní, přehledný a čistý design uživatelského rozhraní odpovídající současným standardům (UI/UX).
+    \end{itemize}
+\end{enumerate}
+
+\section{Spolehlivost}
+\label{sec:reliability}
+Požadavky na spolehlivost se zaměřují na stabilitu systému a korektní zpracování uživatelských dat.
+
+\begin{enumerate}
+    \item \textbf{Stabilita systému}
+    \begin{itemize}
+        \item Zajištění plné funkčnosti a stability při zpracování datových sad o rozsahu až 100 prvků.
+        \item Validace a ošetření všech neplatných uživatelských vstupů před jejich zpracováním.
+    \end{itemize}
+    
+    \item \textbf{Odolnost vůči chybám}
+    \begin{itemize}
+        \item Implementace informativních chybových hlášení, která uživatele srozumitelně navedou k nápravě při nekorektní operaci.
+    \end{itemize}
+\end{enumerate}
+
+\section{Výkonnost}
+\label{sec:performance}
+Klíčovým aspektem výkonnosti je plynulost grafického výstupu a rychlá odezva na interakci.
+
+\begin{enumerate}
+    \item \textbf{Optimalizace vykreslování}
+    \begin{itemize}
+        \item Zajištění konstantní plynulosti animací nezávisle na zvolené velikosti vstupních dat (v rámci stanovených limitů).
+    \end{itemize}
+    
+    \item \textbf{Efektivita výpočtů}
+    \begin{itemize}
+        \item Optimalizované zpracování algoritmů na straně klienta pro minimalizaci latence mezi uživatelským vstupem a vizuální odezvou.
+    \end{itemize}
+\end{enumerate}
+
+\section{Podpořitelnost a udržitelnost} 
+\label{sec:supportability}
+Požadavky definují technický rámec pro budoucí rozšiřování a údržbu aplikace.
+
+\begin{enumerate}
+    \item \textbf{Modularita a separace zájmů}
+    \begin{itemize}
+        \item Striktní oddělení vizualizační vrstvy od aplikační logiky.
+        \item Definice jasného a jednoduchého rozhraní (API) mezi jednotlivými komponentami systému.
+        \item Architektura UI umožňující snadné úpravy vzhledu bez zásahu do logiky (např. pomocí CSS proměnných).
+    \end{itemize}
+    
+    \item \textbf{Technologický zásobník}
+    \begin{itemize}
+        \item Vývoj klientské části s využitím komponentního frameworku Svelte.
+        \item Využití specializovaných knihoven pro vizualizaci dat (např. D3.js nebo vis.js).
+    \end{itemize}
+    
+    \item \textbf{Dokumentace a rozšiřitelnost}
+    \begin{itemize}
+        \item Detailní dokumentace systémové architektury pro usnadnění budoucího vývoje.
+        \item Návrh systému umožňující snadné přidávání nových datových struktur, algoritmů nebo nových podporovaných jazyků.
+    \end{itemize}
+\end{enumerate}
