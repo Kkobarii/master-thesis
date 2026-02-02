@@ -1,14 +1,77 @@
 \chapter{Teorie ohledně obsahu aplikace}
 \label{chap:content}
 
-V této kapitole jsou popsány teoretické základy týkající se obsahu aplikace. Nejprve je uveden přehled různých datových struktur, které aplikace podporuje, včetně jejich vlastností, operací a požadavků na vizualizaci. Dále jsou diskutovány třídící algoritmy, které budou implementovány, a jejich význam pro pochopení základních konceptů informatiky. Nakonec je popsán přístup k vizualizaci těchto datových struktur a algoritmů, včetně použitých technik a metod pro efektivní zobrazení a interakci s uživatelem.~\cite{levitin}
+V této kapitole jsou popsány teoretické základy týkající se obsahu aplikace. Nejprve je uveden přehled různých datových struktur, které aplikace podporuje, včetně jejich vlastností, operací a požadavků na vizualizaci. Dále jsou diskutovány třídící algoritmy, které budou implementovány, a jejich význam pro pochopení základních konceptů informatiky. Nakonec je popsán přístup k vizualizaci těchto datových struktur a algoritmů, včetně použitých technik a metod pro efektivní zobrazení a interakci s uživatelem.
 
-\todo{Popsat teorii k obsahu aplikace, vycházet z Levitina a jiných zdrojů jestli nebude stačit. (Ideálně asi obrázek ke každé struktuře, ale zas to nerozepisovat moc do detailu, spíš jen základní vlastnosti a operace. U algoritmů pak popsat principy fungování a složitosti, ale tam toho fakt nebude moc.)}
 
 \section{Datové struktury}
 \label{sec:data-structures}
 
-V této sekci jsou popsány datové struktury, které budou vizualizovány v aplikaci. Každá datová struktura je charakterizována svými vlastnostmi, operacemi a požadavky na vizualizaci.
+V této sekci jsou popsány datové struktury, které jsou podstatné pro oblast informatiky. Každá datová struktura je charakterizována svými vlastnostmi, operacemi a požadavky na vizualizaci.
+
+
+\subsection{Lineární datové struktury}
+\label{sec:linear_data_structures}
+
+Pro účely výuky datových struktur je rozumné začít s lineárními datovými strukturami, které jsou jednodušší na pochopení a vizualizaci. Tyto struktury zahrnují mimo jiné pole, spojové seznamy, zásobníky a fronty.
+
+I přes to, že tyto struktury jsou relativně jednoduché a již moc dobře známé, v této práci budou teoreticky uvedeny, aby byla zajištěna úplnost a konzistence s dalšími částmi práce.
+
+
+\subsubsection*{Pole a spojový seznam}
+
+Základním stavebním kamenem lineárních datových struktur jsou pole a spojové seznamy. Pole \textit{(Array)} poskytují rychlý přístup k prvkům pomocí indexů, zatímco spojové seznamy \textit{(Linked List)} umožňují dynamickou alokaci paměti a efektivní vkládání a mazání prvků pomocí ukazatelů. \customref{Obrázek}{img:arrayLinkedList} znázorňuje rozdíl mezi těmito dvěma strukturami.~\cite{levitin}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/theoryContent/arrayLinkedList.pdf}
+    \caption{Pole a spojový seznam s n prvky}
+    \label{img:arrayLinkedList}
+\end{figure}
+
+Spojový seznam je tvořen uzly, kde každý uzel obsahuje datovou část a ukazatel na další uzel v seznamu. V případě obousměrného spojového seznamu obsahuje každý uzel také ukazatel na předchozí uzel, což umožňuje obousměrnou navigaci. List musí mít ukazatel na první uzel \textit{(head)} a často také na poslední uzel \textit{(tail)} pro efektivní přidávání prvků na konec seznamu.~\cite{cormen}
+
+Spojový seznam i pole se využívají pro implementaci abstraktnějších seznamů, které obsahují sekvenci prvků a poskytují operace pro přidávání, odebírání a přístup k prvkům.~\cite{levitin}
+
+
+\subsubsection*{Zásobník a fronta}
+
+Speciálním případem lineárních seznamů jsou zásobníky \textit{(Stack)} a fronty \textit{(Queue)}, jejichž vizualizaci je možné vidět na \customref{Obrázku}{img:stackQueue}. Jejich hlavní charakteristikou je předem specifikovaný způsob mazání a přidávání prvků.
+
+Zásobník funguje na principu LIFO \textit{(Last In, First Out)}, což znamená, že poslední prvek přidaný do zásobníku je prvním, který je z něj odebrán. Operace přidání prvku se běžně nazývá \textit{push} a operace odebrání prvku se nazývá \textit{pop}. V zásobníku je přístup k prvkům omezen na vrchol zásobníku, jež se nazývá \textit{top}.~\cite{cormen}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/theoryContent/stackQueue.pdf}
+    \caption{Zásobník a fronta}
+    \label{img:stackQueue}
+\end{figure}
+
+Naopak fronta funguje na principu FIFO \textit{(First In, First Out)}, kde první prvek přidaný do fronty je prvním, který je z ní odebrán. Operace přidání prvku se nazývá \textit{enqueue} a operace odebrání prvku se nazývá \textit{dequeue}. Fronta se implementuje pomocí ukazatele, který sleduje začátek \textit{(head)} fronty, a často bývá doplněna o ukazatel na konec \textit{(tail)} fronty, což umožňuje efektivní přidávání a odebírání prvků.~\cite{cormen}
+
+Obě struktury mohou být efektivně implementovány pomocí spojových seznamů nebo polí, v závislosti na požadavcích na výkon a paměťovou efektivitu.~\cite{levitin}
+
+
+\subsection{Nelineární (stromové) datové struktury}
+
+\todo{continue here, make diagrams for each structure}
+
+\subsubsection*{Binární vyhledávací stromy (BST)}
+% Definice, vlastnosti uspořádání.
+
+\subsubsection*{Samovyvažující se stromy (AVL a Red-Black)}
+% Problém degradace BST a mechanismy vyvažování (rotace).
+
+\subsubsection*{B-stromy}
+% Vícecestné vyhledávání, optimalizace pro sekundární úložiště.
+
+
+\subsection{Prioritní fronty a haldy}
+
+\subsubsection*{Binární halda (Heap)}
+% Specifické vlastnosti haldy, vztah mezi stromovou strukturou a jejím uložením v poli.
+
 
 \section{Třídící algoritmy}
 \label{sec:algorithms}
