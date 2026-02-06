@@ -55,13 +55,35 @@ Obě struktury mohou být efektivně implementovány pomocí spojových seznamů
 
 \subsection{Nelineární (stromové) datové struktury}
 
-\todo{continue here, make diagrams for each structure}
+Mezi nelineární datové struktury patří stromy, hierarchické struktury představující spojitý acyklický graf, kde každý prvek (uzel) může mít více potomků. Stromy obecně podporují operace \textbf{vkládání}, \textbf{mazání} a \textbf{vyhledávání} prvků, přičemž složitost těchto operací závisí na konkrétním typu stromu a jeho struktuře. Tyto struktury se často používají pro reprezentaci hierarchických dat, jako jsou souborové systémy, organizační struktury nebo různé druhy indexů v databázích. V následujících podkapitolách jsou popsány různé typy stromů, které budou implementovány v aplikaci, včetně jejich vlastností, operací a požadavků na vizualizaci.
 
-\subsubsection*{Binární vyhledávací stromy (BST)}
-% Definice, vlastnosti uspořádání.
 
-\subsubsection*{Samovyvažující se stromy (AVL a Red-Black)}
-% Problém degradace BST a mechanismy vyvažování (rotace).
+\subsubsection*{Binární vyhledávací strom}
+
+Binární vyhledávací stromy \textit{(Binary Search Trees, BST)} jsou speciálním typem binárních stromů, kde každý uzel splňuje následující vlastnost: klíče v levém podstromu jsou menší než klíč v uzlu, a klíče v pravém podstromu jsou větší než klíč v uzlu. Tato vlastnost umožňuje efektivní vyhledávání, vkládání a mazání prvků ve stromu. Příklad binárního vyhledávacího stromu je znázorněn na \customref{Obrázku}{img:bst}.~\cite{cormen}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/theoryContent/bst.pdf}
+    \caption{Binární vyhledávací strom}
+    \label{img:bst}
+\end{figure}
+
+Efektivita operací nad BST závisí na jeho výšce. Zde nastává problém degradace BST, kdy se strom stává nevyváženým a jeho výška se blíží počtu uzlů, což vede k lineární složitosti operací. V nejhorším případě se BST může stát podobným spojovému seznamu, což výrazně snižuje jeho výkon. Degradovaný strom je možné vidět na \customref{Obrázku}{img:bst}. I přes to, že tedy operace nad má průměrnou složitost $O(\log n)$, v nejhorším případě může být složitost $O(n)$. Pro zefektivnění těchto operací se používají samovyvažující se stromy, které z binárního vyhledávacího stromu vychází.~\cite{levitin}
+
+
+\subsubsection*{Samovyvažující se stromy (AVL a červeno-černé stromy)}
+
+Samovyvažující se stromy jsou speciální typy binárních vyhledávacích stromů, které se snaží udržet svou výšku co nejmenší, aby zajistily efektivní operace. Mezi nejznámější samovyvažující se stromy patří AVL stromy a červeno-černé stromy.
+
+\textbf{AVL stromy} jsou pojmenovány po svých tvůrcích, G.~M.~Adelson-Velsky a E.~M.~Landis, kteří je představili v roce 1962. AVL strom je binární vyhledávací strom, který udržuje vyváženost tím, že zajišťuje, že výškový rozdíl mezi levým a pravým podstromem každého uzlu je nejvýše 1. Tato vlastnost jde vidět na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu. Vyvážení je definováno jako rozdíl mezi výškou levého a pravého podstromu. V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení, což umožňuje efektivní výpočet vyvážení během operací vkládání a mazání. AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, což je důvod, proč jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{cormen}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{figures/theoryContent/avl.pdf}
+    \caption{AVL strom}
+    \label{img:avl}
+\end{figure}
 
 \subsubsection*{B-stromy}
 % Vícecestné vyhledávání, optimalizace pro sekundární úložiště.
