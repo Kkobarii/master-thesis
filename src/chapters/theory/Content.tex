@@ -64,25 +64,46 @@ Binární vyhledávací stromy \textit{(Binary Search Trees, BST)} jsou speciál
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/theoryContent/bst.pdf}
+    \includegraphics{figures/theoryContent/bst.pdf}
     \caption{Binární vyhledávací strom}
     \label{img:bst}
 \end{figure}
 
-Efektivita operací nad BST závisí na jeho výšce. Zde nastává problém degradace BST, kdy se strom stává nevyváženým a jeho výška se blíží počtu uzlů, což vede k lineární složitosti operací. V nejhorším případě se BST může stát podobným spojovému seznamu, což výrazně snižuje jeho výkon. Degradovaný strom je možné vidět na \customref{Obrázku}{img:bst}. I přes to, že tedy operace nad má průměrnou složitost $O(\log n)$, v nejhorším případě může být složitost $O(n)$. Pro zefektivnění těchto operací se používají samovyvažující se stromy, které z binárního vyhledávacího stromu vychází.~\cite{levitin}
+Efektivita operací nad BST závisí na jeho výšce. Zde nastává problém degradace BST, kdy se strom stává nevyváženým a jeho výška se blíží počtu uzlů, což vede k lineární složitosti operací. V nejhorším případě se BST může stát podobným spojovému seznamu, což výrazně snižuje jeho výkon. Degradovaný strom je možné vidět na \customref{Obrázku}{img:bst}. I přes to, že tedy operace nad BST mají průměrnou složitost $O(\log n)$, v nejhorším případě může být složitost $O(n)$. Pro zefektivnění těchto operací se používají samovyvažující se stromy, které z binárního vyhledávacího stromu vychází.~\cite{levitin}
 
 
-\subsubsection*{Samovyvažující se stromy (AVL a červeno-černé stromy)}
+\subsubsection*{AVL strom}
 
-Samovyvažující se stromy jsou speciální typy binárních vyhledávacích stromů, které se snaží udržet svou výšku co nejmenší, aby zajistily efektivní operace. Mezi nejznámější samovyvažující se stromy patří AVL stromy a červeno-černé stromy.
-
-\textbf{AVL stromy} jsou pojmenovány po svých tvůrcích, G.~M.~Adelson-Velsky a E.~M.~Landis, kteří je představili v roce 1962. AVL strom je binární vyhledávací strom, který udržuje vyváženost tím, že zajišťuje, že výškový rozdíl mezi levým a pravým podstromem každého uzlu je nejvýše 1. Tato vlastnost jde vidět na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu. Vyvážení je definováno jako rozdíl mezi výškou levého a pravého podstromu. V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení, což umožňuje efektivní výpočet vyvážení během operací vkládání a mazání. AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, což je důvod, proč jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{cormen}
+Samovyvažující se AVL stromy jsou pojmenovány po svých tvůrcích, G.~M.~Adelson-Velsky a E.~M.~Landis, kteří je představili v roce 1962. AVL strom je binární vyhledávací strom, který udržuje vyváženost tím, že zajišťuje, aby výškový rozdíl mezi levým a pravým podstromem každého uzlu byl nejvýše 1. Tato vlastnost jde vidět na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu, které pro tento typ stromu může nabývat pouze hodnot -1, 0 nebo 1. Vyvážení je definováno jako rozdíl mezi výškou levého a pravého podstromu. V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení, což umožňuje efektivní výpočet vyvážení během operací vkládání a mazání. AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, což je důvod, proč jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{levitin,cormen}
 
 \begin{figure}[H]
     \centering
     \includegraphics{figures/theoryContent/avl.pdf}
     \caption{AVL strom}
     \label{img:avl}
+\end{figure}
+
+Vyvážení AVL stromů se udržuje pomocí rotací, které jsou prováděny po každé operaci vkládání nebo mazání, pokud dojde k narušení vyváženosti. Rotace představuje lokální transformaci podstromu právě toho vrcholu, kde je podmínka vyváženosti narušena (kde nabyla hodnoty -2 nebo 2). Existují čtyři typy rotací: jednoduchá pravá rotace, jednoduchá levá rotace, dvojitá levá-pravá a dvojitá pravá-levá rotace, přičemž levé a pravé varianty jsou zrcadlové obrazy.~\cite{levitin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/theoryContent/avl_rotations.pdf}
+    \caption{Pravá (R) a dvojitá pravá-levá (RL) rotace AVL stromu}
+    \label{img:avl_rotations}
+\end{figure}
+
+Názornou ukázku pravých variant rotací (R a RL) je možné vidět na \customref{Obrázku}{img:avl_rotations}. Během rotace se mění struktura podstromu, což umožňuje obnovit vyváženost stromu a zajistit, že všechny operace zůstanou v logaritmické složitosti. Například \textbf{pravá rotace} se provádí, když levý podstrom vrcholu je příliš vysoký, a zahrnuje přesunutí levého dítěte vrcholu nahoru a samotného vrcholu dolů do pravého podstromu. Akce přesunutí dítěte nahoru je znázorněna červenou šipkou nad daným vrcholem. \textbf{Dvojitá pravá-levá rotace} se provádí, když pravý podstrom vrcholu je příliš vysoký a zároveň má levý podstrom, který je vyšší než jeho pravý podstrom. Tato rotace zahrnuje nejprve pravou rotaci na pravém dítěti vrcholu a poté levou rotaci na vrcholu samotném.~\cite{levitin}
+
+Tyto rotace sice zvyšují složitost implementace AVL stromů, ale zajišťují, že všechny operace nad stromem mají složitost $\Theta(\log n)$. Kvůli počtu rotací, které mohou být nutné po každé operaci vkládání nebo mazání, sice zabránily AVL stromům stát se standardem pro implementaci asociativních polí (\todo{lepší překlad}), ale jejich myšlenka a principy jsou základem pro další samovyvažující se stromy, které z nich vycházejí.~\cite{levitin}
+
+
+\subsubsection*{Červeno-černý strom}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{figures/theoryContent/rb.pdf}
+    \caption{Červeno-černý strom}
+    \label{img:rb}
 \end{figure}
 
 \subsubsection*{B-stromy}
