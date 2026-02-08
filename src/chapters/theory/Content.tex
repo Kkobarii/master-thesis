@@ -87,24 +87,60 @@ Vyvážení AVL stromů se udržuje pomocí rotací, které jsou prováděny po 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/theoryContent/avl_rotations.pdf}
+    \includegraphics[width=0.95\textwidth]{figures/theoryContent/avl_rotations.pdf}
     \caption{Pravá (R) a dvojitá pravá-levá (RL) rotace AVL stromu}
     \label{img:avl_rotations}
 \end{figure}
 
-Názornou ukázku pravých variant rotací (R a RL) je možné vidět na \customref{Obrázku}{img:avl_rotations}. Během rotace se mění struktura podstromu, což umožňuje obnovit vyváženost stromu a zajistit, že všechny operace zůstanou v logaritmické složitosti. Například \textbf{pravá rotace} se provádí, když levý podstrom vrcholu je příliš vysoký, a zahrnuje přesunutí levého potomka vrcholu nahoru a samotného vrcholu dolů do pravého podstromu. Akce přesunutí potomka nahoru je znázorněna červenou šipkou nad daným vrcholem. \textbf{Dvojitá pravá-levá rotace} se provádí, když pravý podstrom vrcholu je příliš vysoký a zároveň má levý podstrom, který je vyšší než jeho pravý podstrom. Tato rotace zahrnuje nejprve pravou rotaci na pravém potomku vrcholu a poté levou rotaci na vrcholu samotném.~\cite{levitin}
+Názornou ukázku pravých variant rotací (R a RL) je možné vidět na \customref{Obrázku}{img:avl_rotations}. Během rotace se mění struktura podstromu, což umožňuje obnovit vyváženost stromu a zajistit, že všechny operace zůstanou v logaritmické složitosti. Například \textbf{pravá rotace} se provádí, když levý podstrom vrcholu je příliš vysoký, a zahrnuje přesunutí levého potomka vrcholu nahoru a samotného vrcholu dolů do pravého podstromu. Akce přesunutí potomka nahoru je znázorněna oranžovou šipkou nad daným vrcholem. \textbf{Dvojitá pravá-levá rotace} se provádí, když pravý podstrom vrcholu je příliš vysoký a zároveň má levý podstrom, který je vyšší než jeho pravý podstrom. Tato rotace zahrnuje nejprve pravou rotaci na pravém potomku vrcholu a poté levou rotaci na vrcholu samotném.~\cite{levitin}
 
 Tyto rotace sice zvyšují složitost implementace AVL stromů, ale zajišťují, že všechny operace nad stromem mají složitost $\Theta(\log n)$. Kvůli počtu rotací, které mohou být nutné po každé operaci vkládání nebo mazání, sice zabránily AVL stromům stát se standardem pro implementaci asociativních polí (\todo{lepší překlad}), ale jejich myšlenka a principy jsou základem pro další samovyvažující se stromy, které z nich vycházejí.~\cite{levitin}
 
 
 \subsubsection*{Červeno-černý strom}
 
-\begin{figure}[H]
+Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenován podle barvy, kterou jsou označeny jeho uzly. Tento strom udržuje vyváženost pomocí pravidel týkajících se barev uzlů, což zajišťuje, že žádná cesta od kořene k listu není více než dvakrát delší než jakákoli jiná cesta. Červeno-černé stromy jsou často používány v implementacích asociativních polí, jako jsou například mapy a množiny, protože poskytují dobrý kompromis mezi složitostí implementace a výkonem. Příklad červeno-černého stromu je znázorněn na \customref{Obrázku}{img:rb}.~\cite{cormen}
+
+\begin{figure}[h]
     \centering
     \includegraphics{figures/theoryContent/rb.pdf}
     \caption{Červeno-černý strom}
     \label{img:rb}
 \end{figure}
+
+Červeno-černé stromy jsou binární stromy, které musí splňovat následující pravidla, aby byla zajištěna jejich vyváženost:
+\begin{enumerate}
+    \item Každý uzel je buď červený, nebo černý.
+    \item Kořen stromu je vždy černý.
+    \item Všichni nezaplnění potomci listů jsou černí.
+    \item Pokud je uzel červený, oba jeho potomci jsou černí.
+    \item Každá cesta od daného uzlu k jeho potomkům obsahuje stejný počet černých uzlů.
+\end{enumerate}
+
+Dodržování těchto pravidel zajišťuje, že strom zůstává vyvážený, což umožňuje efektivní operace vkládání, mazání a vyhledávání s logaritmickou složitostí $\Theta(\log n)$. Implementace červeno-černých stromů zahrnuje rotace a změny barev uzlů, které jsou prováděny po každé operaci vkládání nebo mazání, aby se udržela vyváženost stromu. Rotace jsou podobné těm, které se používají v AVL stromech, ale pravidla pro změnu barev uzlů jsou specifická pro červeno-černé stromy a zajišťují, že strom zůstává vyvážený i v případě, že dojde k narušení pravidel během operací.~\cite{cormen}
+
+Jako příklad operace červeno-černého stromu bude popsána implementace \textbf{vložení prvku}. Při vkládání nového prvku do červeno-černého stromu se nový uzel nejprve vloží jako červený, aby se minimalizovalo narušení vyváženosti stromu. Poté se provádí kontrola a případné opravy, které zahrnují rotace a změny barev uzlů, aby se zajistilo dodržení pravidel červeno-černého stromu. Pro ilustraci této operace je použit podstrom, kde jsou zobrazeny uzly důležité pro opravu stromu. Jedná se o čtyři uzly: nově přidaný uzel (\textbf{X}), jeho rodič (\textbf{P}), strýc (\textbf{U}) a prarodič (\textbf{G}). Konkrétní typ opravy se provádí v závislosti na barvě strýce (U) a pozici nově přidaného uzlu (X).~\cite{geeksRB}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{figures/theoryContent/rb_case1.pdf}
+    \caption{Oprava červeno-černého stromu po vložení prvku, případ 1}
+    \label{img:rb_insertion_case1}
+\end{figure}
+
+První případ nastává, když \textbf{strýc ($U$) je červený}, jak je vidět na \customref{Obrázku}{img:rb_insertion_case1}. V tomto případě se provádí změna barev: $P$ a $U$ se zbarví na černou, zatímco $G$ se zbarví na červenou. Poté se pokračuje v kontrole a případných opravách prarodiče $G$, tato zpětná kontrola je znázorněna tlustým okrajem kolem daného uzlu. Rekurzivně se tedy strom projde až ke kořenu, aby se zajistilo, že všechna pravidla červeno-černého stromu jsou dodržena. Tento proces může vést k dalším změnám barev a rotacím, pokud dojde k narušení pravidel během opravy.~\cite{geeksRB}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/theoryContent/rb_case2.pdf}
+    \caption{Oprava červeno-černého stromu po vložení prvku, případ 2}
+    \label{img:rb_insertion_case2}
+\end{figure}
+
+Druhým případem je situace, kdy \textbf{strýc (U) je černý}, jak je znázorněno na \customref{Obrázku}{img:rb_insertion_case2}. V tomto případě se provádí nejen změna barev, ale i rotace. Dále se situace větví podle pozice nově přidaného uzlu (X) a jeho rodiče (P). Pro zjednodušení jsou uvedeny pouze dvě varianty, kdy je $P$ levým potomkem $G$. Pokud je nový uzel \textbf{levým potomkem} (případ L), provede se pravá rotace na $G$ a $P$ se tedy stává novým kořenem podstromu, přičemž během rotace si zmíněné vrcholy vymění barvy. Podobně jako u diagramu AVL stromu, akce přesunutí potomka směrem nahoru je na diagramu znázorněna oranžovou šipkou nad daným vrcholem. Pokud je nový uzel \textbf{pravým potomkem} (případ R), provede se nejprve levá rotace na $P$, čímž se $X$ stává levým potomkem $G$, a poté pravá rotace na $G$, přičemž během druhé rotace si $X$ a $G$ vymění barvy. Po těchto úpravách již není potřeba rekurzivní kontrola, protože všechny pravidla červeno-černého stromu jsou dodržena a strom zůstává vyvážený.~\cite{geeksRB}
+
+Odstraňování prvku z červeno-černého stromu je složitější operace, která zahrnuje více případů a může vyžadovat několik rotací a změn barev, aby se udržela vyváženost stromu. Nicméně principy jsou podobné jako při vkládání, kdy se nejprve odstraní uzel a poté se provádí opravy, pokud dojde k narušení pravidel červeno-černého stromu.~\cite{cormen}
+
 
 \subsubsection*{B-stromy}
 % Vícecestné vyhledávání, optimalizace pro sekundární úložiště.
