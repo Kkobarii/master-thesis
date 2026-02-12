@@ -108,7 +108,7 @@ Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenov
     \label{img:rb}
 \end{figure}
 
-Červeno-černé stromy jsou binární stromy, které musí splňovat následující pravidla, aby byla zajištěna jejich vyváženost:
+Červeno-černé stromy jsou binární vyhledávací stromy, které musí splňovat následující pravidla, aby byla zajištěna jejich vyváženost:
 \begin{enumerate}
     \item Každý uzel je buď červený, nebo černý.
     \item Kořen stromu je vždy černý.
@@ -143,7 +143,43 @@ Odstraňování prvku z červeno-černého stromu je složitější operace, kte
 
 
 \subsubsection*{B-stromy}
-% Vícecestné vyhledávání, optimalizace pro sekundární úložiště.
+
+Posledním typem datové struktury z oblasti stromů, který bude implementován v aplikaci, jsou B-stromy. B-stromy, které představili R. Bayer a E. McGreight, jsou samovyvažující se stromy navržené pro efektivní ukládání a vyhledávání dat na sekundárních úložištích, jako jsou pevné disky. V praxi je možné tyto stromy vidět primárně jako implementaci databázových indexů. B-stromy umožňují ukládání více klíčů v jednom uzlu a mají proměnný počet potomků, což zajišťuje, že strom zůstává vyvážený i při velkém množství dat.
+
+Příklad B-stromu je znázorněn na \customref{Obrázku}{img:b_tree}, kde jde vidět struktura stromu, dost odlišná od předchozích uvedených struktur. Každý uzel může obsahovat více klíčů a mít více potomků, přičemž všechny listy jsou na stejné úrovni, což zajišťuje vyváženost stromu. B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.~\cite{levitin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/theoryContent/btree.pdf}
+    \caption{B-strom řádu 3}
+    \label{img:b_tree}
+\end{figure}
+
+B-stromy jsou definovány parametrem $m$, který se nazývá jeho řádem a může nabývat hodnoty od 2 do nekonečna. Je nutno zmínit, že v jiné literatuře se namísto řádu používá minimální stupeň $t$, který je roven $\lceil m/2 \rceil$ a udává minimální počet potomků, které musí mít každý uzel kromě kořene a listů. Dále však v tomto textu bude použit pouze řád $m$.~\cite{levitin, cormen}
+
+Každý uzel v B-stromu může obsahovat nejvýše $m-1$ klíčů a mít nejvýše $m$ potomků. Uzel, který není listem, musí mít alespoň $\lceil m/2 \rceil$ potomků, což zajišťuje, že strom zůstává vyvážený. Vztah mezi klíči a potomky v B-stromu je takový, že klíče v uzlu rozdělují rozsah hodnot, které mohou být uloženy v jeho potomcích, při operacích tedy slouží k navigaci stromem. Listy B-stromu jsou všechny na stejné úrovni, což znamená, že všechny cesty od kořene k listům mají stejnou délku. Operace vkládání a mazání v B-stromech zahrnují rozdělení a sloučení uzlů, aby se udržela struktura stromu a jeho vyváženost.~\cite{levitin}
+
+Strom řádu $m$ tedy musí splňovat následující vlastnosti:
+\begin{enumerate}
+    \item Kořen stromu je buď list, nebo má $2$ až $m$ potomků.
+    \item Každý uzel kromě kořene a listů musí mít mezi $\lceil m/2 \rceil$ a $m$ potomků.
+    \item Strom je perfektně vyvážený, což znamená, že všechny listy jsou na stejné úrovni.
+\end{enumerate}
+
+\textbf{Vyhledávání} v B-stromu začíná u kořene a porovnává hledanou hodnotu s klíči v uzlu. Pokud se hodnota shoduje s některým z klíčů, operace je úspěšná a hledání končí. Pokud se hodnota neshoduje, klíče se použijí jako hraniční body určující, do kterého potomka se má hledání přesunout. Tento proces se opakuje, dokud se nenajde hledaná hodnota nebo nedojde k listu, což znamená, že hledaná hodnota není ve stromu přítomna.\cite{levitin}
+
+Operace \textbf{vložení} listu do B-stromu je stále přímočará, vyžaduje však případné rozdělení uzlů, pokud se počet klíčů v uzlu překročí. Pokud je uzel plný (obsahuje $m-1$ klíčů) a je třeba do něj vložit nový klíč, uzel se rozdělí na dva a prostřední klíč se přesune do nadřazeného uzlu. Tento proces může rekurzivně pokračovat až k kořeni, což může vést k vytvoření nového kořene, pokud i ten bude plný. Na \customref{Obrázku}{img:btree_insert} jsou znázorněny oba případy, prvně při vložení klíče $2$ do listu, který není plný, a následně při vložení klíče $3$, kdy již dochází k rozdělení listu a přesunu klíče $3$ do nadřazeného uzlu, který se stává novým kořenem. Nově přidané klíče jsou na obrázku zvýrazněny oranžovou barvou.~\cite{levitin}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/theoryContent/btree_insert.pdf}
+    \caption{Vložení klíče do B-stromu řádu 3}
+    \label{img:btree_insert}
+\end{figure}
+
+Operace \textbf{mazání} klíče z B-stromu je složitější, protože může vést k narušení struktury stromu a jeho vyváženosti. Pokud je klíč, který má být odstraněn, v listu, jednoduše se odstraní. Pokud je klíč v uzlu, který není listem, musí být nahrazen buď největším klíčem z levého podstromu (predecessor), nebo nejmenším klíčem z pravého podstromu (successor). Po odstranění klíče může dojít k situaci, kdy uzel obsahuje méně než $\lceil m/2 \rceil - 1$ klíčů, což znamená, že je potřeba provést opravu stromu. Oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s přilehlým sourozeneckým uzlem, což může rekurzivně pokračovat až k kořeni.~\cite{levitin}
+
+B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech. Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je klíčovým faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
 
 
 \subsection{Prioritní fronty a haldy}
