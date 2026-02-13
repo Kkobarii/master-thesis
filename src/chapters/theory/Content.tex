@@ -1,16 +1,16 @@
-\chapter{Teorie ohledně obsahu aplikace}
+\chapter{Teorie ohledně obsahu aplikace}%\
 \label{chap:content}
 
 V této kapitole jsou popsány teoretické základy týkající se obsahu aplikace. Nejprve je uveden přehled různých datových struktur, které aplikace podporuje, včetně jejich vlastností, operací a požadavků na vizualizaci. Dále jsou diskutovány třídící algoritmy, které budou implementovány, a jejich význam pro pochopení základních konceptů informatiky. Nakonec je popsán přístup k vizualizaci těchto datových struktur a algoritmů, včetně použitých technik a metod pro efektivní zobrazení a interakci s uživatelem.
 
 
-\section{Datové struktury}
+\section{Datové struktury}%\
 \label{sec:data-structures}
 
-V této sekci jsou popsány datové struktury, které jsou podstatné pro oblast informatiky. Každá datová struktura je charakterizována svými vlastnostmi, operacemi a požadavky na vizualizaci.
+V této kapitole jsou popsány datové struktury, které jsou podstatné pro oblast informatiky. Každá datová struktura je charakterizována svými vlastnostmi, operacemi a požadavky na vizualizaci.
 
 
-\subsection{Lineární datové struktury}
+\subsection{Lineární datové struktury}%\
 \label{sec:linear_data_structures}
 
 Pro účely výuky datových struktur je rozumné začít s lineárními datovými strukturami, které jsou jednodušší na pochopení a vizualizaci. Tyto struktury zahrnují mimo jiné pole, spojové seznamy, zásobníky a fronty.
@@ -26,7 +26,7 @@ Základním stavebním kamenem lineárních datových struktur jsou pole a spojo
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/theoryContent/arrayLinkedList.pdf}
-    \caption{Pole a spojový seznam s n prvky}
+    \caption{Pole a spojový seznam s n prvky}%\
     \label{img:arrayLinkedList}
 \end{figure}
 
@@ -44,7 +44,7 @@ Zásobník funguje na principu LIFO \textit{(Last In, First Out)}, což znamená
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/theoryContent/stackQueue.pdf}
-    \caption{Zásobník a fronta}
+    \caption{Zásobník a fronta}%\
     \label{img:stackQueue}
 \end{figure}
 
@@ -53,7 +53,8 @@ Naopak fronta funguje na principu FIFO \textit{(First In, First Out)}, kde prvn�
 Obě struktury mohou být efektivně implementovány pomocí spojových seznamů nebo polí, v závislosti na požadavcích na výkon a paměťovou efektivitu.~\cite{levitin}
 
 
-\subsection{Nelineární (stromové) datové struktury}
+\subsection{Nelineární (stromové) datové struktury}%\
+\label{sec:nonlinear_data_structures}
 
 Mezi nelineární datové struktury patří stromy, hierarchické struktury představující spojitý acyklický graf, kde každý prvek (uzel) může mít více potomků. Stromy obecně podporují operace \textbf{vkládání}, \textbf{mazání} a \textbf{vyhledávání} prvků, přičemž složitost těchto operací závisí na konkrétním typu stromu a jeho struktuře. Tyto struktury se často používají pro reprezentaci hierarchických dat, jako jsou souborové systémy, organizační struktury nebo různé druhy indexů v databázích. V následujících podkapitolách jsou popsány různé typy stromů, které budou implementovány v aplikaci, včetně jejich vlastností, operací a požadavků na vizualizaci.
 
@@ -65,7 +66,7 @@ Binární vyhledávací stromy \textit{(Binary Search Trees, BST)} jsou speciál
 \begin{figure}[H]
     \centering
     \includegraphics{figures/theoryContent/bst.pdf}
-    \caption{Binární vyhledávací strom}
+    \caption{Binární vyhledávací strom}%\
     \label{img:bst}
 \end{figure}
 
@@ -79,7 +80,7 @@ Samovyvažující se AVL stromy jsou pojmenovány po svých tvůrcích, G.~M.~Ad
 \begin{figure}[H]
     \centering
     \includegraphics{figures/theoryContent/avl.pdf}
-    \caption{AVL strom}
+    \caption{AVL strom}%\
     \label{img:avl}
 \end{figure}
 
@@ -88,7 +89,7 @@ Vyvážení AVL stromů se udržuje pomocí rotací, které jsou prováděny po 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/theoryContent/avl_rotations.pdf}
-    \caption{Pravá (R) a dvojitá pravá-levá (RL) rotace AVL stromu}
+    \caption{Pravá (R) a dvojitá pravá-levá (RL) rotace AVL stromu}%\
     \label{img:avl_rotations}
 \end{figure}
 
@@ -104,7 +105,7 @@ Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenov
 \begin{figure}[h]
     \centering
     \includegraphics{figures/theoryContent/rb.pdf}
-    \caption{Červeno-černý strom}
+    \caption{Červeno-černý strom}%\
     \label{img:rb}
 \end{figure}
 
@@ -124,7 +125,7 @@ Jako příklad operace červeno-černého stromu bude popsána implementace \tex
 \begin{figure}[h]
     \centering
     \includegraphics{figures/theoryContent/rb_case1.pdf}
-    \caption{Oprava červeno-černého stromu po vložení prvku, případ 1}
+    \caption{Oprava červeno-černého stromu po vložení prvku, případ 1}%\
     \label{img:rb_insertion_case1}
 \end{figure}
 
@@ -133,7 +134,7 @@ První případ nastává, když \textbf{strýc ($U$) je červený}, jak je vid�
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/theoryContent/rb_case2.pdf}
-    \caption{Oprava červeno-černého stromu po vložení prvku, případ 2}
+    \caption{Oprava červeno-černého stromu po vložení prvku, případ 2}%\
     \label{img:rb_insertion_case2}
 \end{figure}
 
@@ -151,7 +152,7 @@ Příklad B-stromu je znázorněn na \customref{Obrázku}{img:b_tree}, kde jde v
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/theoryContent/btree.pdf}
-    \caption{B-strom řádu 3}
+    \caption{B-strom řádu 3}%\
     \label{img:b_tree}
 \end{figure}
 
@@ -173,7 +174,7 @@ Operace \textbf{vložení} listu do B-stromu je stále přímočará, vyžaduje 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/theoryContent/btree_insert.pdf}
-    \caption{Vložení klíče do B-stromu řádu 3}
+    \caption{Vložení klíče do B-stromu řádu 3}%\
     \label{img:btree_insert}
 \end{figure}
 
@@ -182,13 +183,58 @@ Operace \textbf{mazání} klíče z B-stromu je složitější, protože může 
 B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech. Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je klíčovým faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
 
 
-\subsection{Prioritní fronty a haldy}
+\subsection{Prioritní fronty a haldy}%\
+\label{sec:priority_queues}
+
+Prioritní fronty jsou abstraktní datové struktury, které umožňují ukládání prvků s přiřazenou prioritou a poskytují operace pro vkládání prvků a odebírání prvku s nejvyšší prioritou. Oproti běžným frontám, které fungují na principu FIFO, prioritní fronty umožňují flexibilnější způsob správy prvků, což je užitečné v mnoha algoritmech a aplikacích, jako jsou plánování úloh, algoritmy pro hledání nejkratší cesty a další. Halda \textit{(Heap)} je konkrétní implementací prioritní fronty, která využívá stromovou strukturu k efektivnímu ukládání a správě prvků podle jejich priorit. Na závěr teorie datových struktur jsou tedy popsány vlastnosti prioritních front a hald, včetně jejich operací a požadavků na vizualizaci.
 
 \subsubsection*{Binární halda (Heap)}
-% Specifické vlastnosti haldy, vztah mezi stromovou strukturou a jejím uložením v poli.
 
+Binární halda je datová struktura, která může být reprezentována jak polem, tak binárním stromem. V této práci je jako příklad uvedena takzvaná \textbf{max-heap}, kde každý rodičovský uzel má hodnotu větší nebo rovnou hodnotám svých potomků, druhá varianta, \textbf{min-heap}, se z tohoto popisu dá analogicky odvodit.
 
-\section{Třídící algoritmy}
+Halda se často používá pro implementaci prioritních front, protože umožňuje efektivní vkládání prvků a nalezení odebírání prvku s nejvyšší prioritou. Díky své stuktuře umožňuje binární halda provádět tyto operace s logaritmickou složitostí, je potvrzeno, že v kořenu stromu je vždy ten největší prvek, a dobře se na ni aplikují rekurzivní algoritmy, neboť libovolný podstrom haldy je také haldou.~\cite{levitin}
+
+Jak již bylo zmíněno výše, binární halda reprezentovaná stromem musí splňovat dvě podmínky: 
+
+\begin{enumerate}
+    \item Strom musí být kompletní, což znamená, že všechny úrovně stromu jsou zcela zaplněné kromě poslední úrovně, která je zaplněna zleva doprava.
+    \item Každý rodičovský uzel musí mít hodnotu větší nebo rovnou hodnotám svých potomků.\footnote{Platí pro variantu max-heap, pro min-heap je podmínka opačná.}
+\end{enumerate}
+
+Stromovou reprezentaci binární haldy splňující tyto podmínky je možné vidět na \customref{Obrázku}{img:heap_tree}. V šedých kruzích u jednotlivých uzlů je znázorněn jejich index, který odpovídá jejich pozici v poli.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{figures/theoryContent/heap_tree.pdf}
+    \caption{Binární halda reprezentovaná stromem}%\
+    \label{img:heap_tree}
+\end{figure}
+
+Binární halda může být také efektivně reprezentována polem \imageref{img:heap_array}, kde pro každý prvek v poli platí následující vztahy: pro prvek na indexu $i$ jsou jeho levý potomek na indexu $2i$, pravý potomek na indexu $2i + 1$ a rodičovský uzel na indexu $\lfloor i / 2 \rfloor$. Tato reprezentace umožňuje efektivní přístup k prvkům haldy, dovoluje algoritmům pracovat s daty bez nutnosti explicitní reprezentace stromové struktury, a je často používána v implementacích algoritmů, jako je Heapsort.~\cite{cormen}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{figures/theoryContent/heap_array.pdf}
+    \caption{Binární halda reprezentovaná polem}%\
+    \label{img:heap_array}
+\end{figure}
+
+Základními operacemi nad binární haldou jsou \textbf{vložení} a \textbf{odebrání} prvku s nejvyšší prioritou. Při vložení nového prvku do haldy se nový prvek umístí na konec stromu (nebo do poslední pozice pole) a poté se provádí operace zvaná \textit{heapify-up}, která zajišťuje, že vlastnost haldy je zachována. Tato operace zahrnuje porovnávání nově vloženého prvku s jeho rodičovským uzlem a případné prohození, pokud je nový prvek větší než jeho rodič. Tento proces se opakuje, dokud není vlastnost haldy obnovena nebo dokud nedojde k dosažení kořene stromu.~\cite{levitin}
+
+Při odebrání prvku s nejvyšší prioritou (kořene stromu) se tento prvek odstraní a nahradí se posledním prvkem v haldě. Poté se provádí operace zvaná \textit{heapify-down}. Probíhá porovnávání nově umístěného prvku s jeho potomky a případné prohození s největším potomkem, pokud je nový prvek menší než některý z jeho potomků. Proces se opět opakuje až do splnění vlastnosti haldy nebo dosažení listu stromu.~\cite{levitin}
+
+Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$, což z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh. Její časté využití je také v třídícím algoritmu Heapsort, který bude popsán v následující kapitole \chapterref{subsec:logarithmic_algorithms}.~\cite{cormen}
+
+\section{Třídící algoritmy}%\
 \label{sec:algorithms}
 
-V této sekci jsou popsány třídící algoritmy, které budou implementovány v aplikaci. Každý algoritmus je charakterizován svým principem fungování, složitostí a významem pro pochopení základních konceptů informatiky.
+V této kapitole jsou popsány třídící algoritmy, které budou implementovány v aplikaci. Každý algoritmus je charakterizován svým principem fungování, složitostí a významem pro pochopení základních konceptů informatiky.
+
+\subsection{Algoritmy s kvadratickou časovou složitostí}%\
+\label{subsec:quadratic_algorithms}
+
+\subsection{Algoritmy s logaritmickou časovou složitostí}%\
+\label{subsec:logarithmic_algorithms}
+
+\subsection{Speciální algoritmy pro třídění}%\
+\label{subsec:special_algorithms}
