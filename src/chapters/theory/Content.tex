@@ -1,16 +1,16 @@
-\chapter{Teorie ohledně obsahu aplikace}%\
+\chapter{Teorie ohledně obsahu aplikace}
 \label{chap:content}
 
 V této kapitole jsou popsány teoretické základy týkající se obsahu aplikace. Nejprve je uveden přehled různých datových struktur, které aplikace podporuje, včetně jejich vlastností, operací a požadavků na vizualizaci. Dále jsou diskutovány třídící algoritmy, které budou implementovány, a jejich význam pro pochopení základních konceptů informatiky. Nakonec je popsán přístup k vizualizaci těchto datových struktur a algoritmů, včetně použitých technik a metod pro efektivní zobrazení a interakci s uživatelem.
 
 
-\section{Datové struktury}%\
+\section{Datové struktury}
 \label{sec:data-structures}
 
 V této kapitole jsou popsány datové struktury, které jsou podstatné pro oblast informatiky. Každá datová struktura je charakterizována svými vlastnostmi, operacemi a požadavky na vizualizaci.
 
 
-\subsection{Lineární datové struktury}%\
+\subsection{Lineární datové struktury}
 \label{sec:linear_data_structures}
 
 Pro účely výuky datových struktur je rozumné začít s lineárními datovými strukturami, které jsou jednodušší na pochopení a vizualizaci. Tyto struktury zahrnují mimo jiné pole, spojové seznamy, zásobníky a fronty.
@@ -23,10 +23,10 @@ I přes to, že tyto struktury jsou relativně jednoduché a již moc dobře zn�
 Základním stavebním kamenem lineárních datových struktur jsou pole a spojové seznamy. Pole \textit{(Array)} poskytují rychlý přístup k prvkům pomocí indexů, zatímco spojové seznamy \textit{(Linked List)} umožňují dynamickou alokaci paměti a efektivní vkládání a mazání prvků pomocí ukazatelů. \customref{Obrázek}{img:arrayLinkedList} znázorňuje rozdíl mezi těmito dvěma strukturami.~\cite{levitin}
 
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/theoryContent/arrayLinkedList.pdf}
-    \caption{Pole a spojový seznam s n prvky}%\
+    \caption{Pole a spojový seznam s n prvky}
     \label{img:arrayLinkedList}
 \end{figure}
 
@@ -41,10 +41,10 @@ Speciálním případem lineárních seznamů jsou zásobníky \textit{(Stack)} 
 
 Zásobník funguje na principu LIFO \textit{(Last In, First Out)}, což znamená, že poslední prvek přidaný do zásobníku je prvním, který je z něj odebrán. Operace přidání prvku se běžně nazývá \textit{push} a operace odebrání prvku se nazývá \textit{pop}. V zásobníku je přístup k prvkům omezen na vrchol zásobníku, jež se nazývá \textit{top}.~\cite{cormen}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/theoryContent/stackQueue.pdf}
-    \caption{Zásobník a fronta}%\
+    \caption{Zásobník a fronta}
     \label{img:stackQueue}
 \end{figure}
 
@@ -53,7 +53,7 @@ Naopak fronta funguje na principu FIFO \textit{(First In, First Out)}, kde prvn�
 Obě struktury mohou být efektivně implementovány pomocí spojových seznamů nebo polí, v závislosti na požadavcích na výkon a paměťovou efektivitu.~\cite{levitin}
 
 
-\subsection{Nelineární (stromové) datové struktury}%\
+\subsection{Nelineární (stromové) datové struktury}
 \label{sec:nonlinear_data_structures}
 
 Mezi nelineární datové struktury patří stromy, hierarchické struktury představující spojitý acyklický graf, kde každý prvek (uzel) může mít více potomků. Stromy obecně podporují operace \textbf{vkládání}, \textbf{mazání} a \textbf{vyhledávání} prvků, přičemž složitost těchto operací závisí na konkrétním typu stromu a jeho struktuře. Tyto struktury se často používají pro reprezentaci hierarchických dat, jako jsou souborové systémy, organizační struktury nebo různé druhy indexů v databázích. V následujících podkapitolách jsou popsány různé typy stromů, které budou implementovány v aplikaci, včetně jejich vlastností, operací a požadavků na vizualizaci.
@@ -63,10 +63,10 @@ Mezi nelineární datové struktury patří stromy, hierarchické struktury pře
 
 Binární vyhledávací stromy \textit{(Binary Search Trees, BST)} jsou speciálním typem binárních stromů, kde každý uzel splňuje následující vlastnost: klíče v levém podstromu jsou menší než klíč v uzlu, a klíče v pravém podstromu jsou větší než klíč v uzlu. Tato vlastnost umožňuje efektivní vyhledávání, vkládání a mazání prvků ve stromu. Příklad binárního vyhledávacího stromu je znázorněn na \customref{Obrázku}{img:bst}.~\cite{cormen}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/theoryContent/bst.pdf}
-    \caption{Binární vyhledávací strom}%\
+    \caption{Binární vyhledávací strom}
     \label{img:bst}
 \end{figure}
 
@@ -77,19 +77,19 @@ Efektivita operací nad BST závisí na jeho výšce. Zde nastává problém deg
 
 Samovyvažující se AVL stromy jsou pojmenovány po svých tvůrcích, G.~M.~Adelson-Velsky a E.~M.~Landis, kteří je představili v roce 1962. AVL strom je binární vyhledávací strom, který udržuje vyváženost tím, že zajišťuje, aby výškový rozdíl mezi levým a pravým podstromem každého uzlu byl nejvýše 1. Tato vlastnost jde vidět na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu, které pro tento typ stromu může nabývat pouze hodnot -1, 0 nebo 1. Vyvážení je definováno jako rozdíl mezi výškou levého a pravého podstromu. V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení, což umožňuje efektivní výpočet vyvážení během operací vkládání a mazání. AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, což je důvod, proč jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{levitin,cormen}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/theoryContent/avl.pdf}
-    \caption{AVL strom}%\
+    \caption{AVL strom}
     \label{img:avl}
 \end{figure}
 
 Vyvážení AVL stromů se udržuje pomocí rotací, které jsou prováděny po každé operaci vkládání nebo mazání, pokud dojde k narušení vyváženosti. Rotace představuje lokální transformaci podstromu právě toho vrcholu, kde je podmínka vyváženosti narušena (kde nabyla hodnoty -2 nebo 2). Existují čtyři typy rotací: jednoduchá pravá rotace, jednoduchá levá rotace, dvojitá levá-pravá a dvojitá pravá-levá rotace, přičemž levé a pravé varianty jsou zrcadlové obrazy.~\cite{levitin}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/theoryContent/avl_rotations.pdf}
-    \caption{Pravá (R) a dvojitá pravá-levá (RL) rotace AVL stromu}%\
+    \caption{Pravá (R) a dvojitá pravá-levá (RL) rotace AVL stromu}
     \label{img:avl_rotations}
 \end{figure}
 
@@ -102,10 +102,10 @@ Tyto rotace sice zvyšují složitost implementace AVL stromů, ale zajišťují
 
 Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenován podle barvy, kterou jsou označeny jeho uzly. Tento strom udržuje vyváženost pomocí pravidel týkajících se barev uzlů, což zajišťuje, že žádná cesta od kořene k listu není více než dvakrát delší než jakákoli jiná cesta. Červeno-černé stromy jsou často používány v implementacích asociativních polí, jako jsou například mapy a množiny, protože poskytují dobrý kompromis mezi složitostí implementace a výkonem. Příklad červeno-černého stromu je znázorněn na \customref{Obrázku}{img:rb}.~\cite{cormen}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/theoryContent/rb.pdf}
-    \caption{Červeno-černý strom}%\
+    \caption{Červeno-černý strom}
     \label{img:rb}
 \end{figure}
 
@@ -122,19 +122,19 @@ Dodržování těchto pravidel zajišťuje, že strom zůstává vyvážený, co
 
 Jako příklad operace červeno-černého stromu bude popsána implementace \textbf{vložení prvku}. Při vkládání nového prvku do červeno-černého stromu se nový uzel nejprve vloží jako červený, aby se minimalizovalo narušení vyváženosti stromu. Poté se provádí kontrola a případné opravy, které zahrnují rotace a změny barev uzlů, aby se zajistilo dodržení pravidel červeno-černého stromu. Pro ilustraci této operace je použit podstrom, kde jsou zobrazeny uzly důležité pro opravu stromu. Jedná se o čtyři uzly: nově přidaný uzel (\textbf{X}), jeho rodič (\textbf{P}), strýc (\textbf{U}) a prarodič (\textbf{G}). Konkrétní typ opravy se provádí v závislosti na barvě strýce (U) a pozici nově přidaného uzlu (X).~\cite{geeksRB}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/theoryContent/rb_case1.pdf}
-    \caption{Oprava červeno-černého stromu po vložení prvku, případ 1}%\
+    \caption{Oprava červeno-černého stromu po vložení prvku, případ 1}
     \label{img:rb_insertion_case1}
 \end{figure}
 
 První případ nastává, když \textbf{strýc ($U$) je červený}, jak je vidět na \customref{Obrázku}{img:rb_insertion_case1}. V tomto případě se provádí změna barev: $P$ a $U$ se zbarví na černou, zatímco $G$ se zbarví na červenou. Poté se pokračuje v kontrole a případných opravách prarodiče $G$, tato zpětná kontrola je znázorněna tlustým okrajem kolem daného uzlu. Rekurzivně se tedy strom projde až ke kořenu, aby se zajistilo, že všechna pravidla červeno-černého stromu jsou dodržena. Tento proces může vést k dalším změnám barev a rotacím, pokud dojde k narušení pravidel během opravy.~\cite{geeksRB}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/theoryContent/rb_case2.pdf}
-    \caption{Oprava červeno-černého stromu po vložení prvku, případ 2}%\
+    \caption{Oprava červeno-černého stromu po vložení prvku, případ 2}
     \label{img:rb_insertion_case2}
 \end{figure}
 
@@ -145,14 +145,14 @@ Odstraňování prvku z červeno-černého stromu je složitější operace, kte
 
 \subsubsection*{B-stromy}
 
-Posledním typem datové struktury z oblasti stromů, který bude implementován v aplikaci, jsou B-stromy. B-stromy, které představili R. Bayer a E. McGreight, jsou samovyvažující se stromy navržené pro efektivní ukládání a vyhledávání dat na sekundárních úložištích, jako jsou pevné disky. V praxi je možné tyto stromy vidět primárně jako implementaci databázových indexů. B-stromy umožňují ukládání více klíčů v jednom uzlu a mají proměnný počet potomků, což zajišťuje, že strom zůstává vyvážený i při velkém množství dat.
+Posledním typem datové struktury z oblasti stromů, který bude implementován v aplikaci, jsou B-stromy. B-stromy, které představili R.~Bayer a E.~McGreight, jsou samovyvažující se stromy navržené pro efektivní ukládání a vyhledávání dat na sekundárních úložištích, jako jsou pevné disky. V praxi je možné tyto stromy vidět primárně jako implementaci databázových indexů. B-stromy umožňují ukládání více klíčů v jednom uzlu a mají proměnný počet potomků, což zajišťuje, že strom zůstává vyvážený i při velkém množství dat.
 
 Příklad B-stromu je znázorněn na \customref{Obrázku}{img:b_tree}, kde jde vidět struktura stromu, dost odlišná od předchozích uvedených struktur. Každý uzel může obsahovat více klíčů a mít více potomků, přičemž všechny listy jsou na stejné úrovni, což zajišťuje vyváženost stromu. B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.~\cite{levitin}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/theoryContent/btree.pdf}
-    \caption{B-strom řádu 3}%\
+    \caption{B-strom řádu 3}
     \label{img:b_tree}
 \end{figure}
 
@@ -171,10 +171,10 @@ Strom řádu $m$ tedy musí splňovat následující vlastnosti:
 
 Operace \textbf{vložení} listu do B-stromu je stále přímočará, vyžaduje však případné rozdělení uzlů, pokud se počet klíčů v uzlu překročí. Pokud je uzel plný (obsahuje $m-1$ klíčů) a je třeba do něj vložit nový klíč, uzel se rozdělí na dva a prostřední klíč se přesune do nadřazeného uzlu. Tento proces může rekurzivně pokračovat až k kořeni, což může vést k vytvoření nového kořene, pokud i ten bude plný. Na \customref{Obrázku}{img:btree_insert} jsou znázorněny oba případy, prvně při vložení klíče $2$ do listu, který není plný, a následně při vložení klíče $3$, kdy již dochází k rozdělení listu a přesunu klíče $3$ do nadřazeného uzlu, který se stává novým kořenem. Nově přidané klíče jsou na obrázku zvýrazněny oranžovou barvou.~\cite{levitin}
 
-\begin{figure}[H]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/theoryContent/btree_insert.pdf}
-    \caption{Vložení klíče do B-stromu řádu 3}%\
+    \caption{Vložení klíče do B-stromu řádu 3}
     \label{img:btree_insert}
 \end{figure}
 
@@ -183,7 +183,7 @@ Operace \textbf{mazání} klíče z B-stromu je složitější, protože může 
 B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech. Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je klíčovým faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
 
 
-\subsection{Prioritní fronty a haldy}%\
+\subsection{Prioritní fronty a haldy}
 \label{sec:priority_queues}
 
 Prioritní fronty jsou abstraktní datové struktury, které umožňují ukládání prvků s přiřazenou prioritou a poskytují operace pro vkládání prvků a odebírání prvku s nejvyšší prioritou. Oproti běžným frontám, které fungují na principu FIFO, prioritní fronty umožňují flexibilnější způsob správy prvků, což je užitečné v mnoha algoritmech a aplikacích, jako jsou plánování úloh, algoritmy pro hledání nejkratší cesty a další. Halda \textit{(Heap)} je konkrétní implementací prioritní fronty, která využívá stromovou strukturu k efektivnímu ukládání a správě prvků podle jejich priorit. Na závěr teorie datových struktur jsou tedy popsány vlastnosti prioritních front a hald, včetně jejich operací a požadavků na vizualizaci.
@@ -203,19 +203,19 @@ Jak již bylo zmíněno výše, binární halda reprezentovaná stromem musí sp
 
 Stromovou reprezentaci binární haldy splňující tyto podmínky je možné vidět na \customref{Obrázku}{img:heap_tree}. V šedých kruzích u jednotlivých uzlů je znázorněn jejich index, který odpovídá jejich pozici v poli.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/theoryContent/heap_tree.pdf}
-    \caption{Binární halda reprezentovaná stromem}%\
+    \caption{Binární halda reprezentovaná stromem}
     \label{img:heap_tree}
 \end{figure}
 
 Binární halda může být také efektivně reprezentována polem \imageref{img:heap_array}, kde pro každý prvek v poli platí následující vztahy: pro prvek na indexu $i$ jsou jeho levý potomek na indexu $2i$, pravý potomek na indexu $2i + 1$ a rodičovský uzel na indexu $\lfloor i / 2 \rfloor$. Tato reprezentace umožňuje efektivní přístup k prvkům haldy, dovoluje algoritmům pracovat s daty bez nutnosti explicitní reprezentace stromové struktury, a je často používána v implementacích algoritmů, jako je Heapsort.~\cite{cormen}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics{figures/theoryContent/heap_array.pdf}
-    \caption{Binární halda reprezentovaná polem}%\
+    \caption{Binární halda reprezentovaná polem}
     \label{img:heap_array}
 \end{figure}
 
@@ -225,16 +225,16 @@ Při odebrání prvku s nejvyšší prioritou (kořene stromu) se tento prvek od
 
 Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$, což z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh. Její časté využití je také v třídícím algoritmu Heapsort, který bude popsán v následující kapitole \chapterref{subsec:logarithmic_algorithms}.~\cite{cormen}
 
-\section{Třídící algoritmy}%\
+\section{Třídící algoritmy}
 \label{sec:algorithms}
 
 V této kapitole jsou popsány třídící algoritmy, které budou implementovány v aplikaci. Každý algoritmus je charakterizován svým principem fungování, složitostí a významem pro pochopení základních konceptů informatiky.
 
-\subsection{Algoritmy s kvadratickou časovou složitostí}%\
+\subsection{Algoritmy s kvadratickou časovou složitostí}
 \label{subsec:quadratic_algorithms}
 
-\subsection{Algoritmy s logaritmickou časovou složitostí}%\
+\subsection{Algoritmy s logaritmickou časovou složitostí}
 \label{subsec:logarithmic_algorithms}
 
-\subsection{Speciální algoritmy pro třídění}%\
+\subsection{Speciální algoritmy pro třídění}
 \label{subsec:special_algorithms}

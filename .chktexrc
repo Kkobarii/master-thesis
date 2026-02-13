@@ -1,0 +1,7 @@
+# Disable warning 12: Interword spacing (`\ ') should perhaps be used.
+# Disable warning 13: Intersentence spacing (`\@') should perhaps be used.
+# Disable warning 24: Delete this space to maintain correct pagereferences.
+CmdLine
+{
+    -n12 -n13 -n24
+}

@@ -27,7 +27,7 @@
 \def\filedate{2022/07/01}
 \def\docdate{1. července 2022}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{diploma}[\filedate\space \fileversion\space diploma LaTeX document class]
+\ProvidesClass{resources/diploma/diploma}[\filedate\space \fileversion\space diploma LaTeX document class]
 \RequirePackage{ifthen}
 \RequirePackage[utf8]{inputenc}
 \newcommand{\Dipl@BachelorThesis}{0}

@@ -49,7 +49,7 @@ Abstract English.
 
 
 % Minted things
-\let\NewCommand\newcommand
+\let\NewCommand\newcommand{}
 % \immediate\write18{echo $ROAD > .ROAD.tex}
 % \immediate\write18{echo $ROAD "nejhorší hack by žožka"}
 % \input{.ROAD}
@@ -84,7 +84,7 @@ Abstract English.
 \begin{document}
 
 % Titulni strany
-\MakeTitlePages
+\MakeTitlePages{}
 
 % Seznam obrazku
 \listoffigures
@@ -96,7 +96,7 @@ Abstract English.
 
 % Seznam výpisů zdrojového kódu
 \addcontentsline{toc}{chapter}{Seznam výpisů zdrojového kódu}
-\listoflistings
+\listoflistings{}
 \clearpage
 
 % Text
