@@ -1,0 +1,36 @@
+\begin{algorithm}[H]
+    \SetKwFunction{FHeapSort}{HeapSort}
+    \SetKwFunction{FHeapify}{Heapify}
+
+    \Fn{\FHeapify{$A, n, i$}}{
+        $largest \gets i$\;
+        $l \gets 2i + 1$\;
+        $r \gets 2i + 2$\;
+        \bl
+        \If{$l < n$ \textbf{and} $A[l] > A[largest]$}{
+            $largest \gets l$\;
+        }
+        \bl
+        \If{$r < n$ \textbf{and} $A[r] > A[largest]$}{
+            $largest \gets r$\;
+        }
+        \bl
+        \If{$largest \neq i$}{
+            \FSwap{$A[i], A[largest]$}\;
+            \FHeapify{$A, n, largest$}\;
+        }
+    }
+    \bl
+    \Fn{\FHeapSort{$A$}}{
+        $n \gets \FLength{A}$\;
+        \bl
+        \For{$i \gets n / 2 - 1$ \KwTo $0$}{
+            \FHeapify{$A, n, i$}\;
+        }
+        \bl
+        \For{$i \gets n - 1$ \KwTo $1$}{
+            \FSwap{$A[0], A[i]$}\;
+            \FHeapify{$A, i, 0$}\;
+        }
+    }
+\end{algorithm}

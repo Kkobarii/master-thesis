@@ -1,0 +1,19 @@
+\begin{algorithm}[H]
+    \SetKwFunction{FSelectionSort}{SelectionSort}
+
+    \Fn{\FSelectionSort{$A$}}{
+        $n \gets \FLength{A}$\;
+        \bl
+        \For{$i \gets 0$ \KwTo $n - 1$}{
+            $minIndex \gets i$\;
+            \bl
+            \For{$j \gets i + 1$ \KwTo $n$}{
+                \If{$A[j] < A[minIndex]$}{
+                    $minIndex \gets j$\;
+                }
+            }
+            \bl
+            \FSwap{$A[i], A[minIndex]$}\;
+        }
+    }
+\end{algorithm}

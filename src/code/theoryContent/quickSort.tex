@@ -1,0 +1,28 @@
+\begin{algorithm}[H]
+    \SetKwFunction{FQuickSort}{QuickSort}
+    \SetKwFunction{FPartition}{Partition}
+
+    \Fn{\FPartition{$A, low, high$}}{
+        $pivot \gets A[high]$\;
+        $i \gets low - 1$\;
+        \bl
+        \For{$j \gets low$ \KwTo $high - 1$}{
+            \If{$A[j] \leq pivot$}{
+                $i \gets i + 1$\;
+                \FSwap{$A[i], A[j]$}\;
+            }
+        }
+        \bl
+        \FSwap{$A[i + 1], A[high]$}\;
+        \Return $i + 1$\;
+    }
+    \bl
+    \Fn{\FQuickSort{$A, low, high$}}{
+        \If{$low < high$}{
+            $p \gets \FPartition{A, low, high}$\;
+            \bl
+            \FQuickSort{$A, low, p - 1$}\;
+            \FQuickSort{$A, p + 1, high$}\;
+        }
+    }
+\end{algorithm}

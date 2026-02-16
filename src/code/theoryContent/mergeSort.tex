@@ -1,0 +1,38 @@
+\begin{algorithm}[H]
+    \SetKwFunction{FMergeSort}{MergeSort}
+    \SetKwFunction{FMerge}{Merge}
+
+    \Fn{\FMerge{$A, l, m, r$}}{
+        $n_1 \gets m - l + 1$\;
+        $n_2 \gets r - m$\;
+        \bl
+        \For{$i \gets 0$ \KwTo $n_1 - 1$}{ $L[i] \gets A[l + i]$\; }
+        \For{$j \gets 0$ \KwTo $n_2 - 1$}{ $R[j] \gets A[m + 1 + j]$\; }
+        \bl
+        $i \gets 0, j \gets 0, k \gets l$\;
+        \While{$i < n_1$ \textbf{and} $j < n_2$}{
+            \If{$L[i] \leq R[j]$}{
+                $A[k] \gets L[i]$\;
+                $i \gets i + 1$\;
+            }
+            \Else{
+                $A[k] \gets R[j]$\;
+                $j \gets j + 1$\;
+            }
+            $k \gets k + 1$\;
+        }
+        \bl
+        \While{$i < n_1$}{ $A[k] \gets L[i]$\; $i \gets i + 1$\; $k \gets k + 1$\; }
+        \bl
+        \While{$j < n_2$}{ $A[k] \gets R[j]$\; $j \gets j + 1$\; $k \gets k + 1$\; }
+    }
+    \bl
+    \Fn{\FMergeSort{$A, l, r$}}{
+        \If{$l < r$}{
+            $m \gets l + (r - l) / 2$\;
+            \FMergeSort{$A, l, m$}\;
+            \FMergeSort{$A, m + 1, r$}\;
+            \FMerge{$A, l, m, r$}\;
+        }
+    }
+\end{algorithm}

@@ -14,6 +14,7 @@
 \usepackage{tablefootnote} % poznámky pod tabulkou
 \usepackage{color} % barvickyy
 \usepackage{array} % schovavani sloupcu v tabulkach
+\usepackage[linesnumbered,tworuled,vlined]{algorithm2e} % pseudokod
 
 % Pozadovane vstupy pro generovani titulnich stran.
 \ThesisAuthor{Barbora Kovalská}
@@ -61,6 +62,18 @@ Abstract English.
 \renewcommand\listingscaption{Výpis}
 \renewcommand\listoflistingscaption{Seznam výpisů zdrojového kódu}
 
+% Algorithm2e settings
+\DontPrintSemicolon
+\SetAlgoNoEnd
+\NoCaptionOfAlgo
+\SetKwProg{Fn}{Function}{:}{}
+\SetKwProg{return}{Return}{:}{}
+\SetKwData{True}{true}
+\SetKwData{False}{false}
+\SetKwFunction{FSwap}{Swap}
+\SetKwFunction{FLength}{Length}
+\newcommand{\bl}{\BlankLine}
+
 % Uprava hloubky obsahu - pozdeji smazat !
 \setcounter{tocdepth}{3}
 
@@ -69,12 +82,13 @@ Abstract English.
 \newcommand{\chapterref}[1]{(\hyperref[#1]{Kapitola~\ref*{#1}})}
 \newcommand{\imageref}[1]{(\hyperref[#1]{Obrázek~\ref*{#1}})}
 \newcommand{\tableref}[1]{(\hyperref[#1]{Tabulka~\ref*{#1}})}
+\newcommand{\listingref}[1]{(\hyperref[#1]{Výpis~\ref*{#1}})}
 \newcommand{\glsref}[1]{\textit{\gls{#1}}}
 \newcommand{\gameref}[1]{\textit{#1}}
 \newcommand{\attr}[1]{(\texttt{#1})}
 \newcommand{\devTool}[2]{\textit{#1}\footnote{\href{#2}{#2}}}
 
-\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{TODO: #1}}
 
 % Hide columns in tables
 \newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
@@ -84,7 +98,7 @@ Abstract English.
 \begin{document}
 
 % Titulni strany
-\MakeTitlePages{}
+\MakeTitlePages
 
 % Seznam obrazku
 \listoffigures
@@ -96,7 +110,7 @@ Abstract English.
 
 % Seznam výpisů zdrojového kódu
 \addcontentsline{toc}{chapter}{Seznam výpisů zdrojového kódu}
-\listoflistings{}
+\listoflistings
 \clearpage
 
 % Text

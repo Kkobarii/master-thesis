@@ -223,18 +223,145 @@ Základními operacemi nad binární haldou jsou \textbf{vložení} a \textbf{od
 
 Při odebrání prvku s nejvyšší prioritou (kořene stromu) se tento prvek odstraní a nahradí se posledním prvkem v haldě. Poté se provádí operace zvaná \textit{heapify-down}. Probíhá porovnávání nově umístěného prvku s jeho potomky a případné prohození s největším potomkem, pokud je nový prvek menší než některý z jeho potomků. Proces se opět opakuje až do splnění vlastnosti haldy nebo dosažení listu stromu.~\cite{levitin}
 
-Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$, což z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh. Její časté využití je také v třídícím algoritmu Heapsort, který bude popsán v následující kapitole \chapterref{subsec:logarithmic_algorithms}.~\cite{cormen}
+Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$, což z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh. Její časté využití je také v třídícím algoritmu Heapsort, který bude detailněji popsán v \customref{Kapitole}{subsec:logarithmic_algorithms}.~\cite{cormen}
+
+
+\subsection{Srovnání popsaných datových struktur}
+\label{sec:data_structures_comparison}
+
+Pro přehlednost jsou v této části shrnuty klíčové vlastnosti a časové složitosti základních operací (vyhledávání, vkládání a mazání) u všech výše popsaných datových struktur. \customref{Tabulka}{tab:comparison_structures} poskytuje srovnání průměrných a nejhorších případů složitosti, které přímo ovlivňují volbu konkrétní struktury pro daný typ úlohy. V posledním sloupci je také uveden hlavní princip, na kterém daná datová struktura funguje, a který je důležitý pro pochopení jejího chování v rámci vizualizace a implementace v aplikaci.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{llccl}
+        \toprule
+        \textbf{Struktura} & \textbf{Vyhledávání} & \textbf{Vložení/Smazání} & \textbf{Hlavní princip} \\
+        \midrule
+        Spojový seznam  & $O(n)$ & $O(1)$ / $O(n)$~\footnotemark & Dynamické uzly \\
+        Zásobník  & $O(n)$ & $O(1)$ & LIFO princip \\
+        Fronta  & $O(n)$ & $O(1)$ & FIFO princip \\
+        \midrule
+        BST  & $O(\log n) / O(n)$ & $O(\log n) / O(n)$ & Uspořádaný strom \\
+        AVL strom  & $O(\log n)$ & $O(\log n)$ & Přísná vyváženost \\
+        Červeno-černý  & $O(\log n)$ & $O(\log n)$ & Pravidla barev \\
+        B-strom  & $O(\log n)$ & $O(\log n)$ & Více klíčů v uzlu \\
+        \midrule
+        Binární halda  & $O(1)$~\footnotemark & $O(\log n)$ & Max/Min vlastnost \\
+        \bottomrule
+    \end{tabular}
+    \caption{Srovnání vlastností a časové složitosti datových struktur}
+    \label{tab:comparison_structures}
+\end{table}
+\addtocounter{footnote}{-1}
+\footnotetext{Konstantní čas platí pro vkládání/mazání na koncích seznamu (u head/tail).}
+\addtocounter{footnote}{1}
+\footnotetext{Namísto hledání konkrétního prvku, což by mělo složitost $O(n)$, je možné získat prvek s nejvyšší prioritou (kořen haldy) v konstantním čase $O(1)$.}
+
+\todo{fix table footnotes}
+
+Jak vyplývá z tabulky, zatímco lineární struktury jsou vhodné pro specifické typy přístupu k datům (jako LIFO u zásobníku), u vyhledávacích úloh dominují stromové struktury. Samovyvažující se stromy (AVL a červeno-černý) pak řeší problém degradace BST tím, že garantují logaritmickou složitost i v nejhorším případě. Speciální vlastnosti má B-strom, který díky své šířce optimalizuje přístup k datům v sekundárních úložištích, a binární halda, která je optimalizována pro operace s prioritami.
+
+Pro účel výukové aplikace zde tedy vznikají tři základní typy struktury, každá s konkrétními operacemi a stylem zobrazení nutným pro jejich názorné představení uživatelům.
+
 
 \section{Třídící algoritmy}
 \label{sec:algorithms}
 
 V této kapitole jsou popsány třídící algoritmy, které budou implementovány v aplikaci. Každý algoritmus je charakterizován svým principem fungování, složitostí a významem pro pochopení základních konceptů informatiky.
 
+Většina třídících algoritmů uvedených v této kapitole během práce s polem často využívá vyměňování dvou prvků mezi sebou. Pro zjednodušení implementace a zvýšení přehlednosti kódu je vhodné mít pomocnou funkci pro výměnu dvou prvků v poli, která bude využívána napříč různými algoritmy. Tato funkce má název \texttt{Swap}, a její pseudokód je uveden ve \customref{Výpisu}{lst:swap}. Kromě této funkce bude také využita funkce \texttt{Length}, která vrací délku pole a její implementace je zřejmá a není zde uvedena.
+
+\begin{listing}[ht]
+\input{code/theoryContent/swap.tex}
+\caption{Pseudokód pomocné funkce pro výměnu dvou prvků}
+\label{lst:swap}
+\end{listing}
+
+Právě funkce \texttt{Swap} je klíčová pro vizualizaci třídících algoritmů, protože umožňuje jasně zobrazit, které prvky jsou během třídění vyměňovány. Druhou důležitou operací je porovnávání prvků, které je v pseudokódu reprezentováno pomocí operátorů porovnávání v podmínce (například $<$, $>$, $==$ atd.) a bude také vizualizováno, aby uživatel mohl sledovat, které prvky jsou porovnávány a jak se rozhoduje o jejich výměně.~\cite{sedgewick}
+
 \subsection{Algoritmy s kvadratickou časovou složitostí}
 \label{subsec:quadratic_algorithms}
 
+Jako úvod do problematiky třídících algoritmů jsou nejprve popsány algoritmy s kvadratickou časovou složitostí, které jsou často považovány za základní a slouží jako výchozí bod pro pochopení složitějších algoritmů. Tyto algoritmy jsou charakterizovány tím, že v nejhorším případě provádějí přibližně $n^2$ operací, což je důvod, proč nejsou vhodné pro třídění velkých množství dat, ale jsou užitečné pro ilustraci základních principů třídění a pro výuku algoritmického myšlení.
+
+V této kapitole budou uvedeny tři základní algoritmy s kvadratickou časovou složitostí: \textit{Bubble Sort}, \textit{Selection Sort} a \textit{Insertion Sort}. Každý z těchto algoritmů bude popsán svým principem fungování, složitostí a případnými optimalizacemi, které mohou být použity pro zlepšení jejich výkonu v určitých situacích.
+
+\subsubsection*{Bubble sort}
+
+Prvním třídícím algoritmem s kvadratickou časovou složitostí, který bude popsán, je \textit{Bubble Sort}. Tento algoritmus funguje na principu opakovaného procházení seznamu, přičemž v každém průchodu nechá nejvyšší prvek \uv{vystoupat} na konec seznamu, ostatně z analogie k bublinám ve vodě získal svůj název. Algoritmus pokračuje v procházení seznamu, dokud není celý seznam seřazený.~\cite{freeCodeCamp}
+
+Názorný příklad fungování algoritmu \textit{Bubble Sort} je možné vidět na \customref{Výpisu}{lst:bubbleSort}, kde jsou zobrazeny jednotlivé kroky algoritmu při třídění pole. V každém kroku jsou porovnány sousední prvky a dle podmínky vyměněny, což vede k postupnému \uv{vystupování} největších prvků na konec pole.
+
+\begin{listing}[ht]
+\input{code/theoryContent/bubbleSort.tex}
+\caption{Pseudokód algoritmu Bubble Sort}
+\label{lst:bubbleSort}
+\end{listing}
+
+Tento algoritmus může být optimalizován pomocí příznaku, který sleduje, zda došlo k nějaké výměně během průchodu polem. Pokud během průchodu nedojde k žádné výměně, znamená to, že pole je již seřazené, a algoritmus může být ukončen dříve, což zlepšuje jeho výkon v případě, že je pole již téměř seřazené.
+
+I když je tento algoritmus jednoduchý a snadno pochopitelný, jeho kvadratická časová složitost $O(n^2)$ ho činí neefektivním pro třídění velkých množství dat, a proto se v praxi používá jen zřídka, spíše jako pedagogický nástroj pro ilustraci základních principů třídění. Jeho výhodou také může být jeho stabilita a konstantní prostorová složitost $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury, dá se tedy využít pro stroje s velmi omezenými zdroji.~\cite{freeCodeCamp}
+
+\subsubsection*{Selection sort}
+
+Další algoritmus s kvadratickou časovou složitostí je \textit{Selection Sort}, který je často považován za jeden z nejjednodušších třídících algoritmů. V každé iteraci vždy hledá nejmenší prvek v nesetříděné části pole a vymění ho s prvním prvkem této části, čímž postupně rozšiřuje setříděnou část pole. Prvky se tímto způsobem přesouvají, dokud algoritmus nedosáhne konce pole.~\cite{freeCodeCamp}
+
+Z příkladu na \customref{Výpisu}{lst:selectionSort} je možné vidět, jak algoritmus pracuje. Sekvenčně prochází nesetříděnou část pole, \uv{vybere} nejmenší prvek a vymění ho s prvním prvkem této části, čímž se rozšiřuje setříděná část. Ve srovnání s předchozím algoritmem se tedy setříděné pole vytváří zleva, zatímco u Bubble Sortu se největší prvky přesouvají doprava.
+
+\begin{listing}[ht]
+\input{code/theoryContent/selectionSort.tex}
+\caption{Pseudokód algoritmu Selection Sort}
+\label{lst:selectionSort}
+\end{listing}
+
+Co se týče optimalizace, u algoritmu \textit{Selection Sort} nejsou běžně používané žádné specifické optimalizace, z části i proto, že algoritmus již provádí minimální počet výměn (přesně $n-1$), což je výhodné v situacích, kdy jsou výměny nákladné. Oproti předchozímu algoritmu Bubble Sort není tento algoritmus stabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn. Jeho časová i prostorová složitost je stejná jako u Bubble Sort, tedy $O(n^2)$ pro časovou složitost a $O(1)$ pro prostorovou složitost, protože třídění probíhá přímo v původním poli.~\cite{freeCodeCamp}
+
+\subsubsection*{Insertion sort}
+
+Poslední algoritmus s kvadratickou časovou složitostí, který bude popsán, je \textit{Insertion Sort}. Stejně jako u předchozího algoritmu se zde setřízené pole vytváří zleva, ale místo toho, aby hledal nejmenší prvek v nesetříděné části, \textit{Insertion Sort} postupně posune všechny prvky větší než aktuální klíč doprava a vloží klíč na správnou pozici. Tento proces se opakuje pro každý prvek v poli, dokud není celé pole seřazené.~\cite{freeCodeCamp}
+
+Logiku přesouvání prvků je možné vidět na \customref{Výpisu}{lst:insertionSort}, kde se prvně vybere klíč (aktuální prvek) a poté se porovnává s předchozími prvky v setříděné části pole. Pokud je klíč menší než některý z těchto prvků, tyto prvky se posunou doprava, dokud nenajdou správnou pozici pro klíč, který se poté vloží na tuto pozici.
+
+\begin{listing}[ht]
+    \input{code/theoryContent/insertionSort.tex}
+    \caption{Pseudokód algoritmu Insertion Sort}
+    \label{lst:insertionSort}
+\end{listing}
+
+Tento algoritmus má známou mírnou optimalizaci, kde místo toho, aby se klíč s prvky většími než on přehazoval, uloží se jeho hodnota do pomocné proměnné a poté se posouvají pouze větší prvky, dokud není nalezena správná pozice pro klíč, který se poté vloží na tuto pozici. Tato optimalizace snižuje počet výměn, což může zlepšit výkon algoritmu, zejména v případech, kdy je pole již téměř seřazené.
+
+\textit{Insertion Sort} je stabilní algoritmus, protože nezmění pořadí prvků se stejnou hodnotou během posouvání. Jeho časová složitost je $O(n^2)$ v nejhorším případě, což nastává, když je pole seřazeno v opačném pořadí, ale v nejlepším případě, kdy je pole již seřazené, má časovou složitost $O(n)$, protože každý prvek je porovnán pouze jednou a není potřeba žádných posunů. Pro prostorovou složitost platí $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury.~\cite{freeCodeCamp}
+
+
 \subsection{Algoritmy s logaritmickou časovou složitostí}
 \label{subsec:logarithmic_algorithms}
+
+\subsubsection*{Merge sort}
+
+\begin{listing}[ht]
+\input{code/theoryContent/mergeSort.tex}
+\caption{Pseudokód algoritmu Merge Sort}
+\label{lst:mergeSort}
+\end{listing}
+
+\subsubsection*{Quick sort}
+
+\begin{listing}[ht]
+\input{code/theoryContent/quickSort.tex}
+\caption{Pseudokód algoritmu Quick Sort}
+\label{lst:quickSort}
+\end{listing}
+
+\subsubsection*{Heap sort}
+
+\begin{listing}[ht]
+\input{code/theoryContent/heapSort.tex}
+\caption{Pseudokód algoritmu Heap Sort}
+\label{lst:heapSort}
+\end{listing}
+
+
+
 
 \subsection{Speciální algoritmy pro třídění}
 \label{subsec:special_algorithms}
