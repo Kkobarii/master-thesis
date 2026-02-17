@@ -95,12 +95,12 @@ Vyvážení AVL stromů se udržuje pomocí rotací, které jsou prováděny po 
 
 Názornou ukázku pravých variant rotací (R a RL) je možné vidět na \customref{Obrázku}{img:avl_rotations}. Během rotace se mění struktura podstromu, což umožňuje obnovit vyváženost stromu a zajistit, že všechny operace zůstanou v logaritmické složitosti. Například \textbf{pravá rotace} se provádí, když levý podstrom vrcholu je příliš vysoký, a zahrnuje přesunutí levého potomka vrcholu nahoru a samotného vrcholu dolů do pravého podstromu. Akce přesunutí potomka nahoru je znázorněna oranžovou šipkou nad daným vrcholem. \textbf{Dvojitá pravá-levá rotace} se provádí, když pravý podstrom vrcholu je příliš vysoký a zároveň má levý podstrom, který je vyšší než jeho pravý podstrom. Tato rotace zahrnuje nejprve pravou rotaci na pravém potomku vrcholu a poté levou rotaci na vrcholu samotném.~\cite{levitin}
 
-Tyto rotace sice zvyšují složitost implementace AVL stromů, ale zajišťují, že všechny operace nad stromem mají složitost $\Theta(\log n)$. Kvůli počtu rotací, které mohou být nutné po každé operaci vkládání nebo mazání, sice zabránily AVL stromům stát se standardem pro implementaci asociativních polí (\todo{lepší překlad}), ale jejich myšlenka a principy jsou základem pro další samovyvažující se stromy, které z nich vycházejí.~\cite{levitin}
+Tyto rotace sice zvyšují složitost implementace AVL stromů, ale zajišťují, že všechny operace nad stromem mají složitost $\Theta(\log n)$. Kvůli počtu rotací, které mohou být nutné po každé operaci vkládání nebo mazání, sice zabránily AVL stromům stát se standardem pro implementaci seznamů\footnote{Seznam je v tomto kontextu myšlen jako datová struktura anglicky nazvaná \textit{dictionary}.}, ale jejich myšlenka a principy jsou základem pro další samovyvažující se stromy, které z nich vycházejí.~\cite{levitin}
 
 
 \subsubsection*{Červeno-černý strom}
 
-Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenován podle barvy, kterou jsou označeny jeho uzly. Tento strom udržuje vyváženost pomocí pravidel týkajících se barev uzlů, což zajišťuje, že žádná cesta od kořene k listu není více než dvakrát delší než jakákoli jiná cesta. Červeno-černé stromy jsou často používány v implementacích asociativních polí, jako jsou například mapy a množiny, protože poskytují dobrý kompromis mezi složitostí implementace a výkonem. Příklad červeno-černého stromu je znázorněn na \customref{Obrázku}{img:rb}.~\cite{cormen}
+Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenován podle barvy, kterou jsou označeny jeho uzly. Tento strom udržuje vyváženost pomocí pravidel týkajících se barev uzlů, což zajišťuje, že žádná cesta od kořene k listu není více než dvakrát delší než jakákoli jiná cesta. Červeno-černé stromy jsou často používány v implementacích map a množin, protože poskytují dobrý kompromis mezi složitostí implementace a výkonem. Příklad červeno-černého stromu je znázorněn na \customref{Obrázku}{img:rb}.~\cite{cormen}
 
 \begin{figure}[ht]
     \centering
@@ -334,7 +334,7 @@ Po seznámení s algoritmy s kvadratickou časovou složitostí je vhodné přej
 
 \subsubsection*{Merge sort}
 
-\textit{Merge Sort} je algoritmus založený na principu \textit{rozděl a panuj}. Algoritmus rekurzivně rozděluje pole na dvě poloviny, dokud nedosáhne pole o velikosti jednoho prvku, které je považováno za seřazené. Výsledky se poté postupně slučují zpět dohromady, přičemž při slučování se porovnávají prvky z obou polovin a vytváří se nové pole, které je seřazené. Tento proces se provádí rekurzivně a na konci se získá celé pole seřazené.~\cite{levitin}
+\textit{Merge Sort} je algoritmus založený na principu \textit{divide and conquer}. Algoritmus rekurzivně rozděluje pole na dvě poloviny, dokud nedosáhne pole o velikosti jednoho prvku, které je považováno za seřazené. Výsledky se poté postupně slučují zpět dohromady, přičemž při slučování se porovnávají prvky z obou polovin a vytváří se nové pole, které je seřazené. Tento proces se provádí rekurzivně a na konci se získá celé pole seřazené.~\cite{levitin}
 
 Princip fungování algoritmu \textit{Merge Sort} je znázorněn na \customref{Výpisu}{lst:mergeSort}. Samotná funkce \texttt{MergeSort} je velmi jednoduchá, její jediná funkcionalita je nalezení prvku zhruba uprostřed zadaného pole, rekurzivní zavolání sama sebe pro levou a pravou polovinu a následné zavolání funkce \texttt{Merge}, která provádí samotné slučování. 
 
@@ -350,7 +350,7 @@ Tento algoritmus má časovou složitost $O(n \log n)$ v nejhorším, průměrn�
 
 \subsubsection*{Quick sort}
 
-Dalším velmi efektivním a často používaným algoritmem, který zde bude zmíněn, je algoritmus \textit{Quick Sort}. Stejně jako \textit{Merge Sort} je založen na principu \textit{rozděl a panuj}, jeho časová složitost je v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může dosáhnout až $O(n^2)$. Tento případ je obvykle způsoben nevhodným výběrem pivotu, což je prvek, dle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže. Nicméně, s vhodnými optimalizacemi, jako je například náhodný výběr pivotu, lze dosáhnout průměrné časové složitosti $O(n \log n)$ i v nejhorším případě.~\cite{freeCodeCamp}
+Dalším velmi efektivním a často používaným algoritmem, který zde bude zmíněn, je algoritmus \textit{Quick Sort}. Stejně jako \textit{Merge Sort} je založen na principu \textit{divide and conquer}, jeho časová složitost je v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může dosáhnout až $O(n^2)$. Tento případ je obvykle způsoben nevhodným výběrem pivotu, což je prvek, dle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže. Nicméně, s vhodnými optimalizacemi, jako je například náhodný výběr pivotu, lze dosáhnout průměrné časové složitosti $O(n \log n)$ i v nejhorším případě.~\cite{freeCodeCamp}
 
 \begin{listing}[h]
 \input{code/theoryContent/quickSort.tex}
@@ -369,7 +369,7 @@ Algoritmus \textit{Quick Sort} je nestabilní, protože může měnit pořadí p
 
 \subsubsection*{Heap sort}
 
-Jako poslední uvedený algoritmus, který bude v této kapitole popsán, je algoritmus \textit{Heap Sort}. Oproti dvěma předchozím algoritmům je založen na principu \textit{transform and conquer} \todo{překlad}, protože pracuje s datovou strukturou zvanou halda, která již byla představena v \customref{Kapitole}{sec:priority_queues} a je možné ji efektivně reprezentovat polem. Algoritmus využívá toho, že přetvoření pole do haldy je možné provést v lineárním čase $O(n)$, a poté opakovaně odebírá prvek s nejvyšší prioritou (kořen haldy) a umisťuje ho na konec pole, čímž postupně vytváří seřazené pole. Druhá část algoritmu má složitost $O(n \log n)$ a díky tomu, že obě části algoritmu jsou prováděny sekvenčně, celková časová složitost algoritmu \textit{Heap Sort} je $\Theta(n \log n)$ v nejhorším, průměrném i nejlepším případě.~\cite{levitin}
+Jako poslední uvedený algoritmus, který bude v této kapitole popsán, je algoritmus \textit{Heap Sort}. Oproti dvěma předchozím algoritmům je založen na principu \textit{transform and conquer}, protože pracuje s datovou strukturou zvanou halda, která již byla představena v \customref{Kapitole}{sec:priority_queues} a je možné ji efektivně reprezentovat polem. Algoritmus využívá toho, že přetvoření pole do haldy je možné provést v lineárním čase $O(n)$, a poté opakovaně odebírá prvek s nejvyšší prioritou (kořen haldy) a umisťuje ho na konec pole, čímž postupně vytváří seřazené pole. Druhá část algoritmu má složitost $O(n \log n)$ a díky tomu, že obě části algoritmu jsou prováděny sekvenčně, celková časová složitost algoritmu \textit{Heap Sort} je $\Theta(n \log n)$ v nejhorším, průměrném i nejlepším případě.~\cite{levitin}
 
 \begin{listing}[ht]
 \input{code/theoryContent/heapSort.tex}
