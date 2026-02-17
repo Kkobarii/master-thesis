@@ -233,11 +233,11 @@ Pro přehlednost jsou v této části shrnuty klíčové vlastnosti a časové s
 
 \begin{table}[ht]
     \centering
-    \begin{tabular}{llccl}
+    \begin{tabular}{lccl}
         \toprule
         \textbf{Struktura} & \textbf{Vyhledávání} & \textbf{Vložení/Smazání} & \textbf{Hlavní princip} \\
         \midrule
-        Spojový seznam  & $O(n)$ & $O(1)$ / $O(n)$~\footnotemark & Dynamické uzly \\
+        Spojový seznam  & $O(n)$ & $O(1)$ / $O(n)$~\tablefootnote{Konstantní čas platí pro vkládání/mazání na koncích seznamu (u head/tail).} & Dynamické uzly \\
         Zásobník  & $O(n)$ & $O(1)$ & LIFO princip \\
         Fronta  & $O(n)$ & $O(1)$ & FIFO princip \\
         \midrule
@@ -246,18 +246,12 @@ Pro přehlednost jsou v této části shrnuty klíčové vlastnosti a časové s
         Červeno-černý  & $O(\log n)$ & $O(\log n)$ & Pravidla barev \\
         B-strom  & $O(\log n)$ & $O(\log n)$ & Více klíčů v uzlu \\
         \midrule
-        Binární halda  & $O(1)$~\footnotemark & $O(\log n)$ & Max/Min vlastnost \\
+        Binární halda  & $O(1)$~\tablefootnote{Namísto hledání konkrétního prvku, což by mělo složitost $O(n)$, je možné získat prvek s nejvyšší prioritou (kořen haldy) v konstantním čase $O(1)$.} & $O(\log n)$ & Max/Min vlastnost \\
         \bottomrule
     \end{tabular}
-    \caption{Srovnání vlastností a časové složitosti datových struktur}
+    \caption{Srovnání vlastností a časové složitosti operací datových struktur}
     \label{tab:comparison_structures}
 \end{table}
-\addtocounter{footnote}{-1}
-\footnotetext{Konstantní čas platí pro vkládání/mazání na koncích seznamu (u head/tail).}
-\addtocounter{footnote}{1}
-\footnotetext{Namísto hledání konkrétního prvku, což by mělo složitost $O(n)$, je možné získat prvek s nejvyšší prioritou (kořen haldy) v konstantním čase $O(1)$.}
-
-\todo{fix table footnotes}
 
 Jak vyplývá z tabulky, zatímco lineární struktury jsou vhodné pro specifické typy přístupu k datům (jako LIFO u zásobníku), u vyhledávacích úloh dominují stromové struktury. Samovyvažující se stromy (AVL a červeno-černý) pak řeší problém degradace BST tím, že garantují logaritmickou složitost i v nejhorším případě. Speciální vlastnosti má B-strom, který díky své šířce optimalizuje přístup k datům v sekundárních úložištích, a binární halda, která je optimalizována pro operace s prioritami.
 
@@ -336,23 +330,46 @@ Tento algoritmus má známou mírnou optimalizaci, kde místo toho, aby se klí�
 \subsection{Algoritmy s logaritmickou časovou složitostí}
 \label{subsec:logarithmic_algorithms}
 
+Po seznámení s algoritmy s kvadratickou časovou složitostí je vhodné přejít k algoritmům, které jsou efektivnější a mají logaritmickou časovou složitost, v nejhorším případě tedy provádějí přibližně $O(n \log n)$ operací. Tyto algoritmy jsou schopné třídit velké množství dat mnohem rychleji než algoritmy s kvadratickou složitostí, a proto jsou často používány v praxi. V této části budou popsány tři základní algoritmy s logaritmickou časovou složitostí: \textit{Merge Sort}, \textit{Quick Sort} a \textit{Heap Sort}. Každý z těchto algoritmů bude charakterizován svým principem fungování, složitostí a případnými optimalizacemi.
+
 \subsubsection*{Merge sort}
 
-\begin{listing}[ht]
+\textit{Merge Sort} je algoritmus založený na principu \textit{rozděl a panuj}. Algoritmus rekurzivně rozděluje pole na dvě poloviny, dokud nedosáhne pole o velikosti jednoho prvku, které je považováno za seřazené. Výsledky se poté postupně slučují zpět dohromady, přičemž při slučování se porovnávají prvky z obou polovin a vytváří se nové pole, které je seřazené. Tento proces se provádí rekurzivně a na konci se získá celé pole seřazené.~\cite{levitin}
+
+Princip fungování algoritmu \textit{Merge Sort} je znázorněn na \customref{Výpisu}{lst:mergeSort}. Samotná funkce \texttt{MergeSort} je velmi jednoduchá, její jediná funkcionalita je nalezení prvku zhruba uprostřed zadaného pole, rekurzivní zavolání sama sebe pro levou a pravou polovinu a následné zavolání funkce \texttt{Merge}, která provádí samotné slučování. 
+
+\begin{listing}[H]
 \input{code/theoryContent/mergeSort.tex}
 \caption{Pseudokód algoritmu Merge Sort}
 \label{lst:mergeSort}
 \end{listing}
 
+Funkce \texttt{Merge} je již delší co se týče implementace. Na začátku překopíruje levou a pravou část pole do dvou pomocných polí a následně u obě z nich prochází sekvenčně zleva a porovnává jejich prvky. Menší prvek z obou polí se vloží do výsledného pole a index se posune o jednu pozici doprava. Tento proces se opakuje, dokud nejsou všechna data z obou pomocných polí zpracována, přičemž pokud jedno z polí dojde dříve, zbylé prvky z druhého pole se jednoduše překopírují do výsledného pole.
+
+Tento algoritmus má časovou složitost $O(n \log n)$ v nejhorším, průměrném i nejlepším případě, protože vždy rozděluje pole na dvě poloviny a prochází všechny prvky během slučování. Prostorová složitost je však horší než u výše uvedených kvadratických algoritmů, protože vyžaduje dodatečný prostor pro pomocná pole během slučování, což vede k prostorové složitosti $O(n)$. Nicméně, \textit{Merge Sort} je stabilní a velmi dobře se paralelizuje, což z něj činí vhodný algoritmus pro třídění velkých datových sad, zejména v prostředí s více procesory.~\cite{freeCodeCamp}
+
 \subsubsection*{Quick sort}
 
-\begin{listing}[ht]
+Dalším velmi efektivním a často používaným algoritmem, který zde bude zmíněn, je algoritmus \textit{Quick Sort}. Stejně jako \textit{Merge Sort} je založen na principu \textit{rozděl a panuj}, jeho časová složitost je v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může dosáhnout až $O(n^2)$. Tento případ je obvykle způsoben nevhodným výběrem pivotu, což je prvek, dle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže. Nicméně, s vhodnými optimalizacemi, jako je například náhodný výběr pivotu, lze dosáhnout průměrné časové složitosti $O(n \log n)$ i v nejhorším případě.~\cite{freeCodeCamp}
+
+\begin{listing}[h]
 \input{code/theoryContent/quickSort.tex}
 \caption{Pseudokód algoritmu Quick Sort}
 \label{lst:quickSort}
 \end{listing}
 
+Hlavní funkce tohoto algoritmu je podobná jako v minulém případě. Pokud je pole větší než jeden prvek, zavolá se funkce \texttt{Partition}, která rozdělí pole na dvě části podle zvoleného pivotu, jehož index vrací. Následně se funkce \texttt{Quick Sort} rekurzivně volá pro obě části pole.
+
+Funkce \texttt{Partition} nejprve zvolí pivot, v příkladu na \customref{Výpisu}{lst:quickSort} se jedná o poslední prvek pole. Poté prochází pole od začátku a porovnává každý prvek s pivotem. Pokud je prvek menší nebo roven pivotu, provede se výměna tohoto prvku s prvkem na indexu $i$ (který začíná na začátku pole) a tento index se posune o jednu pozici doprava. Po dokončení průchodu polem se pivot vymění s prvkem na indexu $i$, čímž se zajistí, že všechny prvky menší nebo rovné pivotu jsou nalevo od něj a všechny větší prvky jsou napravo. Funkce poté vrací index pivotu, který se používá pro další rekurzivní volání.
+
+Hlavní optimalizace tohoto algoritmu se točí kolem efektivního výběru vhodného pivotu. Pokud totiž je pivot zvolen nevhodně, například jako nejmenší nebo největší prvek v poli, může dojít k tomu, že jedna část pole bude prázdná a druhá bude obsahovat všechny prvky, což vede k nejhoršímu scénáři s časovou složitostí $O(n^2)$. Pro zlepšení výkonu se často používá náhodný výběr pivotu, median-of-three metoda (kde se jako pivot zvolí medián z prvního, prostředního a posledního prvku) nebo jiné heuristiky, které pomáhají zajistit lepší rozdělení pole a tím i lepší výkon algoritmu.~\cite{freeCodeCamp}
+
+Algoritmus \textit{Quick Sort} je nestabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn. Jeho prostorová složitost je $O(\log n)$ v průměrném případě, což je způsobeno rekurzivními voláními, ale v nejhorším případě může dosáhnout až $O(n)$, pokud jsou všechny prvky stejné nebo pokud je pole již seřazené a pivot je vždy nejmenší nebo největší prvek.~\cite{freeCodeCamp}
+
+
 \subsubsection*{Heap sort}
+
+Jako poslední uvedený algoritmus, který bude v této kapitole popsán, je algoritmus \textit{Heap Sort}. Oproti dvěma předchozím algoritmům je založen na principu \textit{transform and conquer} \todo{překlad}, protože pracuje s datovou strukturou zvanou halda, která již byla představena v \customref{Kapitole}{sec:priority_queues} a je možné ji efektivně reprezentovat polem. Algoritmus využívá toho, že přetvoření pole do haldy je možné provést v lineárním čase $O(n)$, a poté opakovaně odebírá prvek s nejvyšší prioritou (kořen haldy) a umisťuje ho na konec pole, čímž postupně vytváří seřazené pole. Druhá část algoritmu má složitost $O(n \log n)$ a díky tomu, že obě části algoritmu jsou prováděny sekvenčně, celková časová složitost algoritmu \textit{Heap Sort} je $\Theta(n \log n)$ v nejhorším, průměrném i nejlepším případě.~\cite{levitin}
 
 \begin{listing}[ht]
 \input{code/theoryContent/heapSort.tex}
@@ -360,8 +377,40 @@ Tento algoritmus má známou mírnou optimalizaci, kde místo toho, aby se klí�
 \label{lst:heapSort}
 \end{listing}
 
+Podobně jako u dvou předchozích příkladů se implementace skládá z hlavní funkce \texttt{HeapSort}, která je volána na celé pole a která využívá pomocnou funkci \texttt{Heapify} pro přetvoření pole do haldy. Nejprve se pole přetvoří do max-heapu, což zajišťuje, že největší prvek je na kořeni haldy. Poté se tento prvek vymění s posledním prvkem pole a z o jeden prvek menšího pole se znovu vytvoří halda.
+
+Funkce \texttt{Heapify} je zodpovědná za udržení vlastnosti haldy. Pro každý uzel v poli se porovnává s jeho potomky a pokud je některý z potomků větší než rodičovský uzel, provede se výměna a funkce se rekurzivně volá pro tento potomek, aby se zajistilo, že vlastnost haldy je zachována pro celý strom.
+
+Jak již bylo zmíněno, algoritmus \textit{Heap Sort} má časovou složitost $\Theta(n \log n)$ v nejhorším, průměrném i nejlepším případě, protože přetvoření pole do haldy je lineární operace a následné odebírání prvku s nejvyšší prioritou a udržování vlastnosti haldy má logaritmickou složitost. Prostorová složitost je $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury. Algoritmus \textit{Heap Sort} je nestabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.~\cite{levitin}
 
 
+\subsection{Srovnání třídících algoritmů}
+\label{subsec:sorting_comparison}
 
-\subsection{Speciální algoritmy pro třídění}
-\label{subsec:special_algorithms}
+Pro usnadnění výběru vhodného algoritmu a pro přehlednost teoretických poznatků jsou v této kapitole shrnuty klíčové vlastnosti všech implementovaných algoritmů. Srovnání se zaměřuje na časovou složitost v různých případech, prostorovou náročnost a stabilitu, což je schopnost algoritmu zachovat původní relativní pořadí prvků se stejným klíčem.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Algoritmus} & \multicolumn{2}{c}{\textbf{Časová složitost}} & \textbf{Prostorová} & \textbf{Stabilita} \\
+        & \textbf{Průměrná} & \textbf{Nejhorší} & \textbf{složitost} & \\
+        \midrule
+        Bubble Sort     & $O(n^2)$       & $O(n^2)$       & $O(1)$      & Ano \\
+        Selection Sort  & $O(n^2)$       & $O(n^2)$       & $O(1)$      & Ne  \\ 
+        Insertion Sort  & $O(n^2)$       & $O(n^2)$       & $O(1)$      & Ano \\ 
+        \midrule
+        Merge Sort      & $O(n \log n)$  & $O(n \log n)$  & $O(n)$      & Ano \\
+        Quick Sort      & $O(n \log n)$  & $O(n^2)$       & $O(n)$      & Ne  \\ 
+        Heap Sort       & $O(n \log n)$  & $O(n \log n)$  & $O(1)$      & Ne  \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Srovnání vlastností a složitosti třídících algoritmů}
+    \label{tab:sorting_comparison}
+\end{table}
+
+Z \customref{Tabulky}{tab:sorting_comparison} je patrné, že algoritmy s kvadratickou časovou složitostí jsou vhodné spíše pro menší datové sady nebo pro specifické případy, jako je téměř seřazené pole u algoritmu \textit{Insertion Sort}, kde jeho nejlepší časová složitost dosahuje lineárních hodnot $O(n)$. 
+
+Naopak algoritmy s logaritmickou složitostí vykazují výrazně vyšší efektivitu u velkých datových sad. \textit{Merge Sort} sice vykazuje vyšší prostorovou náročnost $O(n)$, ale na rozdíl od \textit{Quick Sortu} a \textit{Heap Sortu} garantuje stabilitu třídění. \textit{Quick Sort} je v praxi často nejrychlejší, avšak jeho výkon je silně závislý na volbě pivotu, což se projevuje v riziku nejhoršího případu $O(n^2)$. \textit{Heap Sort} představuje vyvážený kompromis, který garantuje logaritmický čas i v nejhorším případě při zachování konstantní prostorové složitosti.
+
+Výše uvedené algoritmy byly tedy označeny jako klíčové pro implementaci v rámci výukové aplikace, protože pokrývají široké spektrum třídících technik a umožňují uživatelům pochopit různé přístupy k třídění dat, jejich výhody a nevýhody.
