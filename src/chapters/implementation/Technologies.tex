@@ -8,31 +8,49 @@ Pro úspěšnou realizaci projektu je prvně nutné vhodně zvolit technologie, 
 
 Ještě před samotnou volbou vhodného frameworku je důležité provést krátkou analýzu možné architektury pro výukovou aplikaci. Architektura určuje, kde bude implementována logika aplikace, jak budou zpracovávány požadavky uživatele a jakým způsobem se bude provádět zobrazování stránky.
 
-\subsection{Client-Server a Jednostránková webová aplikace}
-\label{subsec:client_server_vs_spa}
+\subsection{Klient-server architektura}
+\label{subsec:client_server_architecture}
 
-Prvním možným přístupem je klasická \textbf{Client-Server} architektura, kdy je logika aplikace implementována na serveru a klient (prohlížeč) pouze zobrazuje výsledky, přičemž komunikace mezi nimi probíhá pomocí HTTP požadavků. Příklad fungování této architektury je zobrazen na \customref{Obrázku}{fig:page_lifecycles}, konkrétně jeho levé, modré části. Interakce uživatele s aplikací funguje tak, že při každé akci uživatele (například kliknutí na tlačítko) je odeslán HTTP požadavek na server, který zpracuje požadavek, provede potřebné operace a jako odpověď vrátí novou HTML stránku, která se následně načte v prohlížeči. V praxi to tedy znamená nutnost znovunačtení stránky s každou takovou interakcí. Tento přístup je poměrně jednoduchý a dobře známý, ale může být pomalý a neefektivní, zejména pokud se jedná o interaktivní aplikaci s častými aktualizacemi a obzvláště když stránka nepotřebuje uchovávat stav nebo jiné informace přímo na serveru.
+Prvním možným přístupem je klasická klient-server architektura (\textit{Client-Server Architecture}), kdy je logika aplikace implementována na serveru a klient (prohlížeč) pouze zobrazuje výsledky, přičemž komunikace mezi nimi probíhá pomocí HTTP požadavků. Příklad fungování této architektury je zobrazen na \customref{Obrázku}{fig:page_lifecycles}, konkrétně jeho levé, modré části. Interakce uživatele s aplikací funguje tak, že při každé akci uživatele (například kliknutí na tlačítko) je odeslán HTTP požadavek na server, který zpracuje požadavek, provede potřebné operace a jako odpověď vrátí novou HTML stránku, která se následně načte v prohlížeči. V praxi to tedy znamená nutnost znovunačtení stránky s každou takovou interakcí. Tento přístup je poměrně jednoduchý a dobře známý, ale může být pomalý a neefektivní, zejména pokud se jedná o interaktivní aplikaci s častými aktualizacemi a obzvláště když stránka nepotřebuje uchovávat stav nebo jiné informace přímo na serveru.
 
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/technologies/page_lifecycles.pdf}
-    \caption{Srovnání životních cyklů stránek v klasické client-server architektuře a v SPA}
+    \caption{Srovnání životních cyklů stránek v klasické klient-server architektuře a v SPA}
     \label{fig:page_lifecycles}
 \end{figure}
 
-Jako reakce na nevýhody klasické architektury se v posledních letech rozšířil přístup zvaný \textbf{Jednostránková webová aplikace} (\textit{Single Page Application}, dále \textit{SPA}). Hlavním rozdílem mezi SPA a klasickou architekturou je to, že v případě SPA jsou data získána hned při prvním požadavku u načtení stránky a následně se již neodesílají další požadavky o další stránky. Namísto toho se veškerá logika a zpracování provádí na straně klienta, přičemž komunikace se serverem probíhá pouze pro získávání dat (například pomocí API). Jak je vidět na pravé, oranžové části \customref{Obrázku}{fig:page_lifecycles}, využívá se zde technologie \textit{AJAX} a odpověď ze serveru jsou tentokrát data ve formátu \textit{JSON}, která jsou následně zpracována a zobrazena na stejné stránce bez nutnosti jejího obnovení.~\cite{ifour}
+\subsection{Jednostránková webová aplikace}
+\label{subsec:spa}
+
+Jako reakce na nevýhody klasické architektury se v posledních letech rozšířil přístup zvaný jednostránková webová aplikace (\textit{Single Page Application}, dále \textit{SPA}). Hlavním rozdílem mezi SPA a klasickou architekturou je to, že v případě SPA jsou data získána hned při prvním požadavku u načtení stránky a následně se již neodesílají další požadavky o další stránky. Namísto toho se veškerá logika a zpracování provádí na straně klienta, přičemž komunikace se serverem probíhá pouze pro získávání dat (například pomocí API). Jak je vidět na pravé, oranžové části \customref{Obrázku}{fig:page_lifecycles}, využívá se zde technologie \textit{AJAX} a odpověď ze serveru jsou tentokrát data ve formátu \textit{JSON}, která jsou následně zpracována a zobrazena na stejné stránce bez nutnosti jejího obnovení.~\cite{ifour}
 
 Výhodou tohoto přístupu je rychlejší a plynulejší uživatelský zážitek, protože není nutné znovu načítat celou stránku s každou interakcí. Navíc umožňuje lepší využití zdrojů a efektivnější komunikaci se serverem, protože se odesílají pouze potřebná data namísto celé stránky. SPA také může být výhodná v případě, že uživatel nemá vždy stabilní připojení k internetu, protože většina logiky a zpracování se provádí na klientovi, což umožňuje aplikaci fungovat i v offline režimu, pokud již předtím načetla potřebná data. 
 
 Nevýhodou však může být složitější vývoj a údržba, protože veškerá logika a zpracování musí být implementována na straně klienta, což může být náročnější než implementace na serveru. Problémy také nastávají s optimalizací pro vyhledávače (SEO), protože obsah není vždy dostupný pro indexování, a také s bezpečností, protože veškerá logika je přístupná na straně klienta.
 
-Z důvodu výše uvedených výhod a nevýhod byla pro tento projekt zvolena architektura typu SPA, která je vhodnější pro interaktivní aplikace s častými aktualizacemi a umožňuje lepší uživatelský zážitek bez nutnosti časté komunikace se serverem.
+\section{Strategie renderování}
+\label{sec:rendering_strategies}
 
+Dalším důležitým aspektem architektury je strategie renderování, tedy způsob, jakým se generuje a zobrazuje obsah na stránce. Strategie existují různé, liší se zejména tím, kde se provádí zpracování a generování HTML kódu. Ovlivnit mohou nejen uživatelský zážitek, ale také výkon a optimalizaci pro vyhledávače (SEO).
 
-\subsection{Strategie renderování}
-\label{subsec:rendering_strategies}
+\subsection{Client-Side Rendering}
+\label{subsec:client_side_rendering}
 
-\todo{pokračovat tady, SSR vs CSR}~\cite{web.dev}
+\todo{komentovat obrazek, ale ne moc}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/technologies/rendering_strategies.pdf}
+    \caption{Srovnání různých strategií renderování}
+    \label{fig:rendering_strategies}
+\end{figure}
+
+\subsection{Server-Side Rendering}
+\label{subsec:server_side_rendering}
+
+\subsection{Static Site Generation}
+\label{subsec:static_site_generation}
 
 % Single page application a co to je
 % Proč zrovna SPA
