@@ -141,29 +141,115 @@ Další úprava pro responzivní zobrazení se týká horní navigační lišty,
 \section{Návrh vizualizačních komponent}
 \label{sec:visualization-components}
 
+V předchozí kapitole bylo navrženo obecné rozvržení pro všechny stránky, byly však vynechány jedny z nejdůležitějších vizuálních prvků výukové aplikace -- samotná vizualizace datových struktur a pole, které se mění v průběhu třídicích algoritmů.
+Tato kapitola tedy poskytuje bližší pohled na tyto komponenty a způsob, jakým budou zobrazeny.
+
 \subsection{Vizualizace datových struktur}
 \label{subsec:structure-visualization}
+
+Co se týče datových struktur, základem jejich vizualizace je grafová knihovna, která byla zvolena v předchozí analýze \chapterref{sec:graph_library}, tedy \textit{vis-network}.
+Grafy zobrazené pomocí této knihovny se vykreslují do elementu \textit{canvas}, což umožňuje efektivní vykreslování i pro větší datové struktury.
+Pro vizualizaci stromů je využíván hierarchický layout, který zajišťuje, že uzly jsou uspořádány do vrstev podle své hloubky ve stromu, pro lineární datové struktury se dá stejný princip použít také.
+
+Jelikož u některých datových struktur je třeba zobrazovat doplňující informace (např. informace o vyvážení uzlu AVL stromu nebo identifikace začátku a konce fronty), je u vizualizace nutné implementovat určitý způsob anotace grafu.
+Anotace se využívá nejen pro zmíněné informace, ale také pro komentář k aktuální operaci a kroku, uživatel tak bude mít další pomocnou vysvětlivku směřující jeho pozornost k důležitým uzlům grafu.
+Tyto popisky jsou vykresleny taktéž do elementu \textit{canvas}, využívaje API knihovny pro zjištění konkrétních souřadnic jednotlivých uzlů grafu.
+Samotný návrh vizuálu tedy není přiložen, jedná se totiž o základní vykreslení grafu knihovnou vis-network zobrazeným výše na \customref{Obrázku}{fig:vis_tree}, rozšířené o informační popisky.
 
 \subsection{Obecná vizualizace pole}
 \label{subsec:general-array-visualization}
 
+První ze dvou úrovní vizualizace třídicích algoritmů je ta obecná, která zobrazuje pouze pole ve velmi zjednodušené formě, bez zbytečných detailů.
+Slouží primárně k předvedení, jak algoritmus s polem pracuje ze širšího pohledu, uživatele zde nezajímají konkrétní hodnoty, ale spíše tvar dat a jejich změna v každé iteraci.
+Proto je tato vizualizace, zobrazená na \customref{Obrázku}{fig:wire_sorting_big}, složená pouze z jednoduchých obdélníků, které reprezentují jednotlivé hodnoty na daném indexu.
+Na levé straně je znázorněno setříděné pole, na pravé pak zamíchané, kde je díky různým velikostem prvků jasně vidět, v jakém pořadí by měly ve finální iteraci být.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/design/sortingComponents_big.pdf}
+    \caption{Návrh obecné vizualizace pole}
+    \label{fig:wire_sorting_big}
+\end{figure}
+
+Jednotlivé prvky pole jsou realizovány jako HTML elementy, jejichž výška odpovídá hodnotě daného prvku, což lze jednoduše realizovat pomocí CSS.
+Jsou jednobarevné, jejich obarvení je tedy uživatelem lehce zaznamenatelné a umožní názorné zvýraznění momentálně aktivních prvků.
+Protože se jedná o HTML elementy, je také možné využít CSS animace pro plynulé přechody mezi iteracemi a při přehození prvků.
+
 \subsection{Detailní vizualizace pole}
 \label{subsec:detailed-array-visualization}
+
+Pro detailní vizualizaci pole, která je zaměřena na předání hlubšího porozumění algoritmu, je potřeba přidat další informace a vizuální prvky, které pomohou uživateli pochopit, co se v daném kroku děje.
+Proto je vizualizace na \customref{Obrázku}{fig:wire_sorting_detail} složená z menšího počtu bloků stejné velikosti namísto sloupců, aby bylo možné lépe využít prostor.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/design/sortingComponents_detail.pdf}
+    \caption{Návrh detailní vizualizace pole}
+    \label{fig:wire_sorting_detail}
+\end{figure}
+
+Myšlenka obdélníků s velikostí odpovídající hodnotě prvků zůstává, ale stává se spíše doplňujícím elementem, přidaným na levou stranu každého prvku pole.
+Tyto prvky jsou však reprezentovány jako bloky stejné výšky, které obsahují informaci jak o indexu v poli, tak hodnotě daného prvku.
+Na pravé straně se opět nachází nesetříděné pole.
+Je zde také naznačena animace probíhající při prohazování prvků -- vizuální přesun po křivce (tzv. oblouková trajektorie).
+Tento plynulý přesun dodává celému procesu na názornosti, protože uživatel neztrácí kontext o tom, kam se prvek přemístil.
+I tato data jsou reprezentována jako HTML elementy, je tedy využita možnost stylů a animací poskytovaných CSS.
 
 \section{Vizuální styl a sémantika barev}
 \label{sec:visual-style-colors}
 
+Vizuální styl výukové aplikace neslouží jen k estetickému dojmu, ale je sám o sobě jedním z důležitých nosičů informací. Správné použití barev a typografie snižuje kognitivní zátěž studenta a pomáhá mu lépe sledovat průběh algoritmu.
+
 \subsection{Barevná paleta}
 \label{subsec:color-palette}
-% Definice primárních a sekundárních barev
+
+Výběr barevné palety pro uživatelské rozhraní se opírá o základní principy teorie barev a zaměřuje se na podporu pochopení principů učiva.
+Vzorník barev je přiložen na \customref{Obrázku}{fig:palette}.
+Zvolené barvy jsou převážně přirozené a méně saturované, což předchází únavě očí při delším používání aplikace.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{figures/design/palette.pdf}
+    \caption{Barevná paleta výukové aplikace}
+    \label{fig:palette}
+\end{figure}
+
+Primární barvou uživatelského rozhraní je neutrální šedá, která tvoří čisté a nerušivé pozadí.
+Sekundární a akcentní barvou je zelená, jež je využívána pro interaktivní prvky, nadpisy a obecně pro dodání webové stránce alespoň nějaké zajímavé barvy.
+Zbylé barvy z palety jsou vyhrazeny striktně pro sémantické obarvování interaktivních vizualizací, aby uživatel snadno rozpoznal jednotlivé stavy algoritmů.
 
 \subsection{Sémantické barvy vizualizací}
 \label{subsec:semantic-colors}
-% Význam barev (aktivní prvek, seřazený prvek, pivot)
+
+Pro správné pochopení datových struktur a algoritmů hraje barva klíčovou roli, neboť slouží jako hlavní nositel informace o aktuálním stavu vizualizovaného prvku.
+Barevná sémantika je rozdělena do dvou hlavních kategorií podle typu vizualizace.
+
+U \textbf{datových struktur} je výchozí barvou uzlů zelená.
+Během průchodu strukturou mění uzly svou barvu podle prováděné operace: azurová barva indikuje hledaný prvek, zatímco modrá označuje nalezený uzel nebo potomka.
+Pokud je uzel označen ke smazání, je zvýrazněn varovnou červenou barvou.
+Specifický přístup vyžadují Red-Black stromy, kde samotná podstata struktury závisí na barvě uzlu.
+V tomto případě jsou uzly obarveny tmavě šedou (reprezentující černé uzly) a tlumenou červenou barvou.
+Aby nedocházelo ke konfliktu s indikací mazání, je odstranění uzlu v těchto stromech řešeno pomocí výrazného červeného obrysu, nikoliv výplně. \todo{fix this when u figure it out}
+Mezi další specifické sémantické barvy patří žlutá, která indikuje informace o vyvážení uzlu AVL stromu, a modrá, sloužící ke zvýraznění porovnávaných prvků u haldy.
+
+U \textbf{třídicích algoritmů} je výchozím stavem neutrální šedá barva.
+Pozornost uživatele je při krokování směrována pomocí červené barvy, jež značí aktuálně porovnávanou dvojici prvků.
+Pokud dojde k jejich přesunu či prohození, barva se mění na modrou.
+Jakmile prvek dosáhne své finální pozice a je prokazatelně setříděn, získá zelenou barvu.
+To uživateli vizuálně usnadňuje oddělit již vyřešenou část pole od stále probíhajícího algoritmu.
+V případě složitějších algoritmů, jako je Quick Sort, je využita fialová barva pro jasnou identifikaci pivotu.
+Při rozdělování pole (Quick Sort a Merge Sort) se pak kombinuje fialová a žlutá barva pro vizuální oddělení levé a pravé části.
 
 \subsection{Typografie}
 \label{subsec:typography}
-% Volba fontů pro text a monospace pro pseudokód
+
+Čitelnost textu je pro výukové materiály naprosto stěžejní, proto byl při návrhu kladen velký důraz na volbu vhodných řezů písma.
+Pro běžný text uživatelského rozhraní byla zvolena rodina bezpatkových (sans-serif) systémových písem (např. systémový font daného operačního systému, jako je San Francisco na macOS či Segoe UI na Windows).
+Toto řešení zaručuje, že aplikace působí přirozeně a moderně na jakémkoliv zařízení, přičemž text zůstává perfektně čitelný i při menších velikostech.
+
+Druhá typografická volba se týká výpisů pseudokódu v detailních vizualizacích.
+Zde je použita rodina neproporcionálních písem (monospace), u kterých má každý znak stejnou šířku.
+Tento typ písma je nezbytný pro správné vertikální zarovnání kódu, zachování odsazení a především pro jednoznačnou odlišitelnost vizuálně podobných znaků, což je pro pochopení algoritmů nezbytné.
 
 \section{Návrh logiky simulace a animací}
 \label{sec:simulation-logic-animations}
