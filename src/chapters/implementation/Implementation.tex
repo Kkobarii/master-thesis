@@ -1,0 +1,63 @@
+\chapter{Implementace}
+\label{chap:implementation}
+
+\section{Celková architektura systému}
+\label{sec:system_architecture}
+% Rozdělení na nezávislé sub-systémy
+
+\section{Implementační jádro třídicích algoritmů}
+\label{subsec:implementation-algorithms}
+
+\subsection{Stavový automat}
+\label{subsec:state-machine}
+% Stavový automat a správa životního cyklu (`StepManager`)
+
+\subsection{Záznam transakční historie}
+\label{subsec:transaction-history}
+% Generování a záznam transakční historie (`TraceBuilder`)
+
+\section{Implementační jádro datových struktur}
+\label{subsec:implementation-structures}
+
+\subsection{Událostmi řízený model}
+\label{subsec:event-driven-model}
+% Událostmi řízený model (`OperationManager` a `EventType`)
+
+\subsection{Systém delegace a zpracování kroků}
+\label{subsec:delegation-processing}
+% Systém delegace a zpracování kroků (`StepHandlerBase` a potomci)
+
+\section{Implementace vizualizačního enginu}
+\label{sec:visualization-engine-implementation}
+% Vizualizační engine a řešení technologických omezení
+
+\subsection{Vizuální reprezentace rekurzivních algoritmů}
+\label{subsec:recursive-algorithms-visualization}
+% Vizuální reprezentace rekurzivních algoritmů (vertikální posuvy a stínování kontextu u Merge/Quick sortu)
+
+\subsection{Orchestrace a animace grafových struktur}
+\label{subsec:graph-structures-animation}
+% Orchestrace a animace grafových struktur (`Animator`)
+
+\subsection{Implementace anotační vrstvy}
+\label{sec:annotation-layer-implementation}
+% Implementace vlastní anotační vrstvy (`Annotator` a překonání limitů vis-network)
+
+\subsection{Technologické limity vizualizace B-stromů}
+\label{subsec:b-tree-visualization-limits}
+% Proč je vis-network nevhodný pro vizualizaci B-stromů a jaké jsou důsledky pro implementaci
+
+\section{Pokročilé funkcionality a technické výzvy}
+\label{sec:advanced-features-challenges}
+
+\subsection{Dynamické překlady}
+\label{subsec:dynamic-translation}
+% Dynamická internacionalizace (i18n) v elementu Canvas
+
+\subsection{Responzivní design}
+\label{subsec:responsive-design}
+% Responzivní design a adaptace na barevné motivy
+
+\subsection{Souběžné zpracování simulací a vizualizací}
+\label{subsec:concurrent-processing}
+% Souběžné zpracování simulací a jejich komparace

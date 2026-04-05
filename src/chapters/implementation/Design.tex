@@ -33,6 +33,7 @@ Sitemap diagram aplikace \imageref{fig:sitemap} znázorňuje hierarchii stránek
 Ve větvi \textit{Datové struktury} se stránka dále větví na jednotlivé struktury, přičemž každá z nich má svou dedikovanou stránku, která v sobě integruje veškerou teorii i samotnou simulaci.
 Podobně uspořádané jsou také stránky pro \textit{Třídicí algoritmy}, každý algoritmus má svou stránku s přehledem a obecnou simulací, aby se uživatel mohl seznámit s daným algoritmem z širšího pohledu.
 Dále má uživatel možnost přejít na stránku \textit{Detail}, kde je algoritmus simulován detailněji, s krokovatelným pseudokódem algoritmu a interaktivní vizualizací paměti.
+Větev \textit{Třídicí algoritmy} na závěr poskytuje také stránku s porovnáním všech algoritmů, aby si jejich chod uživatelé mohli srovnat, který z nich je nejefektivnější.
 Kromě stránek zaměřených čistě na výukový obsah má nástroj také stránku \textit{O aplikaci} s obecnými informacemi o jeho účelu a využití.
 
 \subsection{Navigační koncept}
@@ -227,9 +228,9 @@ Barevná sémantika je rozdělena do dvou hlavních kategorií podle typu vizual
 U \textbf{datových struktur} je výchozí barvou uzlů zelená.
 Během průchodu strukturou mění uzly svou barvu podle prováděné operace: azurová barva indikuje hledaný prvek, zatímco modrá označuje nalezený uzel nebo potomka.
 Pokud je uzel označen ke smazání, je zvýrazněn varovnou červenou barvou.
-Specifický přístup vyžadují Red-Black stromy, kde samotná podstata struktury závisí na barvě uzlu.
+Specifický přístup vyžadují červeno-černé stromy, kde samotná podstata struktury závisí na barvě uzlu.
 V tomto případě jsou uzly obarveny tmavě šedou (reprezentující černé uzly) a tlumenou červenou barvou.
-Aby nedocházelo ke konfliktu s indikací mazání, je odstranění uzlu v těchto stromech řešeno pomocí výrazného červeného obrysu, nikoliv výplně. \todo{fix this when u figure it out}
+Aby nedocházelo ke konfliktu s indikací mazání, je odstranění uzlu v těchto stromech řešeno pomocí výplně odlišného odstínu.
 Mezi další specifické sémantické barvy patří žlutá, která indikuje informace o vyvážení uzlu AVL stromu, a modrá, sloužící ke zvýraznění porovnávaných prvků u haldy.
 
 U \textbf{třídicích algoritmů} je výchozím stavem neutrální šedá barva.
@@ -237,8 +238,8 @@ Pozornost uživatele je při krokování směrována pomocí červené barvy, je
 Pokud dojde k jejich přesunu či prohození, barva se mění na modrou.
 Jakmile prvek dosáhne své finální pozice a je prokazatelně setříděn, získá zelenou barvu.
 To uživateli vizuálně usnadňuje oddělit již vyřešenou část pole od stále probíhajícího algoritmu.
-V případě složitějších algoritmů, jako je Quick Sort, je využita fialová barva pro jasnou identifikaci pivotu.
-Při rozdělování pole (Quick Sort a Merge Sort) se pak kombinuje fialová a žlutá barva pro vizuální oddělení levé a pravé části.
+V případě složitějších algoritmů, jako je Quick Sort, je využita žlutá barva pro jasnou identifikaci pivotu.
+Při rozdělování pole (Quick Sort a Merge Sort) se pak kombinuje fialová a tyrkysová barva pro vizuální oddělení levé a pravé části.
 
 \subsection{Typografie}
 \label{subsec:typography}
@@ -251,8 +252,8 @@ Druhá typografická volba se týká výpisů pseudokódu v detailních vizualiz
 Zde je použita rodina neproporcionálních písem (monospace), u kterých má každý znak stejnou šířku.
 Tento typ písma je nezbytný pro správné vertikální zarovnání kódu, zachování odsazení a především pro jednoznačnou odlišitelnost vizuálně podobných znaků, což je pro pochopení algoritmů nezbytné.
 
-\section{Návrh logiky simulace a animací}
-\label{sec:simulation-logic-animations}
+\section{Konceptuální model řízení simulace}
+\label{sec:simulation-control-model}
 
 \subsection{Stavy simulace}
 \label{subsec:simulation-states}
@@ -262,17 +263,17 @@ Tento typ písma je nezbytný pro správné vertikální zarovnání kódu, zach
 \label{subsec:stepping-mechanisms}
 % Koncept zastavení a pokračování algoritmu
 
-\subsection{Propojení kódu a vizualizace}
-\label{subsec:code-viz-linking}
-% Zvýrazňování řádků v pseudokódu v reálném čase
-
 \section{Datový model a abstrakce}
 \label{sec:data-model-abstraction}
 
-\subsection{Reprezentace struktur}
+\subsection{Reprezentace datových struktur}
 \label{subsec:structure-representation}
 % Objektové modely pro uzly a prvky polí
 
-\subsection{Rozhraní pro algoritmy}
+\subsection{Rozhraní pro třídící algoritmy}
 \label{subsec:algorithm-interface}
 % Komunikace mezi logikou algoritmu a vizualizačním enginem
+
+\subsection{Provázání logické vrstvy s uživatelským rozhraním}
+\label{subsec:logic-ui-binding}
+% Jak jsou změny v datech reflektovány ve vizualizaci a naopak
