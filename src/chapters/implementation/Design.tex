@@ -255,13 +255,54 @@ Tento typ písma je nezbytný pro správné vertikální zarovnání kódu, zach
 \section{Konceptuální model řízení simulace}
 \label{sec:simulation-control-model}
 
-\subsection{Stavy simulace}
-\label{subsec:simulation-states}
-% Stavový automat (Hraje se / Pozastaveno / Hotovo)
+Základním stavebním kamenem každé interaktivní výukové aplikace je způsob, jakým systém pracuje se stavem simulace v reálném čase a jakým způsobem umožňuje uživateli tento stav ovládat.
+Uživatel musí mít možnost algoritmus pozastavit, krokovat nejen vpřed ale i vzad, aby mohl lépe pochopit, co se v daném kroku děje.
+Z tohoto důvodu bylo nutné již ve fázi návrhu opustit myšlenku naivního přístupu, kdy by se algoritmus vykonával v reálném čase a uživatel by pouze pozoroval jeho průběh, a místo toho navrhnout komplexní konceptuální model, který umožní plnou kontrolu nad simulací.
+
+\subsection{Předpočítaná historie stavů}
+\label{subsec:precomputed-state-history}
+
+Pro simulaci obou typů vizualizací, tedy datových struktur i třídicích algoritmů, byl zvolen architektonický vzor založený na předpočítání historie stavů (\textit{Pre-computed State Queue}).
+Tento koncept spočívá v tom, že při inicializaci simulace s danými vstupními daty se celý proces okamžitě provede na pozadí.
+Během tohoto běhu nedochází k přímým úpravám uživatelského rozhraní, ale při každé významné atomické operaci se vygeneruje snímek aktuálního stavu (\textit{snapshot}).
+
+Všechny tyto snímky jsou následně uloženy do sekvenčního pole.
+Samotná vizualizace pak funguje na principu přehrávače, přičemž řídicí logika si pamatuje pouze aktuální index v tomto poli.
+Při požadavku na další krok se index inkrementuje a uživatelské rozhraní se překreslí podle dat v novém snímku.
+Tento přístup přináší zásadní výhody:
+\begin{itemize}
+    \item \textbf{Okamžitý krok zpět:} Návrat v čase nevyžaduje implementaci složité reverzní logiky, stačí pouze snížit index v poli historie.
+    \item \textbf{Oddělení logiky a zobrazení:} Samotný algoritmus nemusí řešit časování ani synchronizaci s CSS animacemi.
+    \item \textbf{Předvídatelnost:} Protože je celý průběh znám dopředu, je možné uživateli zobrazit celkový počet kroků potřebných k seřazení pole nebo umožnit okamžité přeskočení na konec algoritmu.
+\end{itemize}
 
 \subsection{Mechanismy krokování}
 \label{subsec:stepping-mechanisms}
-% Koncept zastavení a pokračování algoritmu
+
+Zatímco krokování u třídicích algoritmů je striktně lineární, datové struktury vyžadují komplexnější přístup.
+Operace nad nimi totiž mají přirozeně hierarchický charakter -- požadavek na vložení prvku do stromu je z pohledu uživatele jedinou akcí, ale z pohledu algoritmu se jedná o sekvenci kroků, které musí být provedeny v určitém pořadí.
+
+Z tohoto důvodu byl koncept krokování u datových struktur navržen dvouúrovňově:
+\begin{enumerate}
+    \item \textbf{Úroveň operací (Makroúroveň):} Reprezentuje celistvé požadavky uživatele (např. Vlož, Smaž, Najdi). Uživatel má možnost nechat celou operaci plynule proběhnout bez nutnosti manuálního zasahování.
+    \item \textbf{Úroveň kroků (Mikroúroveň):} Reprezentuje jednotlivé atomické úkony uvnitř dané operace. Pokud chce uživatel pochopit detailní fungování struktury, může si operaci pozastavit a procházet ji krok za krokem, přičemž systém mu vizualizuje každý posun ukazatele či změnu v grafu.
+\end{enumerate}
+
+Tento model zajišťuje, že aplikace je vhodná jak pro rychlé demonstrace vlastností datových struktur, tak pro detailní studium jejich vnitřních mechanismů.
+
+\subsection{Mapování logiky na pseudokód}
+\label{subsec:pseudocode-mapping}
+
+Pro efektivní výuku je nezbytné, aby uživatel viděl přímou souvislost mezi vizuální reprezentací algoritmu a jeho teoretickým zápisem.
+Za tímto účelem byl navržen systém mapování kroků pomocí abstraktních identifikátorů, interně nazvaných jako části kódu (\textit{codeParts}).
+
+Při generování transakční historie si každý krok třídicího algoritmu nenese informaci o konkrétním textu, ale obsahuje pouze identifikátory těch logických bloků, které se v danou chvíli vykonávají.
+Uživatelské rozhraní následně tyto identifikátory dynamicky spáruje s jedním či více řádky aktuálně zobrazeného pseudokódu a vizuálně je zvýrazní.
+
+Zásadní výhodou tohoto oddělení aplikační logiky od prezentační vrstvy je značná flexibilita.
+Systém tak umožňuje snadné přepínání pseudokódu do různých programovacích jazyků za běhu aplikace, přičemž synchronizace mezi běžící animací a zvýrazněnými řádky kódu zůstává plně a bezchybně zachována.
+Tento způsob řešení je díky možnosti mapovat jeden krok na více řádků pseudokódu také ideální pro algoritmy, které mají složitější vnitřní strukturu.
+Simulace tak zůstává přehledná a uživatel má vždy jasnou představu o tom, co se v daném kroku děje, a jaké části algoritmu jsou právě aktivní.
 
 \section{Datový model a abstrakce}
 \label{sec:data-model-abstraction}
