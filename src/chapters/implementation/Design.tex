@@ -307,14 +307,51 @@ Simulace tak zůstává přehledná a uživatel má vždy jasnou představu o to
 \section{Datový model a abstrakce}
 \label{sec:data-model-abstraction}
 
+Pro úspěšnou implementaci a plynulou vizualizaci je nezbytné striktně oddělit aplikační logiku algoritmů od vykreslovací vrstvy.
+Pouhá reprezentace dat pomocí surových čísel je pro interaktivní aplikaci nedostačující.
+Datové modely proto musí obsahovat i dodatečná metadata potřebná pro sledování animací, identifikaci prvků a jejich sémantické obarvování.
+
 \subsection{Reprezentace datových struktur}
 \label{subsec:structure-representation}
-% Objektové modely pro uzly a prvky polí
+
+Abstraktní datový model struktur je navržen s ohledem na maximální univerzálnost a snadnou rozšiřitelnost.
+Jeho zjednodušený konceptuální návrh je znázorněn na \customref{Obrázku}{fig:class_data_structures}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/design/class_dataStructures.pdf}
+    \caption{Třídy pro reprezentaci datových struktur}
+    \label{fig:class_data_structures}
+\end{figure}
+
+Na nejnižší úrovni je třída \texttt{DataNode} reprezentující každý prvek grafu identifikován unikátním \texttt{id}, pomocí něhož je možné datovou strukturu spárovat s vykreslovací knihovnou \textit{vis-network}.
+Z tohoto základu dědí specifické třídy uzlů (např. pro binární stromy či zásobník), které jej obohacují o samotnou hodnotu, potřebné ukazatele na další uzly a případně specifické metody, například pro aktualizaci informací o vyvážení u AVL stromů.
+
+Společné rozhraní všech struktur zastřešuje abstraktní třída \texttt{DataStructure}.
+Ta automatizuje přidělování identifikátorů a definuje metodu pro tvorbu neměnných snímků stavu grafu (\texttt{snapshot}).
+Provádění samotných operací je abstrakcí rozděleno do dvou úrovní, což odráží hierarchický návrh krokování: \texttt{OperationData} obaluje celou makro-operaci (včetně stavu před a po), zatímco \texttt{StepData} slouží pro uložení dílčích atomických kroků uvnitř operace (mikro-úroveň).
+Každý krok v sobě navíc může nést specifická data určující, které uzly se mají v danou chvíli zvýraznit.
+Díky této jednotné architektuře dokáže vizuální vrstva vykreslit jakoukoliv strukturu bez nutnosti znát její vnitřní implementační detaily.
 
 \subsection{Rozhraní pro třídící algoritmy}
 \label{subsec:algorithm-interface}
-% Komunikace mezi logikou algoritmu a vizualizačním enginem
 
-\subsection{Provázání logické vrstvy s uživatelským rozhraním}
-\label{subsec:logic-ui-binding}
-% Jak jsou změny v datech reflektovány ve vizualizaci a naopak
+Rovněž návrh třídicích algoritmů striktně dodržuje modulární přístup, aby bylo možné algoritmy snadno testovat a rozšiřovat.
+Třídní diagram této části je přiložen na \customref{Obrázku}{fig:class_sorting_algorithms}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/design/class_sortingAlgorithms.pdf}
+    \caption{Třídy pro reprezentaci třídících algoritmů}
+    \label{fig:class_sorting_algorithms}
+\end{figure}
+
+Nejnižší logickou jednotkou je třída \texttt{Item}, která obaluje číselnou hodnotu prvku.
+Obsahuje unikátní \texttt{id} pro plynulé sledování DOM elementů během CSS animací a atribut \texttt{highlightType}, jenž řídí sémantické obarvení prvku.
+
+Záznam výpočetní historie algoritmu deleguje systém na třídu \texttt{DetailedTraceBuilder}.
+Ta si udržuje aktuální stav pole (\texttt{workingArray}) a postupně do paměti ukládá jednotlivé snímky pomocí metody \texttt{record}.
+Výsledkem je vygenerované pole kroků.
+Z důvodu podpory dvou úrovní vizualizace existují i dva typy kroků: \texttt{SortStep} nese pouze základní informace o stavu pole, zatímco \texttt{DetailedSortStep} je rozšířen o dvourozměrnou mřížku pro vizualizaci úrovní u rekurzivních algoritmů (Quick Sort, Merge Sort) a o mapovací identifikátor \texttt{codePartId} napojující aktuální část pseudokódu.
+
+Definice samotného pseudokódu je uložena v šabloně \texttt{DetailedCodeTemplate}, která pro daný algoritmus specifikuje řádky (\texttt{CodeLine}) nezávisle na zvoleném programovacím jazyce. Hlavní třída \texttt{SortingAlgorithm} tak funguje pouze jako zastřešující entita -- přijme vstupní pole a pomocí definovaných metod (\texttt{generateSteps}) vrátí standardizovanou sekvenci těchto kroků, jež si uživatelské rozhraní plynule přehraje.
