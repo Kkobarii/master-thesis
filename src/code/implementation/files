@@ -1,0 +1,24 @@
+src/lib/
+|-- components/             # Sdílené UI prvky (tlačítka, navigace, globální layout)
+|-- i18n/                   # Internacionalizace
+|-- utils/                  # Sdílené pomocné nástroje a abstrakce (např. časovač)
+|-- server/                 # Logika pro načítání souborů s popisy během renderingu
+|
+|-- data-structures/        # Doména datových struktur
+|   |-- structures/         # Datové reprezentace (AVL, BST, B-strom...)
+|   |-- visual/             # Vykreslovací enginy (Animator, Annotator) a vizualizace
+|   |-- operations/         # Událostní model simulace (OperationManager)
+|   |-- controls/           # UI komponenty pro ovládání simulace (tlačítka, posuvníky)
+|   `-- registry.ts         # Registrace struktur pro dynamické načítaní
+|
+`-- sorting-algorithms/     # Doména třídicích algoritmů
+    |-- algorithms/         # Konkrétní implementace algoritmů (Merge, Quick...)
+    |-- visual/             # Komponenty pro vykreslování stránek vizualizací
+    |-- components/         # UI komponenty specifické pro vizualizaci polí
+    |-- steps/              # Logika řízení času (StepManager, TraceBuilder)
+    `-- registry.ts         # Registrace algoritmů pro dynamické načítaní
+
+static/descriptions/        # Zdrojové soubory s výukovými texty
+|-- about.cs/en.md
+|-- data-structures/
+`-- sorting-algorithms/

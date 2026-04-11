@@ -1,0 +1,13 @@
+static/descriptions/
+|-- about.cs.md
+|-- about.en.md
+|
+|-- data-structures/
+|   |-- bst_tree.cs.md
+|   |-- bst_tree.en.md
+|   `-- ...
+|
+`-- sorting-algorithms/
+    |-- bubble_sort.cs.md
+    |-- bubble_sort.en.md
+    `-- ...
