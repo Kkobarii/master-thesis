@@ -1,18 +1,25 @@
 \chapter{Analýza a volba použitých technologií}
 \label{chap:technologies}
 
-Pro úspěšnou realizaci projektu je prvně nutné vhodně zvolit technologie, které budou použity v jeho implementaci. Na základě analýzy v této kapitole budou vybrány technologie týkající se architektury aplikace a strategie renderování, pomocí čehož bude dále určen vhodný webový framework a knihovna pro vizualizaci grafů a stromů. Na závěr bude zmíněn také nástroj pro automatizaci procesu sestavení a nasazení aplikace, stejně jako platforma pro hosting výsledné statické webové aplikace. Tato analýza bude začátkem implementace výukové aplikace a bude sloužit jako základ pro její vývoj.
-
+Pro úspěšnou realizaci projektu je prvně nutné vhodně zvolit technologie, které budou použity v jeho implementaci.
+Na základě analýzy v této kapitole budou vybrány technologie týkající se architektury aplikace a strategie renderování, pomocí čehož bude dále určen vhodný webový framework a knihovna pro vizualizaci grafů a stromů.
+Na závěr bude zmíněn také nástroj pro automatizaci procesu sestavení a nasazení aplikace, stejně jako platforma pro hosting výsledné statické webové aplikace.
+Tato analýza bude začátkem implementace výukové aplikace a bude sloužit jako základ pro její vývoj.
 
 \section{Architektura aplikace}
 \label{sec:app_architecture}
 
-Ještě před samotnou volbou vhodného frameworku je důležité provést krátkou analýzu možné architektury pro výukovou aplikaci. Architektura určuje, kde bude implementována logika aplikace, jak budou zpracovávány požadavky uživatele a jakým způsobem se bude provádět zobrazování stránky.
+Ještě před samotnou volbou vhodného frameworku je důležité provést krátkou analýzu možné architektury pro výukovou aplikaci.
+Architektura určuje, kde bude implementována logika aplikace, jak budou zpracovávány požadavky uživatele a jakým způsobem se bude provádět zobrazování stránky.
 
 \subsection{Klient-server architektura}
 \label{subsec:client_server_architecture}
 
-Prvním možným přístupem je klasická klient-server architektura (\textit{Client-Server Architecture}), kdy je logika aplikace implementována na serveru a klient (prohlížeč) pouze zobrazuje výsledky, přičemž komunikace mezi nimi probíhá pomocí HTTP požadavků. Příklad fungování této architektury je zobrazen na \customref{Obrázku}{fig:page_lifecycles}, konkrétně jeho levé, modré části. Interakce uživatele s aplikací funguje tak, že při každé akci uživatele (například kliknutí na tlačítko) je odeslán HTTP požadavek na server, který zpracuje obdržená data, provede potřebné operace a jako odpověď vrátí novou HTML stránku, která se následně načte v prohlížeči. V praxi to tedy znamená nutnost znovunačtení stránky s každou takovou interakcí. Tento přístup je poměrně jednoduchý a dobře známý, ale může být pomalý a neefektivní, zejména pokud se jedná o interaktivní aplikaci s častými aktualizacemi a obzvláště když stránka nepotřebuje uchovávat stav nebo jiné informace přímo na serveru.
+Prvním možným přístupem je klasická klient-server architektura (\textit{Client-Server Architecture}), kdy je logika aplikace implementována na serveru a klient (prohlížeč) pouze zobrazuje výsledky, přičemž komunikace mezi nimi probíhá pomocí HTTP požadavků.
+Příklad fungování této architektury je zobrazen na \customref{Obrázku}{fig:page_lifecycles}, konkrétně jeho levé, modré části.
+Interakce uživatele s aplikací funguje tak, že při každé akci uživatele (například kliknutí na tlačítko) je odeslán HTTP požadavek na server, který zpracuje obdržená data, provede potřebné operace a jako odpověď vrátí novou HTML stránku, která se následně načte v prohlížeči.
+V praxi to tedy znamená nutnost znovunačtení stránky s každou takovou interakcí.
+Tento přístup je poměrně jednoduchý a dobře známý, ale může být pomalý a neefektivní, zejména pokud se jedná o interaktivní aplikaci s častými aktualizacemi a obzvláště když stránka nepotřebuje uchovávat stav nebo jiné informace přímo na serveru.
 
 \begin{figure}[ht]
     \centering
@@ -24,24 +31,39 @@ Prvním možným přístupem je klasická klient-server architektura (\textit{Cl
 \subsection{Jednostránková webová aplikace}
 \label{subsec:spa}
 
-Jako reakce na nevýhody klasické architektury se v posledních letech rozšířil přístup zvaný jednostránková webová aplikace (\textit{Single Page Application}, dále \textit{SPA}). Hlavním rozdílem mezi SPA a klasickou architekturou je to, že v případě SPA jsou data získána hned při prvním požadavku u načtení stránky a následně se již neodesílají další požadavky o další stránky. Namísto toho se veškerá logika a zpracování provádí na straně klienta, přičemž komunikace se serverem probíhá pouze pro získávání dat (například pomocí API). Jak je vidět na pravé, oranžové části \customref{Obrázku}{fig:page_lifecycles}, využívá se zde technologie \textit{AJAX} a odpověď ze serveru jsou tentokrát data ve formátu \textit{JSON}, která jsou následně zpracována a zobrazena na stejné stránce bez nutnosti jejího obnovení.~\cite{ifour}
+Jako reakce na nevýhody klasické architektury se v posledních letech rozšířil přístup zvaný jednostránková webová aplikace (\textit{Single Page Application}, dále \textit{SPA}).
+Hlavním rozdílem mezi SPA a klasickou architekturou je to, že v případě SPA jsou data získána hned při prvním požadavku u načtení stránky a následně se již neodesílají další požadavky o další stránky.
+Namísto toho se veškerá logika a zpracování provádí na straně klienta, přičemž komunikace se serverem probíhá pouze pro získávání dat (například pomocí API).
+Jak je vidět na pravé, oranžové části \customref{Obrázku}{fig:page_lifecycles}, využívá se zde technologie \textit{AJAX} a odpověď ze serveru jsou tentokrát data ve formátu \textit{JSON}, která jsou následně zpracována a zobrazena na stejné stránce bez nutnosti jejího obnovení.~\cite{ifour}
 
-Výhodou tohoto přístupu je rychlejší a plynulejší uživatelský zážitek, protože není nutné znovu načítat celou stránku s každou interakcí. Navíc umožňuje lepší využití zdrojů a efektivnější komunikaci se serverem, protože se odesílají pouze potřebná data namísto celé stránky. SPA také může být výhodná v případě, že uživatel nemá vždy stabilní připojení k internetu, protože většina logiky a zpracování se provádí na klientovi, díky čemuž může aplikace fungovat i v offline režimu, pokud již předtím načetla potřebná data. 
+Výhodou tohoto přístupu je rychlejší a plynulejší uživatelský zážitek, protože není nutné znovu načítat celou stránku s každou interakcí.
+Navíc umožňuje lepší využití zdrojů a efektivnější komunikaci se serverem, protože se odesílají pouze potřebná data namísto celé stránky.
+SPA také může být výhodná v případě, že uživatel nemá vždy stabilní připojení k internetu, protože většina logiky a zpracování se provádí na klientovi, díky čemuž může aplikace fungovat i v offline režimu, pokud již předtím načetla potřebná data.
 
-Nevýhodou však může být složitější vývoj a údržba, protože veškerá logika a zpracování musí být implementována na straně klienta, což může být náročnější než implementace na serveru. Problémy také nastávají s optimalizací pro vyhledávače (SEO), protože obsah není vždy dostupný pro indexování, a také s bezpečností, protože veškerá logika je přístupná na straně klienta.
-
+Nevýhodou však může být složitější vývoj a údržba, protože veškerá logika a zpracování musí být implementována na straně klienta, což může být náročnější než implementace na serveru.
+Problémy také nastávají s optimalizací pro vyhledávače (SEO), protože obsah není vždy dostupný pro indexování, a také s bezpečností, protože veškerá logika je přístupná na straně klienta.
 
 \section{Strategie renderování}
 \label{sec:rendering_strategies}
 
-Dalším důležitým aspektem architektury je strategie renderování, tedy způsob, jakým se generuje a zobrazuje obsah na stránce. Strategie existují různé, liší se zejména tím, kde se provádí zpracování a generování HTML kódu. Ovlivnit mohou nejen uživatelský zážitek, ale také výkon a optimalizaci pro vyhledávače (SEO).
+Dalším důležitým aspektem architektury je strategie renderování, tedy způsob, jakým se generuje a zobrazuje obsah na stránce.
+Strategie existují různé, liší se zejména tím, kde se provádí zpracování a generování HTML kódu.
+Ovlivnit mohou nejen uživatelský zážitek, ale také výkon a optimalizaci pro vyhledávače (SEO).
 
 \subsection{Client-Side Rendering}
 \label{subsec:client_side_rendering}
 
-Varianta Client-Side Rendering (CSR) je nejběžnější strategií pro SPA, kdy se veškeré zpracování a generování HTML kódu provádí na straně klienta. Server vrací pouze minimální HTML dokument, který obsahuje odkaz na JavaScriptový soubor. Tento soubor si musí klient stáhnout a spustit, aby byl schopen zobrazit obsah stránky. Stránka se načte až po provedení všech těchto kroků. Tato strategie tedy předává zodpovědnost za zobrazení dat na klienta, takže zlehčuje zátěž serveru. Přesný postup fungování CSR je zobrazen v horní části \customref{Obrázku}{fig:rendering_strategies}.~\cite{techtose}
+Varianta Client-Side Rendering (CSR) je nejběžnější strategií pro SPA, kdy se veškeré zpracování a generování HTML kódu provádí na straně klienta.
+Server vrací pouze minimální HTML dokument, který obsahuje odkaz na JavaScriptový soubor.
+Tento soubor si musí klient stáhnout a spustit, aby byl schopen zobrazit obsah stránky.
+Stránka se načte až po provedení všech těchto kroků.
+Tato strategie tedy předává zodpovědnost za zobrazení dat na klienta, takže zlehčuje zátěž serveru.
+Přesný postup fungování CSR je zobrazen v horní části \customref{Obrázku}{fig:rendering_strategies}.~\cite{techtose}
 
-Výhodou CSR je rychlá interaktivita po prvotním načtení stránky, protože veškeré zpracování se provádí na klientovi. Také zmenšuje zátěž serveru, protože ten pouze poskytuje data a neprovádí zpracování. Mezi nevýhody se řadí horší SEO, protože obsah není vždy dostupný pro indexování, a také delší doba načítání při prvním načtení stránky, protože klient musí stáhnout a spustit JavaScript než je schopen zobrazit obsah. Je zde také možnost zhoršení výkonu na slabších zařízeních nebo při pomalém připojení k internetu.~\cite{techtose}
+Výhodou CSR je rychlá interaktivita po prvotním načtení stránky, protože veškeré zpracování se provádí na klientovi.
+Také zmenšuje zátěž serveru, protože ten pouze poskytuje data a neprovádí zpracování.
+Mezi nevýhody se řadí horší SEO, protože obsah není vždy dostupný pro indexování, a také delší doba načítání při prvním načtení stránky, protože klient musí stáhnout a spustit JavaScript než je schopen zobrazit obsah.
+Je zde také možnost zhoršení výkonu na slabších zařízeních nebo při pomalém připojení k internetu.~\cite{techtose}
 
 CSR je tedy nejvíce vhodná pro interaktivní aplikace, které nevyžadují optimalizaci pro vyhledávače a kde je důležitá rychlá interaktivita po načtení stránky.
 
@@ -55,73 +77,113 @@ CSR je tedy nejvíce vhodná pro interaktivní aplikace, které nevyžadují opt
 \subsection{Server-Side Rendering}
 \label{subsec:server_side_rendering}
 
-Jak už název napovídá, druhou strategií je Server-Side Rendering (SSR), kdy se zpracování a generování HTML kódu provádí na straně serveru. Tento způsob zajišťuje, že klient obdrží již kompletní HTML dokument, který může okamžitě zobrazit. Původní zpracovaná stránka však není interaktivní, proto uživatel přece jen musí počkat, než se stáhne a spustí JavaScript, aby se stránka stala plně funkční. SSR využívá tzv. \textit{hydrataci}, což je proces, kdy klientovský JavaScript převezme kontrolu nad stránkou a upravuje její stav, aby se stala interaktivní. Proces fungování SSR je zobrazen v dolní části \customref{Obrázku}{fig:rendering_strategies}, kde je možné pozorovat, že uživateli je zobrazena kompletní stránka již při prvním načtení, ale interaktivní se stává až po provedení hydratace.~\cite{techtose}
+Jak už název napovídá, druhou strategií je Server-Side Rendering (SSR), kdy se zpracování a generování HTML kódu provádí na straně serveru.
+Tento způsob zajišťuje, že klient obdrží již kompletní HTML dokument, který může okamžitě zobrazit.
+Původní zpracovaná stránka však není interaktivní, proto uživatel přece jen musí počkat, než se stáhne a spustí JavaScript, aby se stránka stala plně funkční.
+SSR využívá tzv.
+\textit{hydrataci}, což je proces, kdy klientovský JavaScript převezme kontrolu nad stránkou a upravuje její stav, aby se stala interaktivní.
+Proces fungování SSR je zobrazen v dolní části \customref{Obrázku}{fig:rendering_strategies}, kde je možné pozorovat, že uživateli je zobrazena kompletní stránka již při prvním načtení, ale interaktivní se stává až po provedení hydratace.~\cite{techtose}
 
-Velkou výhodou SSR je lepší SEO, protože připravený obsah stránky je dostupný pro indexování vyhledávači. Z pohledu uživatele se také načtení stránky jeví jako rychlejší, protože obdrží kompletní HTML dokument již při prvním načtení a nemusí čekat na stažení a spuštění JavaScriptu. Rychlost načítání také nezávisí na uživatelském zařízení. Častou nevýhodou je však větší zátěž na server, stránka tak může být pomalejší s větším množstvím uživatelů, protože server musí zpracovat a vygenerovat HTML pro každou žádost. Přechod mezi stránkami může být také pomalejší, protože každá nová stránka musí být zpracována na serveru.~\cite{techtose}
+Velkou výhodou SSR je lepší SEO, protože připravený obsah stránky je dostupný pro indexování vyhledávači.
+Z pohledu uživatele se také načtení stránky jeví jako rychlejší, protože obdrží kompletní HTML dokument již při prvním načtení a nemusí čekat na stažení a spuštění JavaScriptu.
+Rychlost načítání také nezávisí na uživatelském zařízení.
+Častou nevýhodou je však větší zátěž na server, stránka tak může být pomalejší s větším množstvím uživatelů, protože server musí zpracovat a vygenerovat HTML pro každou žádost.
+Přechod mezi stránkami může být také pomalejší, protože každá nová stránka musí být zpracována na serveru.~\cite{techtose}
 
 Varianta SSR se často využívá pro webové stránky s velkým množstvím obsahu, které potřebují být optimalizovány pro vyhledávače, nebo pro stránky, které musí být rychle načítány bez ohledu na zařízení uživatele.
 
 \subsection{Static Site Generation}
 \label{subsec:static_site_generation}
 
-Poslední strategií tohoto výčtu je Static Site Generation neboli SSG. Tato strategie je podobná SSR, protože se také generuje kompletní HTML dokument, rozdíl je však v tom, že se tento soubor generuje ještě před spuštěním serveru (build time) a ne při každém požadavku. HTML soubory jsou tedy připraveny dopředu a server je pouze poskytuje klientovi, což v praxi zajišťuje velmi rychlé načítání stránek, protože server nemusí provádět žádné zpracování.~\cite{techtose}
+Poslední strategií tohoto výčtu je Static Site Generation neboli SSG.
+Tato strategie je podobná SSR, protože se také generuje kompletní HTML dokument, rozdíl je však v tom, že se tento soubor generuje ještě před spuštěním serveru (build time) a ne při každém požadavku.
+HTML soubory jsou tedy připraveny dopředu a server je pouze poskytuje klientovi, což v praxi zajišťuje velmi rychlé načítání stránek, protože server nemusí provádět žádné zpracování.~\cite{techtose}
 
-Mezi výhody SSG patří bleskově rychlé načítání stránek, lepší SEO a také snížené náklady na hosting serveru, neboť není potřeba zpracovávat požadavky v reálném čase. Na druhou stranu nevýhodou je složitější správa obsahu, protože jakákoli změna v obsahu vyžaduje znovu vygenerování HTML souborů, a to může být časově náročné a neefektivní pro webové stránky s často se měnícím obsahem. I samotný proces generování může být náročný, zejména pokud se jedná o velký web s mnoha stránkami.~\cite{techtose}
+Mezi výhody SSG patří bleskově rychlé načítání stránek, lepší SEO a také snížené náklady na hosting serveru, neboť není potřeba zpracovávat požadavky v reálném čase.
+Na druhou stranu nevýhodou je složitější správa obsahu, protože jakákoli změna v obsahu vyžaduje znovu vygenerování HTML souborů, a to může být časově náročné a neefektivní pro webové stránky s často se měnícím obsahem.
+I samotný proces generování může být náročný, zejména pokud se jedná o velký web s mnoha stránkami.~\cite{techtose}
 
-Je také dobré zmínit, že u SSG se nemusí nutně jednat o zcela statické stránky, ale dá se používat pro staticky vygenerované SPA. V praxi to tedy často bývá používáno jako kombinace SSR pro generování statických HTML souborů a CSR pro zajištění interaktivity. Pokud stránka potřebuje nějakou dynamickou funkcionalitu, je možné ji implementovat pomocí JavaScriptu, podobně jako hydratace v SSR.
+Je také dobré zmínit, že u SSG se nemusí nutně jednat o zcela statické stránky, ale dá se používat pro staticky vygenerované SPA.
+V praxi to tedy často bývá používáno jako kombinace SSR pro generování statických HTML souborů a CSR pro zajištění interaktivity.
+Pokud stránka potřebuje nějakou dynamickou funkcionalitu, je možné ji implementovat pomocí JavaScriptu, podobně jako hydratace v SSR.
 
 SSG je ideální pro webové stránky, které mají převážně statický obsah, který se často nemění, a kde je důležitá rychlost načítání a optimalizace pro vyhledávače.
-
 
 \section{Webový framework}
 \label{sec:web_framework}
 
-V dnešní době existuje mnoho různých webových frameworků, které umožňují vývoj jednostránkových webových aplikací. Mezi nejpopulárnější patří React, Angular, Vue a Svelte. Každý z nich má své výhody a nevýhody, které je třeba zvážit při výběru toho nejvhodnějšího pro konkrétní projekt.
+V dnešní době existuje mnoho různých webových frameworků, které umožňují vývoj jednostránkových webových aplikací.
+Mezi nejpopulárnější patří React, Angular, Vue a Svelte.
+Každý z nich má své výhody a nevýhody, které je třeba zvážit při výběru toho nejvhodnějšího pro konkrétní projekt.
 
 \subsection{React}
 \label{subsec:react}
 
-React je jedním z nejpopulárnějších JavaScriptových frameworků pro vývoj webových aplikací. Je vyvíjen společností Meta a má velkou komunitu vývojářů, což znamená, že existuje mnoho knihoven a nástrojů, které usnadňují vývoj. React používá komponentový přístup a zakládá se na deklarativním stylu programování UI.~\cite{react}
+React je jedním z nejpopulárnějších JavaScriptových frameworků pro vývoj webových aplikací.
+Je vyvíjen společností Meta a má velkou komunitu vývojářů, což znamená, že existuje mnoho knihoven a nástrojů, které usnadňují vývoj.
+React používá komponentový přístup a zakládá se na deklarativním stylu programování UI.~\cite{react}
 
-Speciálním konceptem, který React zavádí, je tzv. \textit{Virtual DOM}, který slouží jako virtuální reprezentace skutečného DOM. Když dojde ke změně stavu aplikace, React nejprve aktualizuje Virtual DOM a poté porovná tuto aktualizaci s předchozím stavem Virtual DOM. Na základě tohoto porovnání React efektivně aktualizuje pouze ty části skutečného DOM, které se změnily. Tomuto procesu se říká \textit{reconciliation} a je jedním z klíčových faktorů, které přispívají k vysokému výkonu Reactu.~\cite{react}
+Speciálním konceptem, který React zavádí, je tzv.
+\textit{Virtual DOM}, který slouží jako virtuální reprezentace skutečného DOM.
+Když dojde ke změně stavu aplikace, React nejprve aktualizuje Virtual DOM a poté porovná tuto aktualizaci s předchozím stavem Virtual DOM.
+Na základě tohoto porovnání React efektivně aktualizuje pouze ty části skutečného DOM, které se změnily.
+Tomuto procesu se říká \textit{reconciliation} a je jedním z klíčových faktorů, které přispívají k vysokému výkonu Reactu.~\cite{react}
 
 \subsection{Angular}
 \label{subsec:angular}
 
-Jako další z nejznámějších webových frameworků je zde Angular, který je vyvíjen společností Google. Jedná se o kompletní framework, který nabízí širokou škálu funkcí a nástrojů pro vývoj webových aplikací. Je založen na TypeScriptu, používá komponentový přístup k vývoji UI a také poskytuje robustní systém pro správu stavu nebo směrování.~\cite{angular}
+Jako další z nejznámějších webových frameworků je zde Angular, který je vyvíjen společností Google.
+Jedná se o kompletní framework, který nabízí širokou škálu funkcí a nástrojů pro vývoj webových aplikací.
+Je založen na TypeScriptu, používá komponentový přístup k vývoji UI a také poskytuje robustní systém pro správu stavu nebo směrování.~\cite{angular}
 
-Angular je známý svou komplexností, je zaměřen na velké a složité aplikace, které vyžadují robustní řešení. Jeho učení může být náročnější než u jiných frameworků, ale nabízí mnoho funkcí, které mohou být užitečné pro vývoj rozsáhlých aplikací.~\cite{angular}
+Angular je známý svou komplexností, je zaměřen na velké a složité aplikace, které vyžadují robustní řešení.
+Jeho učení může být náročnější než u jiných frameworků, ale nabízí mnoho funkcí, které mohou být užitečné pro vývoj rozsáhlých aplikací.~\cite{angular}
 
 \subsection{Vue}
 \label{subsec:vue}
 
-Vue je často považován za lehčí a jednodušší alternativu k Reactu a Angularu. Je vyvíjen komunitou a nabízí jednoduchý a intuitivní způsob, jak vytvářet interaktivní uživatelská rozhraní. Jako React používá komponenty a virtuální DOM, ale jeho syntaxe je často považována za přehlednější a snadněji pochopitelnou. Naučit se ho je poměrně snadné, proto je často doporučován pro začínající vývojáře.~\cite{vue}
+Vue je často považován za lehčí a jednodušší alternativu k Reactu a Angularu.
+Je vyvíjen komunitou a nabízí jednoduchý a intuitivní způsob, jak vytvářet interaktivní uživatelská rozhraní.
+Jako React používá komponenty a virtuální DOM, ale jeho syntaxe je často považována za přehlednější a snadněji pochopitelnou.
+Naučit se ho je poměrně snadné, proto je často doporučován pro začínající vývojáře.~\cite{vue}
 
-Používá se pro vývoj menších a středně velkých aplikací, je možné ho využít jako SPA i fullstack SSR či SSG řešení. Jeho flexibilita a jednoduchost ho činí oblíbeným mezi vývojáři, kteří hledají rychlé a efektivní řešení pro své projekty.~\cite{vue}
+Používá se pro vývoj menších a středně velkých aplikací, je možné ho využít jako SPA i fullstack SSR či SSG řešení.
+Jeho flexibilita a jednoduchost ho činí oblíbeným mezi vývojáři, kteří hledají rychlé a efektivní řešení pro své projekty.~\cite{vue}
 
 \subsection{Svelte}
 \label{subsec:svelte}
 
-Svelte je posledním frameworkem, který bude v této kapitole zmíněn. Je relativně nový a přináší inovativní přístup k vývoji webových aplikací, protože se zaměřuje na kompilaci. Na rozdíl od ostatních frameworků, které provádějí většinu své práce v prohlížeči, Svelte kompiluje komponenty do vysoce optimalizovaného JavaScriptu, který běží přímo v prohlížeči. To znamená, že nevyužívá virtuální DOM a místo toho generuje efektivní kód, který aktualizuje DOM přímo, což může vést k lepšímu výkonu a menší velikosti balíčku. ~\cite{svelte}
+Svelte je posledním frameworkem, který bude v této kapitole zmíněn.
+Je relativně nový a přináší inovativní přístup k vývoji webových aplikací, protože se zaměřuje na kompilaci.
+Na rozdíl od ostatních frameworků, které provádějí většinu své práce v prohlížeči, Svelte kompiluje komponenty do vysoce optimalizovaného JavaScriptu, který běží přímo v prohlížeči.
+To znamená, že nevyužívá virtuální DOM a místo toho generuje efektivní kód, který aktualizuje DOM přímo, což může vést k lepšímu výkonu a menší velikosti balíčku.
+~\cite{svelte}
 
-Podobně jako výše zmíněné frameworky, i Svelte používá komponenty a vývojáři umožňuje psát aplikaci deklarativně. Jeho syntaxe je velmi jednoduchá a přehledná, a spojuje jak HTML, CSS, tak JavaScript do jednoho souboru. Komponenta je následně zkompilována do efektivního JavaScript souboru, který se načítá a spouští v prohlížeči. Absence virtuálního DOM a minimalizace kódu, který musí prohlížeč interpretovat za běhu, činí Svelte ideálním pro interaktivní vizualizace, kde je vyžadována vysoká snímková frekvence animací.~\cite{svelte}
+Podobně jako výše zmíněné frameworky, i Svelte používá komponenty a vývojáři umožňuje psát aplikaci deklarativně.
+Jeho syntaxe je velmi jednoduchá a přehledná, a spojuje jak HTML, CSS, tak JavaScript do jednoho souboru.
+Komponenta je následně zkompilována do efektivního JavaScript souboru, který se načítá a spouští v prohlížeči.
+Absence virtuálního DOM a minimalizace kódu, který musí prohlížeč interpretovat za běhu, činí Svelte ideálním pro interaktivní vizualizace, kde je vyžadována vysoká snímková frekvence animací.~\cite{svelte}
 
 \subsubsection*{SvelteKit}
 
-Pro zjednodušení vývoje webových aplikací byl jako nadstavba na Svelte vyvinut meta-framework SvelteKit, který poskytuje nástroje jako směrování, správu stavu, podporu pro různé strategie renderování (CSR, SSR, SSG) a další. Pro potřeby této práce je klíčová podpora adaptérů, konkrétně \textit{adapter-static}, který umožňuje transformaci aplikace do sady statických souborů připravených pro hosting bez nutnosti serveru.~\cite{svelte}
-
+Pro zjednodušení vývoje webových aplikací byl jako nadstavba na Svelte vyvinut meta-framework SvelteKit, který poskytuje nástroje jako směrování, správu stavu, podporu pro různé strategie renderování (CSR, SSR, SSG) a další.
+Pro potřeby této práce je klíčová podpora adaptérů, konkrétně \textit{adapter-static}, který umožňuje transformaci aplikace do sady statických souborů připravených pro hosting bez nutnosti serveru.~\cite{svelte}
 
 \section{Grafová knihovna}
 \label{sec:graph_library}
 
-Jak již bylo zmíněno v \customref{Kapitole}{chap:requirements}, výuková aplikace bude obsahovat vizualizace datových struktur, nejčastěji stromů a grafů. Je tedy nutné zvolit vhodnou knihovnu pro jejich zobrazení, přičemž je důležité zvážit nejen možnosti zobrazení, ale také možnosti animace a interakce s grafem.
+Jak již bylo zmíněno v \customref{Kapitole}{chap:requirements}, výuková aplikace bude obsahovat vizualizace datových struktur, nejčastěji stromů a grafů.
+Je tedy nutné zvolit vhodnou knihovnu pro jejich zobrazení, přičemž je důležité zvážit nejen možnosti zobrazení, ale také možnosti animace a interakce s grafem.
 
-Pro účely porovnání byla u každé zvažované knihovny implementována stejná vizualizace binárního vyhledávacího stromu, aby bylo zřejmé, jaké možnosti zobrazení a interakce nabízí každá z nich. Následující podkapitoly se věnují jednotlivým knihovnám a jejich porovnání.
+Pro účely porovnání byla u každé zvažované knihovny implementována stejná vizualizace binárního vyhledávacího stromu, aby bylo zřejmé, jaké možnosti zobrazení a interakce nabízí každá z nich.
+Následující podkapitoly se věnují jednotlivým knihovnám a jejich porovnání.
 
 \subsection{Knihovna D3}
 \label{subsec:d3}
 
-Knihovna D3.js je open-source nástrojem umožňujícím vizualizaci dat pomocí webových standardů, jako jsou HTML, SVG a CSS. Grafy jsou vytvářeny pomocí DOM manipulace, což umožňuje vysokou míru přizpůsobení a interaktivity. D3 je velmi komplexní a nabízí širokou škálu funkcí pro práci s daty, ale může být náročný na učení a implementaci, zejména pro složitější vizualizace.~\cite{d3}
+Knihovna D3.js je open-source nástrojem umožňujícím vizualizaci dat pomocí webových standardů, jako jsou HTML, SVG a CSS.
+Grafy jsou vytvářeny pomocí DOM manipulace, což umožňuje vysokou míru přizpůsobení a interaktivity.
+D3 je velmi komplexní a nabízí širokou škálu funkcí pro práci s daty, ale může být náročný na učení a implementaci, zejména pro složitější vizualizace.~\cite{d3}
 
 \begin{figure}[ht]
     \centering
@@ -130,12 +192,16 @@ Knihovna D3.js je open-source nástrojem umožňujícím vizualizaci dat pomocí
     \label{fig:d3_tree}
 \end{figure}
 
-Příklad použití D3 pro zobrazení stromu je zobrazen na \customref{Obrázku}{fig:d3_tree}, přičemž knihovna zde využívá algoritmus \textit{tidy tree} pro úspornější uspořádání hierarchických dat. D3 se zaměřuje hlavně na vizualizaci velkého množství dat a dokumentů, pro tento projekt se to však jeví zbytečně složité a náročné na implementaci, protože se nejedná o rozsáhlou vizualizaci, ale spíše o jednoduché zobrazení stromů a grafů s interakcí a animací.
+Příklad použití D3 pro zobrazení stromu je zobrazen na \customref{Obrázku}{fig:d3_tree}, přičemž knihovna zde využívá algoritmus \textit{tidy tree} pro úspornější uspořádání hierarchických dat.
+D3 se zaměřuje hlavně na vizualizaci velkého množství dat a dokumentů, pro tento projekt se to však jeví zbytečně složité a náročné na implementaci, protože se nejedná o rozsáhlou vizualizaci, ale spíše o jednoduché zobrazení stromů a grafů s interakcí a animací.
 
 \subsection{Knihovna Cytoscape}
 \label{subsec:cytoscape}
 
-Další možností je knihovna Cytoscape.js, která je navržena speciálně pro vizualizaci grafů a sítí. Opět se jedná o open-source nástroj, oproti tomu předchozímu však jeho vykreslování neprobíhá pomocí DOM, ale využívá HTML5 canvas, což umožňuje efektivnější zobrazení a lepší výkon, zejména u větších grafů. Cytoscape.js nabízí širokou škálu funkcí pro práci s grafy, včetně různých layoutů, stylů a interakcí. Je také poměrně snadný na použití a má dobrou dokumentaci.~\cite{cytoscape}
+Další možností je knihovna Cytoscape.js, která je navržena speciálně pro vizualizaci grafů a sítí.
+Opět se jedná o open-source nástroj, oproti tomu předchozímu však jeho vykreslování neprobíhá pomocí DOM, ale využívá HTML5 canvas, což umožňuje efektivnější zobrazení a lepší výkon, zejména u větších grafů.
+Cytoscape.js nabízí širokou škálu funkcí pro práci s grafy, včetně různých layoutů, stylů a interakcí.
+Je také poměrně snadný na použití a má dobrou dokumentaci.~\cite{cytoscape}
 
 \begin{figure}[ht]
     \centering
@@ -144,12 +210,16 @@ Další možností je knihovna Cytoscape.js, která je navržena speciálně pro
     \label{fig:cytoscape_tree}
 \end{figure}
 
-Opět je přiložen příklad vykreslení stejného binárního vyhledávacího stromu jako v předchozím případě, tentokrát však pomocí Cytoscape.js \imageref{fig:cytoscape_tree}. Tento typ zobrazení je již uživatelsky přívětivější a přehlednější a také poskytuje více možností pro interakci s grafem, například přetahování uzlů, přiblížení či oddálení nebo různé styly zobrazení.
+Opět je přiložen příklad vykreslení stejného binárního vyhledávacího stromu jako v předchozím případě, tentokrát však pomocí Cytoscape.js \imageref{fig:cytoscape_tree}.
+Tento typ zobrazení je již uživatelsky přívětivější a přehlednější a také poskytuje více možností pro interakci s grafem, například přetahování uzlů, přiblížení či oddálení nebo různé styly zobrazení.
 
 \subsection{Knihovna vis-network}
 \label{subsec:vis}
 
-Zvažována byla také knihovna vis-network, která je součástí většího balíčku vis.js, jež byl vytvořen pro jednoduchou vizualizaci 2D i 3D grafů, strukturovaných dat, časových os a také právě sítí a grafů. Stejně jako Cytoscape.js využívá pro vykreslování HTML5 canvas, což zajišťuje dobrý výkon i u větších grafů. Samotná knihovna vis-network se snaží být co nejjednodušší pro vývojáře, pro zobrazení grafu stačí pouze definovat uzly a hrany a zbytek se postará o vykreslení a interakci. Nabízí také různé možnosti pro přizpůsobení zobrazení, například různé layouty, styly a možnosti interakce.~\cite{vis}
+Zvažována byla také knihovna vis-network, která je součástí většího balíčku vis.js, jež byl vytvořen pro jednoduchou vizualizaci 2D i 3D grafů, strukturovaných dat, časových os a také právě sítí a grafů.
+Stejně jako Cytoscape.js využívá pro vykreslování HTML5 canvas, což zajišťuje dobrý výkon i u větších grafů.
+Samotná knihovna vis-network se snaží být co nejjednodušší pro vývojáře, pro zobrazení grafu stačí pouze definovat uzly a hrany a zbytek se postará o vykreslení a interakci.
+Nabízí také různé možnosti pro přizpůsobení zobrazení, například různé layouty, styly a možnosti interakce.~\cite{vis}
 
 \begin{figure}[ht]
     \centering
@@ -158,20 +228,26 @@ Zvažována byla také knihovna vis-network, která je součástí většího ba
     \label{fig:vis_tree}
 \end{figure}
 
-Na \customref{Obrázku}{fig:vis_tree} je zobrazen strom vykreslený pomocí vis-network, přičemž se opět jedná o stejná data jako v předchozích případech. Tento způsob zobrazení je velmi přehledný a uživatelsky přívětivý, co se týče interakce s grafem poskytuje podobné možnosti jako Cytoscape. 
+Na \customref{Obrázku}{fig:vis_tree} je zobrazen strom vykreslený pomocí vis-network, přičemž se opět jedná o stejná data jako v předchozích případech.
+Tento způsob zobrazení je velmi přehledný a uživatelsky přívětivý, co se týče interakce s grafem poskytuje podobné možnosti jako Cytoscape.
 
-Animace grafu je zajištěna pomocí fyzikálního modelu, který simuluje síly mezi uzly a hranami, přímou možnost nastavení animace však knihovna nenabízí, ale existuje zde alespoň možnost nastavení pozic uzlů manuálně. Dalším přínosem této knihovny je implementace hierarchického layoutu, která je zabudovaná přímo do nastavení grafu, takže není nutné počítat pro každý vrchol souřadnice. Poskytuje taktéž velmi užitečnou možnost odposlouchávání událostí, jako například kliknutí na uzel, což umožňuje snadnou implementaci interakce s grafem.
-
+Animace grafu je zajištěna pomocí fyzikálního modelu, který simuluje síly mezi uzly a hranami, přímou možnost nastavení animace však knihovna nenabízí, ale existuje zde alespoň možnost nastavení pozic uzlů manuálně.
+Dalším přínosem této knihovny je implementace hierarchického layoutu, která je zabudovaná přímo do nastavení grafu, takže není nutné počítat pro každý vrchol souřadnice.
+Poskytuje taktéž velmi užitečnou možnost odposlouchávání událostí, jako například kliknutí na uzel, což umožňuje snadnou implementaci interakce s grafem.
 
 \section{Automatizace a nasazení (CI/CD)}
 \label{sec:ci_cd}
 
-Pro zajištění efektivního vývoje a nasazení aplikace je důležité implementovat procesy pro kontinuální integraci a kontinuální nasazení (CI/CD). Tyto procesy umožňují automatizovat testování, kompilaci a nasazení aplikace, čímž zrychlují vývoj a udržují aplikaci vždy v aktuálním stavu. Pro tento projekt bude využit GitHub Actions, nástroj pro automatizaci pracovních postupů přímo integrovaný do platformy GitHub.
+Pro zajištění efektivního vývoje a nasazení aplikace je důležité implementovat procesy pro kontinuální integraci a kontinuální nasazení (CI/CD).
+Tyto procesy umožňují automatizovat testování, kompilaci a nasazení aplikace, čímž zrychlují vývoj a udržují aplikaci vždy v aktuálním stavu.
+Pro tento projekt bude využit GitHub Actions, nástroj pro automatizaci pracovních postupů přímo integrovaný do platformy GitHub.
 
 \subsection{GitHub Actions}
 \label{subsec:github_actions}
 
-Tato platforma pro CI/CD umožňuje kompilovat, testovat a nasazovat kód přímo z repozitáře na GitHubu, přičemž spuštění těchto procesů lze nastavit na různé události, například při pushnutí kódu do repozitáře nebo při vytvoření pull requestu. Mimo to je možné pomocí něj spravovat štítky nebo provádět další akce, které mohou být užitečné pro vývojový proces. Spouštění pracovních postupů se provádí na virtuálních strojích, které jsou k dispozici pro různé operační systémy a prostředí a jsou poskytnuty zdarma platformou GitHub.~\cite{actions}
+Tato platforma pro CI/CD umožňuje kompilovat, testovat a nasazovat kód přímo z repozitáře na GitHubu, přičemž spuštění těchto procesů lze nastavit na různé události, například při pushnutí kódu do repozitáře nebo při vytvoření pull requestu.
+Mimo to je možné pomocí něj spravovat štítky nebo provádět další akce, které mohou být užitečné pro vývojový proces.
+Spouštění pracovních postupů se provádí na virtuálních strojích, které jsou k dispozici pro různé operační systémy a prostředí a jsou poskytnuty zdarma platformou GitHub.~\cite{actions}
 
 \begin{listing}[ht]
     \inputminted{yaml}{code/technologies/gh_actions.yml}
@@ -179,7 +255,9 @@ Tato platforma pro CI/CD umožňuje kompilovat, testovat a nasazovat kód přím
     \label{code:example_yaml}
 \end{listing}
 
-Proces je definován pomocí YAML souborů, jež specifikují jednotlivé kroky a akce, které se mají provést. Příklad takového souboru je přiložen na \customref{Výpisu}{code:example_yaml}. Tento proces má následující fáze:
+Proces je definován pomocí YAML souborů, jež specifikují jednotlivé kroky a akce, které se mají provést.
+Příklad takového souboru je přiložen na \customref{Výpisu}{code:example_yaml}.
+Tento proces má následující fáze:
 
 \begin{enumerate}
     \item \textbf{Příprava prostředí (Checkout \& Setup)}: Virtuální stroj stáhne zdrojový kód z repozitáře a připraví potřebné prostředí (Node.js).
@@ -193,14 +271,19 @@ Tento přístup minimalizuje riziko chyb při ručním nasazování a zaručuje,
 \subsection{GitHub Pages}
 \label{subsec:github_pages}
 
-Pro hosting statické webové aplikace bude využita služba GitHub Pages, která umožňuje snadné a bezplatné nasazení statických stránek přímo z repozitáře na GitHubu. GitHub Pages poskytuje jednoduchý způsob, jak hostovat statické webové stránky bez nutnosti spravovat vlastní server nebo platit za hostingové služby. Stačí pouze nahrát statické soubory do repozitáře a nastavit správnou větev pro publikování, a stránka je okamžitě dostupná na veřejné URL adrese.~\cite{pages}
-
+Pro hosting statické webové aplikace bude využita služba GitHub Pages, která umožňuje snadné a bezplatné nasazení statických stránek přímo z repozitáře na GitHubu.
+GitHub Pages poskytuje jednoduchý způsob, jak hostovat statické webové stránky bez nutnosti spravovat vlastní server nebo platit za hostingové služby.
+Stačí pouze nahrát statické soubory do repozitáře a nastavit správnou větev pro publikování, a stránka je okamžitě dostupná na veřejné URL adrese.~\cite{pages}
 
 \section{Shrnutí}
 \label{sec:tech_summary}
 
-Na základě provedené analýzy byl pro realizaci projektu zvolen moderní technologický stack postavený na architektuře \textbf{SPA}. Co se týče strategie renderování, bude využita kombinace \textbf{SSG} pro generování statických HTML souborů a \textbf{CSR} pro zajištění interaktivity, čímž se umožní rychlé načítání stránek a zároveň poskytne plynulý uživatelský zážitek.
+Na základě provedené analýzy byl pro realizaci projektu zvolen moderní technologický stack postavený na architektuře \textbf{SPA}.
+Co se týče strategie renderování, bude využita kombinace \textbf{SSG} pro generování statických HTML souborů a \textbf{CSR} pro zajištění interaktivity, čímž se umožní rychlé načítání stránek a zároveň poskytne plynulý uživatelský zážitek.
 
-Jako framework byl zvolen \textbf{Svelte} spolu s jeho meta-frameworkem \textbf{SvelteKit}, především pro jeho efektivitu, absenci virtuálního DOM a nativní podporu animací, což je klíčové pro plynulé zobrazení kroků algoritmů a operací nad datovými strukturami. Využití \textbf{TypeScriptu} v rámci celého vývoje zajišťuje typovou bezpečnost při práci se složitými datovými strukturami.
+Jako framework byl zvolen \textbf{Svelte} spolu s jeho meta-frameworkem \textbf{SvelteKit}, především pro jeho efektivitu, absenci virtuálního DOM a nativní podporu animací, což je klíčové pro plynulé zobrazení kroků algoritmů a operací nad datovými strukturami.
+Využití \textbf{TypeScriptu} v rámci celého vývoje zajišťuje typovou bezpečnost při práci se složitými datovými strukturami.
 
-Pro samotnou vizualizaci grafů a stromů byla vybrána knihovna \textbf{vis-network}, která díky svému hierarchickému layoutu a možnosti odposlouchávání událostí umožňuje přehledné a interaktivní zobrazení jak pro jednoduché, tak i složitější datové struktury. Celý proces sestavení a nasazení aplikace je automatizován pomocí \textbf{GitHub Actions} a výsledná statická aplikace je hostována na \textbf{GitHub Pages}, aby byl vývoj co nejvíce ulehčen a aby byla omezena lidská chyba. Tento technologický stack poskytuje solidní základ pro vývoj výukové aplikace, která bude funkční rychlá a uživatelsky přívětivá.
+Pro samotnou vizualizaci grafů a stromů byla vybrána knihovna \textbf{vis-network}, která díky svému hierarchickému layoutu a možnosti odposlouchávání událostí umožňuje přehledné a interaktivní zobrazení jak pro jednoduché, tak i složitější datové struktury.
+Celý proces sestavení a nasazení aplikace je automatizován pomocí \textbf{GitHub Actions} a výsledná statická aplikace je hostována na \textbf{GitHub Pages}, aby byl vývoj co nejvíce ulehčen a aby byla omezena lidská chyba.
+Tento technologický stack poskytuje solidní základ pro vývoj výukové aplikace, která bude funkční rychlá a uživatelsky přívětivá.
