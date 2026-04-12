@@ -16,6 +16,8 @@
 \usepackage{array} % schovavani sloupcu v tabulkach
 \usepackage[linesnumbered,tworuled,vlined]{algorithm2e} % pseudokod
 
+\newcommand{\todo}[1]{\noindent\textcolor{red}{TODO: #1}}
+
 % Pozadovane vstupy pro generovani titulnich stran.
 \ThesisAuthor{Barbora Kovalská}
 \ThesisSupervisor{Ing. Radoslav Fasuga, Ph.D.}
@@ -28,18 +30,24 @@
 \ThesisAssignmentFileName{../specification.pdf}
 
 \Acknowledgement{%
-Děkuji, že mám ještě tolik času na dokončení této práce.
+Děkuji, že mám ještě tolik času na dokončení této práce. \todo{Dochází, tak tohle dopiš.}
 }
 
 \CzechAbstract{%
-Abstraktní čeština.
+Hlavním cílem této diplomové práce je návrh a implementace interaktivní webové výukové aplikace zaměřené na vizualizaci datových struktur a simulaci třídicích algoritmů. 
+Práce se v teoretické části věnuje popisu teorie obsahu aplikace, analýze existujících řešení a výběru vhodných moderních webových technologií. 
+Hlavní část práce podrobně popisuje softwarovou architekturu systému, která striktně odděluje aplikační logiku od prezentační vrstvy pomocí událostmi řízeného modelu a generování předpočítaných stavů.
+Výsledkem je plně responzivní a modulární výuková aplikace, která studentům umožňuje krok za krokem zkoumat chování algoritmů, interaktivně manipulovat se strukturami a plynule propojovat teoretické znalosti s vizuální reprezentací pseudokódu.
 }
-\CzechKeywords{interaktivní nástroj; vizualizace; algoritmy; datové struktury; vzdělávání; simulace}
+\CzechKeywords{vizualizace algoritmů; datové struktury; třídicí algoritmy; výuková webová aplikace; SvelteKit; TypeScript; softwarová architektura; e-learning}
 
 \EnglishAbstract{%
-Abstract English.
+The main objective of this Master's thesis is the design and implementation of an interactive web-based educational application focused on visualizing data structures and simulating sorting algorithms. 
+The theoretical part examines the educational content, existing solutions, and the selection of suitable modern web technologies. 
+The core of the thesis details the software architecture of the system, which strictly separates application logic from the presentation layer using an event-driven model and the generation of precomputed states. 
+The result is a fully responsive and modular educational application that allows students to explore algorithm behavior step-by-step, interactively manipulate structures, and seamlessly connect theoretical knowledge with the visual representation of pseudocode.
 }
-\EnglishKeywords{interactive tool; visualization; algorithms; data structures; education; simulation}
+\EnglishKeywords{algorithm visualization; data structures; sorting algorithms; educational web application; SvelteKit; TypeScript; software architecture; e-learning}
 
 \AddAcronym{VŠB}{Vysoká škola Báňská}
 
@@ -106,8 +114,6 @@ Abstract English.
 \newcommand{\gameref}[1]{\textit{#1}}
 \newcommand{\attr}[1]{(\texttt{#1})}
 \newcommand{\devTool}[2]{\textit{#1}\footnote{\href{#2}{#2}}}
-
-\newcommand{\todo}[1]{\noindent\textcolor{red}{TODO: #1}}
 
 % Hide columns in tables
 \newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}

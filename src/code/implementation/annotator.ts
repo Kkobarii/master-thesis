@@ -1,7 +1,5 @@
 // 1. Napojení vrstvy na vykreslovací cyklus knihovny vis-network
 this.network.on("afterDrawing", () => {
-  this.overlayCanvas.width = this.container.clientWidth;
-  this.overlayCanvas.height = this.container.clientHeight;
   this.annotator.redrawCanvas();
 });
 

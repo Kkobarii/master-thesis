@@ -147,19 +147,24 @@ Tato nezávislá vrstva umožňuje vykreslovat hned několik typů anotací:
 
 Navzdory robustnímu systému tříd \texttt{Annotator} a \texttt{Animator} existují scénáře, ve kterých zvolená knihovna naráží na své nepřekročitelné architektonické limity. Tímto scénářem jsou především B-stromy.
 
-Hierarchický auto-layout knihovny \texttt{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu. Podstata B-stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje. Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané větvi, což ve specifických případech vede k vizuálnímu překryvu sousedních prvků. Tuto asymetrii nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního matematického layout enginu, což představuje akceptované omezení implementace. Ve výsledné aplikaci je tedy mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor často velkých mezer mezi listy stromu.
+Hierarchický auto-layout knihovny \texttt{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu. Podstata B-stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje. Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané větvi, což ve specifických případech vede k vizuálnímu překryvu sousedních prvků. Tento nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního layout enginu, což představuje akceptované omezení implementace. Ve výsledné aplikaci je tedy mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor často velkých mezer mezi listy stromu.
+
+\section{Automatizace nasazení a CI/CD}
+\label{sec:implementation-cicd}
+
+Pro zajištění kontinuální dostupnosti aplikace pro koncové uživatele a eliminaci chyb při manuálním nasazování byl implementován plně automatizovaný proces sestavení a publikace. Tento proces využívá platformu GitHub Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
+
+Ačkoliv je aplikace technicky hostována v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména druhého řádu. V nastavení DNS záznamů a v konfiguračním rozhraní GitHubu byla vytvořena subdoména (\texttt{treeline.kkobari.eu}), která pomocí záznamu CNAME směřuje na servery poskytovatele.
 
 \section{Uživatelské rozhraní a další funkcionality}
 \label{sec:ui-and-advanced-features}
 
-Architektura popsaná v předchozích podkapitolách tvoří robustní základ, nad kterým je postaveno samotné uživatelské rozhraní. Tato závěrečná kapitola demonstruje, jak se navržené abstrakce, událostní modely a vizualizační techniky spojují do finálního produktu. Dále také představuje pokročilé funkce, které zvyšují ergonomii a edukativní hodnotu aplikace.
+Na závěr implementace tato kapitola demonstruje, jak se navržené abstrakce, událostní modely a vizualizační techniky spojují do finálního produktu. Dále také představuje pokročilé funkce, které zvyšují ergonomii a edukativní hodnotu aplikace.
 
 \subsection{Prezentace vizualizačních modulů}
 \label{subsec:showcase}
 
 Jednotlivé vizualizační moduly jsou přístupné z hlavní navigace, která je implementována jako horizontální menu v horní části obrazovky. Barva a styl stránek jsou konzistentní napříč celou aplikací a jsou v souladu s barevnou paletou, která byla definována v \customref{Kapitole}{sec:visual-style-colors}. V rámci implementace byl pro výukovou aplikaci zvolen název \textit{Treeline}, který se objevuje v logu a dalších vizuálních prvcích.
-
-Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro interaktivní průzkum datových struktur (na příkladu AVL stromu), kde se uplatňuje událostmi řízený \texttt{OperationManager} a překryvná anotační vrstva. Pro graf je vyhrazena většina horizontálního prostoru, zatímco ovládací prvky pro manipulaci se strukturou (vkládání, mazání, hledání) jsou umístěny v pravé postranní liště. Každá struktura zde má svůj vlastní set operací, které může uživatel volit a následně krokovat jejich průběh.
 
 \begin{figure}[ht]
     \centering
@@ -168,7 +173,7 @@ Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro interaktiv
     \label{fig:structure_page}
 \end{figure}
 
-Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující pohledy. Obecný přehled \imageref{fig:sorting_first_page} nabízí tradiční sloupcovou vizualizaci, která je ideální pro demonstraci celkového chování algoritmu nad větším množstvím dat. V rámci běhu algoritmu se dynamicky zvýrazňují porovnávané a přesouvané prvky, kterých je v tomto přehledu 100. Uživatel může postup krokovat, nebo spustit automatické přehrávání s nastavitelnou rychlostí. Má také možnost zvolit si různé vstupní datové sady, jako jsou náhodné, téměř setříděné či reverzní pole.
+Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur (na příkladu AVL stromu). Pro graf je vyhrazena většina horizontálního prostoru, zatímco ovládací prvky pro manipulaci se strukturou (vkládání, mazání, hledání) jsou umístěny v pravé postranní liště.
 
 \begin{figure}[H]
     \centering
@@ -177,7 +182,7 @@ Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující
     \label{fig:sorting_first_page}
 \end{figure}
 
-Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick Sort, naopak poskytuje hluboký vhled do mikro-operací, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a dynamicky zvýrazňuje odpovídající řádky pseudokódu. Pole je zde zmenšeno na pouhých 16 prvků, což umožňuje detailní sledování každé operace.
+Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující pohledy. Obecný přehled \imageref{fig:sorting_first_page} nabízí sloupcovou vizualizaci, která je ideální pro demonstraci celkového chování algoritmu nad větším množstvím dat. V rámci běhu algoritmu se dynamicky zvýrazňují porovnávané a přesouvané prvky, kterých je v tomto přehledu 100. Uživatel může postup krokovat, nebo spustit automatické přehrávání s nastavitelnou rychlostí. Má také možnost zvolit si různé vstupní datové sady, jako jsou náhodné, téměř setříděné či reverzní pole.
 
 \begin{figure}[H]
     \centering
@@ -186,10 +191,12 @@ Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algor
     \label{fig:sorting_detail_page}
 \end{figure}
 
+Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick Sort, naopak poskytuje hluboký vhled do mikro-operací, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a dynamicky zvýrazňuje odpovídající řádky pseudokódu. Pole je zde zmenšeno na pouhých 16 prvků, což umožňuje detailní sledování každé operace.
+
 \subsection{Přístupnost a adaptabilita prostředí}
 \label{subsec:accessibility-adaptability}
 
-Moderní výuková aplikace musí být přístupná širokému spektru uživatelů a zařízení. Adaptabilita prostředí v tomto projektu stojí na třech hlavních pilířích: responzivitě, vizuálních motivech a mezinárodní lokalizaci.
+Moderní výuková aplikace musí být přístupná širokému spektru uživatelů a zařízení. Adaptabilita prostředí stojí na třech hlavních pilířích: responzivitě, vizuálních motivech a mezinárodní lokalizaci.
 
 Pro zajištění responzivity a podpory tmavého režimu (Dark Mode) byl využit CSS framework Tailwind. Pomocí jeho utilitních tříd se rozložení prvků dynamicky přeskládává v závislosti na velikosti obrazovky, což umožňuje plnohodnotné používání aplikace i na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}. Mezi úpravy mimo jiné patří přechod z horizontálního menu na hamburger menu, vertikální rozložení ovládacích prvků a zmenšení datové sady pro třídicí algoritmy na 50 a 8 prvků v obecném a detailním pohledu, aby se zachovala přehlednost na menších obrazovkách.
 
@@ -235,8 +242,6 @@ Poslední ukázkou robustnosti a nezávislosti navržených komponent je modul p
 \end{figure}
 
 Tato funkcionalita je umožněna díky skutečnosti, že každý vizualizační blok na obrazovce si instancuje svůj vlastní izolovaný \texttt{StepManager}. Jeden centrální časovač následně distribuuje impulsy do všech aktivních manažerů, které inkrementují svůj stav zcela nezávisle na ostatních. Výsledkem je vizuálně atraktivní porovnání algoritmů, které empiricky dokazuje teoretické předpoklady o asymptotické složitosti, a zároveň slouží jako zajímavý příklad pro uživatele.
-
-\todo{deployment???}
 
 % \begin{figure}[ht]
 %     \centering
