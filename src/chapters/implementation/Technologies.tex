@@ -9,68 +9,63 @@ Tato analýza bude začátkem implementace výukové aplikace a bude sloužit ja
 \section{Architektura aplikace}
 \label{sec:app_architecture}
 
-Ještě před samotnou volbou vhodného frameworku je důležité provést krátkou analýzu možné architektury pro výukovou aplikaci.
-Architektura určuje, kde bude implementována logika aplikace, jak budou zpracovávány požadavky uživatele a jakým způsobem se bude provádět zobrazování stránky.
+Ještě před samotnou volbou vhodného frameworku je důležité provést analýzu možné softwarové architektury pro výukovou aplikaci.
+Architektura určuje nejen to, kde bude implementována aplikační logika, ale také definuje způsob komunikace mezi klientem a serverem a strategii vykreslování uživatelského rozhraní.
 
-\subsection{Klient-server architektura}
+\subsection{Klasická webová architektura}
 \label{subsec:client_server_architecture}
 
-Prvním možným přístupem je klasická klient-server architektura (\textit{Client-Server Architecture}), kdy je logika aplikace implementována na serveru a klient (prohlížeč) pouze zobrazuje výsledky, přičemž komunikace mezi nimi probíhá pomocí HTTP požadavků.
-Příklad fungování této architektury je zobrazen na \customref{Obrázku}{fig:page_lifecycles}, konkrétně jeho levé, modré části.
-Interakce uživatele s aplikací funguje tak, že při každé akci uživatele (například kliknutí na tlačítko) je odeslán HTTP požadavek na server, který zpracuje obdržená data, provede potřebné operace a jako odpověď vrátí novou HTML stránku, která se následně načte v prohlížeči.
-V praxi to tedy znamená nutnost znovunačtení stránky s každou takovou interakcí.
-Tento přístup je poměrně jednoduchý a dobře známý, ale může být pomalý a neefektivní, zejména pokud se jedná o interaktivní aplikaci s častými aktualizacemi a obzvláště když stránka nepotřebuje uchovávat stav nebo jiné informace přímo na serveru.
+Tradičním přístupem je více stránková architektura (\textit{Multi-Page Architecture}, dále \textit{MPA}), založená na modelu rozhraní, kde každá interakce uživatele nebo odeslání formuláře vyvolá kompletní obnovení rozhraní ze serveru.
+Logika aplikace je v tomto případě primárně soustředěna na straně serveru.~\cite{joseph2015}
+
+Příklad životního cyklu v této architektuře je zobrazen na \customref{Obrázku}{fig:page_lifecycles} (levá část).
+Při každé akci uživatele je odeslán HTTP požadavek na server, který data zpracuje a jako odpověď vrátí novou HTML stránku.
+V praxi to znamená nutnost znovunačtení celého dokumentu s každou interakcí, což může vést k prodlevám a neefektivnímu využití přenosového pásma, jelikož se opakovaně přenáší i statické části rozhraní (např. navigace).
 
 \begin{figure}[ht]
     \centering
     \includegraphics{figures/technologies/page_lifecycles.pdf}
-    \caption{Srovnání životních cyklů stránek v klasické klient-server architektuře a v SPA}
+    \caption{Srovnání životních cyklů stránek v klasické architektuře a v SPA}
     \label{fig:page_lifecycles}
 \end{figure}
 
 \subsection{Jednostránková webová aplikace}
 \label{subsec:spa}
 
-Jako reakce na nevýhody klasické architektury se v posledních letech rozšířil přístup zvaný jednostránková webová aplikace (\textit{Single Page Application}, dále \textit{SPA}).
-Hlavním rozdílem mezi SPA a klasickou architekturou je to, že v případě SPA jsou data získána hned při prvním požadavku u načtení stránky a následně se již neodesílají další požadavky o další stránky.
-Namísto toho se veškerá logika a zpracování provádí na straně klienta, přičemž komunikace se serverem probíhá pouze pro získávání dat (například pomocí API).
-Jak je vidět na pravé, oranžové části \customref{Obrázku}{fig:page_lifecycles}, využívá se zde technologie \textit{AJAX} a odpověď ze serveru jsou tentokrát data ve formátu \textit{JSON}, která jsou následně zpracována a zobrazena na stejné stránce bez nutnosti jejího obnovení.~\cite{ifour}
+Jako reakce na omezení tradičního modelu se v posledních letech stal standardem přístup zvaný jednostránková webová aplikace (\textit{Single Page Application}, dále \textit{SPA}).
+Hlavním rysem SPA je, že po úvodním načtení základního značení (markup) aplikace již nevyžaduje opětovné načítání celé stránky.
+Namísto toho aplikace nezávisle žádá pouze o nezbytná data, typicky prostřednictvím technologie AJAX.~\cite{joseph2015}
 
-Výhodou tohoto přístupu je rychlejší a plynulejší uživatelský zážitek, protože není nutné znovu načítat celou stránku s každou interakcí.
-Navíc umožňuje lepší využití zdrojů a efektivnější komunikaci se serverem, protože se odesílají pouze potřebná data namísto celé stránky.
-SPA také může být výhodná v případě, že uživatel nemá vždy stabilní připojení k internetu, protože většina logiky a zpracování se provádí na klientovi, díky čemuž může aplikace fungovat i v offline režimu, pokud již předtím načetla potřebná data.
+Jak je znázorněno na pravé části \customref{Obrázku}{fig:page_lifecycles}, odpovědi ze serveru jsou přenášeny ve formátu JSON, což prohlížeči umožňuje reaktivně aktualizovat pouze dotčené části DOMu bez přerušení uživatelského zážitku.
+Tento model simuluje chování nativních desktopových aplikací s minimální odezvou.~\cite{kaluza2018}
 
-Nevýhodou však může být složitější vývoj a údržba, protože veškerá logika a zpracování musí být implementována na straně klienta, což může být náročnější než implementace na serveru.
-Problémy také nastávají s optimalizací pro vyhledávače (SEO), protože obsah není vždy dostupný pro indexování, a také s bezpečností, protože veškerá logika je přístupná na straně klienta.
+Výhodou tohoto přístupu je plynulejší interaktivita, což je pro výukový nástroj s animacemi zásadní.
+Díky tomu, že logika běží na straně klienta, mohou být aplikace částečně funkční i při nestabilním připojení, přičemž synchronizace probíhá po obnovení spojení.
+Nevýhodou je však vyšší náročnost na počáteční stažení JavaScriptových balíků a komplikovanější optimalizace pro vyhledávače (SEO), jelikož obsah není pro roboty (\textit{web-crawlers}) okamžitě dostupný v surovém HTML.~\cite{kaluza2018}
+Pro účely interního výukového nástroje však výhody plynulého vykreslování animací převažují nad požadavky na SEO.
 
 \section{Strategie renderování}
 \label{sec:rendering_strategies}
 
 Dalším důležitým aspektem architektury je strategie renderování, tedy způsob, jakým se generuje a zobrazuje obsah na stránce.
-Strategie existují různé, liší se zejména tím, kde se provádí zpracování a generování HTML kódu.
-Ovlivnit mohou nejen uživatelský zážitek, ale také výkon a optimalizaci pro vyhledávače (SEO).
+Různé strategie se liší zejména tím, kde se provádí zpracování a generování HTML kódu, což zásadně ovlivňuje nejen uživatelský zážitek a výkon, ale také optimalizaci pro vyhledávače (SEO).
 
 \subsection{Client-Side Rendering}
 \label{subsec:client_side_rendering}
 
-Varianta Client-Side Rendering (CSR) je nejběžnější strategií pro SPA, kdy se veškeré zpracování a generování HTML kódu provádí na straně klienta.
-Server vrací pouze minimální HTML dokument, který obsahuje odkaz na JavaScriptový soubor.
-Tento soubor si musí klient stáhnout a spustit, aby byl schopen zobrazit obsah stránky.
-Stránka se načte až po provedení všech těchto kroků.
-Tato strategie tedy předává zodpovědnost za zobrazení dat na klienta, takže zlehčuje zátěž serveru.
-Přesný postup fungování CSR je zobrazen v horní části \customref{Obrázku}{fig:rendering_strategies}.~\cite{techtose}
+Varianta Client-Side Rendering (CSR) je běžnou strategií pro jednostránkové aplikace (SPA), u které se veškeré generování HTML kódu provádí až na straně klienta.
+Server vrací pouze minimální prázdný HTML dokument s odkazem na JavaScriptový soubor, který klient musí stáhnout a spustit pro zobrazení obsahu.
+Princip fungování CSR je zobrazen v horní části \customref{Obrázku}{fig:rendering_strategies}.
 
-Výhodou CSR je rychlá interaktivita po prvotním načtení stránky, protože veškeré zpracování se provádí na klientovi.
-Také zmenšuje zátěž serveru, protože ten pouze poskytuje data a neprovádí zpracování.
-Mezi nevýhody se řadí horší SEO, protože obsah není vždy dostupný pro indexování, a také delší doba načítání při prvním načtení stránky, protože klient musí stáhnout a spustit JavaScript než je schopen zobrazit obsah.
-Je zde také možnost zhoršení výkonu na slabších zařízeních nebo při pomalém připojení k internetu.~\cite{techtose}
-
-CSR je tedy nejvíce vhodná pro interaktivní aplikace, které nevyžadují optimalizaci pro vyhledávače a kde je důležitá rychlá interaktivita po načtení stránky.
+Hlavní výhodou CSR je plynulá interaktivita a rychlé přechody po prvotním načtení aplikace.
+Zároveň se minimalizuje výpočetní zátěž serveru, který figuruje pouze jako poskytovatel dat.
+Na druhou stranu, nutnost stažení a spuštění objemných skriptů vede k delší prodlevě při prvním načtení, což může zhoršit uživatelský zážitek na zařízeních s nižším výkonem.
+Další nevýhodou je horší indexovatelnost pro vyhledávače (SEO), jelikož web crawlery při prvním průchodu aplikací často nevidí vygenerovaný obsah.~\cite{alaa2025, kumar2025}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{figures/technologies/rendering_strategies.pdf}
-    \caption{Srovnání strategii renderování CSR a SSR}
+    \caption{Srovnání strategií renderování CSR a SSR}
     \label{fig:rendering_strategies}
 \end{figure}
 
@@ -78,36 +73,28 @@ CSR je tedy nejvíce vhodná pro interaktivní aplikace, které nevyžadují opt
 \label{subsec:server_side_rendering}
 
 Jak už název napovídá, druhou strategií je Server-Side Rendering (SSR), kdy se zpracování a generování HTML kódu provádí na straně serveru.
-Tento způsob zajišťuje, že klient obdrží již kompletní HTML dokument, který může okamžitě zobrazit.
-Původní zpracovaná stránka však není interaktivní, proto uživatel přece jen musí počkat, než se stáhne a spustí JavaScript, aby se stránka stala plně funkční.
-SSR využívá tzv.
-\textit{hydrataci}, což je proces, kdy klientovský JavaScript převezme kontrolu nad stránkou a upravuje její stav, aby se stala interaktivní.
-Proces fungování SSR je zobrazen v dolní části \customref{Obrázku}{fig:rendering_strategies}, kde je možné pozorovat, že uživateli je zobrazena kompletní stránka již při prvním načtení, ale interaktivní se stává až po provedení hydratace.~\cite{techtose}
+Klient tak obdrží hotovou stránku, kterou může prohlížeč okamžitě zobrazit (viz dolní část \customref{Obrázku}{fig:rendering_strategies}).
+Tato prvotní stránka však zatím není interaktivní.
+Plnou funkčnost získává až po stažení JavaScriptu prostřednictvím procesu zvaného \textit{hydratace}.
+Během ní klientský skript převezme kontrolu nad již vyrenderovaným statickým HTML a naváže na něj potřebnou aplikační logiku a interaktivitu.~\cite{chen2025}
 
-Velkou výhodou SSR je lepší SEO, protože připravený obsah stránky je dostupný pro indexování vyhledávači.
-Z pohledu uživatele se také načtení stránky jeví jako rychlejší, protože obdrží kompletní HTML dokument již při prvním načtení a nemusí čekat na stažení a spuštění JavaScriptu.
-Rychlost načítání také nezávisí na uživatelském zařízení.
-Častou nevýhodou je však větší zátěž na server, stránka tak může být pomalejší s větším množstvím uživatelů, protože server musí zpracovat a vygenerovat HTML pro každou žádost.
-Přechod mezi stránkami může být také pomalejší, protože každá nová stránka musí být zpracována na serveru.~\cite{techtose}
-
-Varianta SSR se často využívá pro webové stránky s velkým množstvím obsahu, které potřebují být optimalizovány pro vyhledávače, nebo pro stránky, které musí být rychle načítány bez ohledu na zařízení uživatele.
+Zásadní výhodou SSR je vynikající podpora SEO, jelikož je obsah okamžitě přístupný webovým crawlerům bez nutnosti spouštět JavaScript.
+Kvantitativní měření potvrzují, že SSR dosahuje výrazně lepších výsledků v metrikách prvotního načtení (TTFB), čímž poskytuje rychlou vizuální odezvu nezávisle na výkonu koncového zařízení.
+Nevýhodou je naopak vyšší zátěž serveru, který musí dynamicky generovat HTML pro každý požadavek, což může při větším množství uživatelů vést k degradaci výkonu.~\cite{kumar2025,alaa2025}
 
 \subsection{Static Site Generation}
 \label{subsec:static_site_generation}
 
-Poslední strategií tohoto výčtu je Static Site Generation neboli SSG.
-Tato strategie je podobná SSR, protože se také generuje kompletní HTML dokument, rozdíl je však v tom, že se tento soubor generuje ještě před spuštěním serveru (build time) a ne při každém požadavku.
-HTML soubory jsou tedy připraveny dopředu a server je pouze poskytuje klientovi, což v praxi zajišťuje velmi rychlé načítání stránek, protože server nemusí provádět žádné zpracování.~\cite{techtose}
+Poslední strategií v tomto výčtu je Static Site Generation (SSG). 
+Přístup je podobný SSR v tom, že klient obdrží předpřipravený HTML dokument, avšak k jeho generování nedochází při každém požadavku, ale již ve fázi sestavování aplikace (\textit{build time}). 
+Server následně klientovi pouze distribuuje hotové statické soubory.
 
-Mezi výhody SSG patří bleskově rychlé načítání stránek, lepší SEO a také snížené náklady na hosting serveru, neboť není potřeba zpracovávat požadavky v reálném čase.
-Na druhou stranu nevýhodou je složitější správa obsahu, protože jakákoli změna v obsahu vyžaduje znovu vygenerování HTML souborů, a to může být časově náročné a neefektivní pro webové stránky s často se měnícím obsahem.
-I samotný proces generování může být náročný, zejména pokud se jedná o velký web s mnoha stránkami.~\cite{techtose}
+Mezi výhody SSG patří bleskově rychlé načítání, výborné SEO a minimální nároky na provoz serveru, jelikož odpadá nutnost generování dat v reálném čase. 
+Nevýhodou je složitější správa dynamického obsahu -- jakákoliv změna dat vyžaduje nové sestavení celé aplikace, což je u rozsáhlých projektů s často se měnícím obsahem značně neefektivní.~\cite{kumar2025}
 
-Je také dobré zmínit, že u SSG se nemusí nutně jednat o zcela statické stránky, ale dá se používat pro staticky vygenerované SPA.
-V praxi to tedy často bývá používáno jako kombinace SSR pro generování statických HTML souborů a CSR pro zajištění interaktivity.
-Pokud stránka potřebuje nějakou dynamickou funkcionalitu, je možné ji implementovat pomocí JavaScriptu, podobně jako hydratace v SSR.
-
-SSG je ideální pro webové stránky, které mají převážně statický obsah, který se často nemění, a kde je důležitá rychlost načítání a optimalizace pro vyhledávače.
+Důležitým faktem je, že SSG nevylučuje následnou interaktivitu. 
+V kontextu moderních frameworků se často využívá k vygenerování statického základu, který je po načtení na straně klienta \textit{hydratován} a dále funguje jako plnohodnotná SPA. 
+Tento kombinovaný model je ideální pro výukové aplikace s fixními teoretickými materiály, kde je prioritou rychlost doručení a vysoká míra interaktivity v samotných vizualizacích.~\cite{kumar2025}
 
 \section{Webový framework}
 \label{sec:web_framework}
