@@ -18,7 +18,7 @@ Každá datová struktura je charakterizována svými vlastnostmi, operacemi a p
 Pro účely výuky datových struktur je rozumné začít s lineárními datovými strukturami, které jsou jednodušší na pochopení a vizualizaci.
 Tyto struktury zahrnují mimo jiné pole, spojové seznamy, zásobníky a fronty.
 
-I přes to, že tyto struktury jsou relativně jednoduché a již moc dobře známé, v této práci budou teoreticky uvedeny, aby byla zajištěna úplnost a konzistence s dalšími částmi práce.
+I přesto, že tyto struktury jsou relativně jednoduché a již moc dobře známé, v této práci budou teoreticky uvedeny, aby byla zajištěna úplnost a konzistence s dalšími částmi práce.
 
 \subsubsection*{Pole a spojový seznam}
 
@@ -86,14 +86,14 @@ Efektivita operací nad BST závisí na jeho výšce.
 Zde nastává problém degradace BST, kdy se strom stává nevyváženým a jeho výška se blíží počtu uzlů, což vede k lineární složitosti operací.
 V nejhorším případě se BST může stát podobným spojovému seznamu, což výrazně snižuje jeho výkon.
 Degradovaný strom je možné vidět na \customref{Obrázku}{img:bst}.
-I přes to, že tedy operace nad BST mají průměrnou složitost $O(\log n)$, v nejhorším případě může být složitost $O(n)$.
+I přesto, že tedy operace nad BST mají průměrnou složitost $O(\log n)$, v nejhorším případě může být složitost $O(n)$.
 Pro zefektivnění těchto operací se používají samovyvažující se stromy, které z binárního vyhledávacího stromu vychází.~\cite{levitin}
 
 \subsubsection*{AVL strom}
 
 Samovyvažující se AVL stromy jsou pojmenovány po svých tvůrcích, G.~M.~Adelson-Velsky a E.~M.~Landis, kteří je představili v roce 1962.
 AVL strom je binární vyhledávací strom, který udržuje vyváženost tím, že zajišťuje, aby výškový rozdíl mezi levým a pravým podstromem každého uzlu byl nejvýše 1.
-Tato vlastnost jde vidět na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu, které pro tento typ stromu může nabývat pouze hodnot -1, 0 nebo 1.
+Tato vlastnost je patrná na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu, které pro tento typ stromu může nabývat pouze hodnot -1, 0 nebo 1.
 Vyvážení je definováno jako rozdíl mezi výškou levého a pravého podstromu.
 V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení, což umožňuje efektivní výpočet vyvážení během operací vkládání a mazání.
 AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, což je důvod, proč jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{levitin,cormen}
@@ -187,7 +187,7 @@ Pro zjednodušení jsou uvedeny pouze dvě varianty, kdy je $P$ levým potomkem 
 Pokud je nový uzel \textbf{levým potomkem} (případ L), provede se pravá rotace na $G$ a $P$ se tedy stává novým kořenem podstromu, přičemž během rotace si zmíněné vrcholy vymění barvy.
 Podobně jako u diagramu AVL stromu, akce přesunutí potomka směrem nahoru je na diagramu znázorněna oranžovou šipkou nad daným vrcholem.
 Pokud je nový uzel \textbf{pravým potomkem} (případ R), provede se nejprve levá rotace na $P$, čímž se $X$ stává levým potomkem $G$, a poté pravá rotace na $G$, přičemž během druhé rotace si $X$ a $G$ vymění barvy.
-Po těchto úpravách již není potřeba rekurzivní kontrola, protože všechny pravidla červeno-černého stromu jsou dodržena a strom zůstává vyvážený.~\cite{morin2013}
+Po těchto úpravách již není potřeba rekurzivní kontrola, protože všechna pravidla červeno-černého stromu jsou dodržena a strom zůstává vyvážený.~\cite{morin2013}
 
 Odstraňování prvku z červeno-černého stromu je složitější operace, která zahrnuje více případů a může vyžadovat několik rotací a změn barev, aby se udržela vyváženost stromu.
 Nicméně principy jsou podobné jako při vkládání, kdy se nejprve odstraní uzel a poté se provádí opravy, pokud dojde k narušení pravidel červeno-černého stromu.~\cite{cormen}
@@ -199,7 +199,7 @@ B-stromy, které představili R.~Bayer a E.~McGreight, jsou samovyvažující se
 V praxi je možné tyto stromy vidět primárně jako implementaci databázových indexů.
 B-stromy umožňují ukládání více klíčů v jednom uzlu a mají proměnný počet potomků, což zajišťuje, že strom zůstává vyvážený i při velkém množství dat.
 
-Příklad B-stromu je znázorněn na \customref{Obrázku}{img:b_tree}, kde jde vidět struktura stromu, dost odlišná od předchozích uvedených struktur.
+Příklad B-stromu je znázorněn na \customref{Obrázku}{img:b_tree}, kde je vidět struktura stromu, dost odlišná od předchozích uvedených struktur.
 Každý uzel může obsahovat více klíčů a mít více potomků, přičemž všechny listy jsou na stejné úrovni, což zajišťuje vyváženost stromu.
 B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.~\cite{levitin}
 
@@ -234,7 +234,7 @@ Tento proces se opakuje, dokud se nenajde hledaná hodnota nebo nedojde k listu,
 
 Operace \textbf{vložení} listu do B-stromu je stále přímočará, vyžaduje však případné rozdělení uzlů, pokud se počet klíčů v uzlu překročí.
 Pokud je uzel plný (obsahuje $m-1$ klíčů) a je třeba do něj vložit nový klíč, uzel se rozdělí na dva a prostřední klíč se přesune do nadřazeného uzlu.
-Tento proces může rekurzivně pokračovat až k kořeni, což může vést k vytvoření nového kořene, pokud i ten bude plný.
+Tento proces může rekurzivně pokračovat až ke kořeni, což může vést k vytvoření nového kořene, pokud i ten bude plný.
 Na \customref{Obrázku}{img:btree_insert} jsou znázorněny oba případy, prvně při vložení klíče $2$ do listu, který není plný, a následně při vložení klíče $3$, kdy již dochází k rozdělení listu a přesunu klíče $3$ do nadřazeného uzlu, který se stává novým kořenem.
 Nově přidané klíče jsou na obrázku zvýrazněny oranžovou barvou.~\cite{levitin}
 
@@ -249,7 +249,7 @@ Operace \textbf{mazání} klíče z B-stromu je složitější, protože může 
 Pokud je klíč, který má být odstraněn, v listu, jednoduše se odstraní.
 Pokud je klíč v uzlu, který není listem, musí být nahrazen buď největším klíčem z levého podstromu (predecessor), nebo nejmenším klíčem z pravého podstromu (successor).
 Po odstranění klíče může dojít k situaci, kdy uzel obsahuje méně než $\lceil m/2 \rceil - 1$ klíčů, což znamená, že je potřeba provést opravu stromu.
-Oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s přilehlým sourozeneckým uzlem, což může rekurzivně pokračovat až k kořeni.~\cite{levitin}
+Oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s přilehlým sourozeneckým uzlem, a následná kontrola rodiče, dokud není strom opět vyvážený.~\cite{levitin}
 
 B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.
 Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je klíčovým faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
@@ -268,7 +268,7 @@ Binární halda je datová struktura, která může být reprezentována jak pol
 V této práci je jako příklad uvedena takzvaná \textbf{max-heap}, kde každý rodičovský uzel má hodnotu větší nebo rovnou hodnotám svých potomků, druhá varianta, \textbf{min-heap}, se z tohoto popisu dá analogicky odvodit.
 
 Halda se často používá pro implementaci prioritních front, protože umožňuje efektivní vkládání prvků a nalezení odebírání prvku s nejvyšší prioritou.
-Díky své stuktuře umožňuje binární halda provádět tyto operace s logaritmickou složitostí, je potvrzeno, že v kořenu stromu je vždy ten největší prvek, a dobře se na ni aplikují rekurzivní algoritmy, neboť libovolný podstrom haldy je také haldou.~\cite{levitin}
+Díky své struktuře umožňuje binární halda provádět tyto operace s logaritmickou složitostí, je potvrzeno, že v kořenu stromu je vždy ten největší prvek, a dobře se na ni aplikují rekurzivní algoritmy, neboť libovolný podstrom haldy je také haldou.~\cite{levitin}
 
 Jak již bylo zmíněno výše, binární halda reprezentovaná stromem musí splňovat dvě podmínky:
 
@@ -461,7 +461,7 @@ Samotná funkce \texttt{MergeSort} je velmi jednoduchá, její jediná funkciona
     \label{lst:mergeSort}
 \end{listing}
 
-Funkce \texttt{Merge} je již delší co se týče implementace.
+Implementace funkce \texttt{Merge} je rozsáhlejší.
 Na začátku překopíruje levou a pravou část pole do dvou pomocných polí a následně u obě z nich prochází sekvenčně zleva a porovnává jejich prvky.
 Menší prvek z obou polí se vloží do výsledného pole a index se posune o jednu pozici doprava.
 Tento proces se opakuje, dokud nejsou všechna data z obou pomocných polí zpracována, přičemž pokud jedno z polí dojde dříve, zbylé prvky z druhého pole se jednoduše překopírují do výsledného pole.
@@ -494,7 +494,7 @@ Po dokončení průchodu polem se pivot vymění s prvkem na indexu $i$, čímž
 Funkce poté vrací index pivotu, který se používá pro další rekurzivní volání.
 
 Hlavní optimalizace tohoto algoritmu se točí kolem efektivního výběru vhodného pivotu.
-Pokud totiž je pivot zvolen nevhodně, například jako nejmenší nebo největší prvek v poli, může dojít k tomu, že jedna část pole bude prázdná a druhá bude obsahovat všechny prvky, což vede k nejhoršímu scénáři s časovou složitostí $O(n^2)$.
+Pokud je totiž pivot zvolen nevhodně, například jako nejmenší nebo největší prvek v poli, může dojít k tomu, že jedna část pole bude prázdná a druhá bude obsahovat všechny prvky, což vede k nejhoršímu scénáři s časovou složitostí $O(n^2)$.
 Pro zlepšení výkonu se často používá náhodný výběr pivotu, median-of-three metoda (kde se jako pivot zvolí medián z prvního, prostředního a posledního prvku) nebo jiné heuristiky, které pomáhají zajistit lepší rozdělení pole a tím i lepší výkon algoritmu.~\cite{morin2013}
 
 Algoritmus \textit{Quick Sort} je nestabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.
@@ -518,7 +518,7 @@ Nejprve se pole přetvoří do max-heapu, což zajišťuje, že největší prve
 Poté se tento prvek vymění s posledním prvkem pole a z o jeden prvek menšího pole se znovu vytvoří halda.
 
 Funkce \texttt{Heapify} je zodpovědná za udržení vlastnosti haldy.
-Pro každý uzel v poli se porovnává s jeho potomky a pokud je některý z potomků větší než rodičovský uzel, provede se výměna a funkce se rekurzivně volá pro tento potomek, aby se zajistilo, že vlastnost haldy je zachována pro celý strom.
+Pro každý uzel v poli se porovnává s jeho potomky a pokud je některý z potomků větší než rodičovský uzel, provede se výměna a funkce se rekurzivně volá pro tohoto potomka, aby se zajistilo, že vlastnost haldy je zachována pro celý strom.
 
 Jak již bylo zmíněno, algoritmus \textit{Heap Sort} má časovou složitost $\Theta(n \log n)$ v nejhorším, průměrném i nejlepším případě, protože přetvoření pole do haldy je lineární operace a následné odebírání prvku s nejvyšší prioritou a udržování vlastnosti haldy má logaritmickou složitost.
 Prostorová složitost je $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury.
@@ -565,7 +565,7 @@ Výše uvedené algoritmy byly tedy označeny jako klíčové pro implementaci v
 
 Pochopení datových struktur a algoritmů vyžaduje od studentů vysokou míru abstraktního myšlení, což představuje jednu z největších překážek v informatickém vzdělávání.
 Nástroje pro vizualizaci algoritmů pomáhají tuto bariéru překonat, avšak samotná přítomnost vizualizace automaticky nezaručuje zlepšení studijních výsledků.
-Z rozsáhlé metaanalýzy vyplývá, že úspěšnost učení je ovlivněno především mírou aktivního zapojení studenta.
+Z rozsáhlé metaanalýzy vyplývá, že úspěšnost učení je ovlivněna především mírou aktivního zapojení studenta.
 Studenti, kteří mohou s vizualizací aktivně manipulovat a krokovat ji, dosahují prokazatelně hlubšího porozumění než ti, kteří animaci pouze pasivně sledují.~\cite{urquiza2009}
 
 Empirické studie navíc potvrzují, že studenti využívající interaktivní vizualizační prostředí dosahují signifikantně lepších výsledků v porovnání s kontrolními skupinami odkázanými pouze na tradiční studijní materiály.~\cite{kogan2024}
