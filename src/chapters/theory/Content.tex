@@ -158,7 +158,7 @@ Při vkládání nového prvku do červeno-černého stromu se nový uzel nejprv
 Poté se provádí kontrola a případné opravy, které zahrnují rotace a změny barev uzlů, aby se zajistilo dodržení pravidel červeno-černého stromu.
 Pro ilustraci této operace je použit podstrom, kde jsou zobrazeny uzly důležité pro opravu stromu.
 Jedná se o čtyři uzly: nově přidaný uzel (\textbf{X}), jeho rodič (\textbf{P}), strýc (\textbf{U}) a prarodič (\textbf{G}).
-Konkrétní typ opravy se provádí v závislosti na barvě strýce (U) a pozici nově přidaného uzlu (X).~\cite{geeksRB}
+Konkrétní typ opravy se provádí v závislosti na barvě strýce (U) a pozici nově přidaného uzlu (X).~\cite{morin2013}
 
 \begin{figure}[ht]
     \centering
@@ -171,7 +171,7 @@ První případ nastává, když \textbf{strýc ($U$) je červený}, jak je vid�
 V tomto případě se provádí změna barev: $P$ a $U$ se zbarví na černou, zatímco $G$ se zbarví na červenou.
 Poté se pokračuje v kontrole a případných opravách prarodiče $G$, tato zpětná kontrola je znázorněna tlustým okrajem kolem daného uzlu.
 Rekurzivně se tedy strom projde až ke kořenu, aby se zajistilo, že všechna pravidla červeno-černého stromu jsou dodržena.
-Tento proces může vést k dalším změnám barev a rotacím, pokud dojde k narušení pravidel během opravy.~\cite{geeksRB}
+Tento proces může vést k dalším změnám barev a rotacím, pokud dojde k narušení pravidel během opravy.~\cite{morin2013}
 
 \begin{figure}[ht]
     \centering
@@ -187,7 +187,7 @@ Pro zjednodušení jsou uvedeny pouze dvě varianty, kdy je $P$ levým potomkem 
 Pokud je nový uzel \textbf{levým potomkem} (případ L), provede se pravá rotace na $G$ a $P$ se tedy stává novým kořenem podstromu, přičemž během rotace si zmíněné vrcholy vymění barvy.
 Podobně jako u diagramu AVL stromu, akce přesunutí potomka směrem nahoru je na diagramu znázorněna oranžovou šipkou nad daným vrcholem.
 Pokud je nový uzel \textbf{pravým potomkem} (případ R), provede se nejprve levá rotace na $P$, čímž se $X$ stává levým potomkem $G$, a poté pravá rotace na $G$, přičemž během druhé rotace si $X$ a $G$ vymění barvy.
-Po těchto úpravách již není potřeba rekurzivní kontrola, protože všechny pravidla červeno-černého stromu jsou dodržena a strom zůstává vyvážený.~\cite{geeksRB}
+Po těchto úpravách již není potřeba rekurzivní kontrola, protože všechny pravidla červeno-černého stromu jsou dodržena a strom zůstává vyvážený.~\cite{morin2013}
 
 Odstraňování prvku z červeno-černého stromu je složitější operace, která zahrnuje více případů a může vyžadovat několik rotací a změn barev, aby se udržela vyváženost stromu.
 Nicméně principy jsou podobné jako při vkládání, kdy se nejprve odstraní uzel a poté se provádí opravy, pokud dojde k narušení pravidel červeno-černého stromu.~\cite{cormen}
@@ -378,7 +378,7 @@ Každý z těchto algoritmů bude popsán svým principem fungování, složitos
 
 Prvním třídícím algoritmem s kvadratickou časovou složitostí, který bude popsán, je \textit{Bubble Sort}.
 Tento algoritmus funguje na principu opakovaného procházení seznamu, přičemž v každém průchodu nechá nejvyšší prvek \uv{vystoupat} na konec seznamu, ostatně z analogie k bublinám ve vodě získal svůj název.
-Algoritmus pokračuje v procházení seznamu, dokud není celý seznam seřazený.~\cite{freeCodeCamp}
+Algoritmus pokračuje v procházení seznamu, dokud není celý seznam seřazený.~\cite{morin2013}
 
 Názorný příklad fungování algoritmu \textit{Bubble Sort} je možné vidět na \customref{Výpisu}{lst:bubbleSort}, kde jsou zobrazeny jednotlivé kroky algoritmu při třídění pole.
 V každém kroku jsou porovnány sousední prvky a dle podmínky vyměněny, což vede k postupnému \uv{vystupování} největších prvků na konec pole.
@@ -393,13 +393,13 @@ Tento algoritmus může být optimalizován pomocí příznaku, který sleduje, 
 Pokud během průchodu nedojde k žádné výměně, znamená to, že pole je již seřazené, a algoritmus může být ukončen dříve, což zlepšuje jeho výkon v případě, že je pole již téměř seřazené.
 
 I když je tento algoritmus jednoduchý a snadno pochopitelný, jeho kvadratická časová složitost $O(n^2)$ ho činí neefektivním pro třídění velkých množství dat, a proto se v praxi používá jen zřídka, spíše jako pedagogický nástroj pro ilustraci základních principů třídění.
-Jeho výhodou také může být jeho stabilita a konstantní prostorová složitost $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury, dá se tedy využít pro stroje s velmi omezenými zdroji.~\cite{freeCodeCamp}
+Jeho výhodou také může být jeho stabilita a konstantní prostorová složitost $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury, dá se tedy využít pro stroje s velmi omezenými zdroji.~\cite{morin2013}
 
 \subsubsection*{Selection sort}
 
 Další algoritmus s kvadratickou časovou složitostí je \textit{Selection Sort}, který je často považován za jeden z nejjednodušších třídících algoritmů.
 V každé iteraci vždy hledá nejmenší prvek v nesetříděné části pole a vymění ho s prvním prvkem této části, čímž postupně rozšiřuje setříděnou část pole.
-Prvky se tímto způsobem přesouvají, dokud algoritmus nedosáhne konce pole.~\cite{freeCodeCamp}
+Prvky se tímto způsobem přesouvají, dokud algoritmus nedosáhne konce pole.~\cite{morin2013}
 
 Z příkladu na \customref{Výpisu}{lst:selectionSort} je možné vidět, jak algoritmus pracuje.
 Sekvenčně prochází nesetříděnou část pole, \uv{vybere} nejmenší prvek a vymění ho s prvním prvkem této části, čímž se rozšiřuje setříděná část.
@@ -413,13 +413,13 @@ Ve srovnání s předchozím algoritmem se tedy setříděné pole vytváří zl
 
 Co se týče optimalizace, u algoritmu \textit{Selection Sort} nejsou běžně používané žádné specifické optimalizace, z části i proto, že algoritmus již provádí minimální počet výměn (přesně $n-1$), což je výhodné v situacích, kdy jsou výměny nákladné.
 Oproti předchozímu algoritmu Bubble Sort není tento algoritmus stabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.
-Jeho časová i prostorová složitost je stejná jako u Bubble Sort, tedy $O(n^2)$ pro časovou složitost a $O(1)$ pro prostorovou složitost, protože třídění probíhá přímo v původním poli.~\cite{freeCodeCamp}
+Jeho časová i prostorová složitost je stejná jako u Bubble Sort, tedy $O(n^2)$ pro časovou složitost a $O(1)$ pro prostorovou složitost, protože třídění probíhá přímo v původním poli.~\cite{morin2013}
 
 \subsubsection*{Insertion sort}
 
 Poslední algoritmus s kvadratickou časovou složitostí, který bude popsán, je \textit{Insertion Sort}.
 Stejně jako u předchozího algoritmu se zde setřízené pole vytváří zleva, ale místo toho, aby hledal nejmenší prvek v nesetříděné části, \textit{Insertion Sort} postupně posune všechny prvky větší než aktuální klíč doprava a vloží klíč na správnou pozici.
-Tento proces se opakuje pro každý prvek v poli, dokud není celé pole seřazené.~\cite{freeCodeCamp}
+Tento proces se opakuje pro každý prvek v poli, dokud není celé pole seřazené.~\cite{morin2013}
 
 Logiku přesouvání prvků je možné vidět na \customref{Výpisu}{lst:insertionSort}, kde se prvně vybere klíč (aktuální prvek) a poté se porovnává s předchozími prvky v setříděné části pole.
 Pokud je klíč menší než některý z těchto prvků, tyto prvky se posunou doprava, dokud nenajdou správnou pozici pro klíč, který se poté vloží na tuto pozici.
@@ -435,7 +435,7 @@ Tato optimalizace snižuje počet výměn, což může zlepšit výkon algoritmu
 
 \textit{Insertion Sort} je stabilní algoritmus, protože nezmění pořadí prvků se stejnou hodnotou během posouvání.
 Jeho časová složitost je $O(n^2)$ v nejhorším případě, což nastává, když je pole seřazeno v opačném pořadí, ale v nejlepším případě, kdy je pole již seřazené, má časovou složitost $O(n)$, protože každý prvek je porovnán pouze jednou a není potřeba žádných posunů.
-Pro prostorovou složitost platí $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury.~\cite{freeCodeCamp}
+Pro prostorovou složitost platí $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury.~\cite{morin2013}
 
 \subsection{Algoritmy s logaritmickou časovou složitostí}
 \label{subsec:logarithmic_algorithms}
@@ -468,14 +468,14 @@ Tento proces se opakuje, dokud nejsou všechna data z obou pomocných polí zpra
 
 Tento algoritmus má časovou složitost $O(n \log n)$ v nejhorším, průměrném i nejlepším případě, protože vždy rozděluje pole na dvě poloviny a prochází všechny prvky během slučování.
 Prostorová složitost je však horší než u výše uvedených kvadratických algoritmů, protože vyžaduje dodatečný prostor pro pomocná pole během slučování, což vede k prostorové složitosti $O(n)$.
-Nicméně, \textit{Merge Sort} je stabilní a velmi dobře se paralelizuje, což z něj činí vhodný algoritmus pro třídění velkých datových sad, zejména v prostředí s více procesory.~\cite{freeCodeCamp}
+Nicméně, \textit{Merge Sort} je stabilní a velmi dobře se paralelizuje, což z něj činí vhodný algoritmus pro třídění velkých datových sad, zejména v prostředí s více procesory.~\cite{morin2013}
 
 \subsubsection*{Quick sort}
 
 Dalším velmi efektivním a často používaným algoritmem, který zde bude zmíněn, je algoritmus \textit{Quick Sort}.
 Stejně jako \textit{Merge Sort} je založen na principu \textit{divide and conquer}, jeho časová složitost je v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může dosáhnout až $O(n^2)$.
 Tento případ je obvykle způsoben nevhodným výběrem pivotu, což je prvek, dle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže.
-Nicméně, s vhodnými optimalizacemi, jako je například náhodný výběr pivotu, lze dosáhnout průměrné časové složitosti $O(n \log n)$ i v nejhorším případě.~\cite{freeCodeCamp}
+Nicméně, s vhodnými optimalizacemi, jako je například náhodný výběr pivotu, lze dosáhnout průměrné časové složitosti $O(n \log n)$ i v nejhorším případě.~\cite{morin2013}
 
 \begin{listing}[h]
     \input{code/theoryContent/quickSort.tex}
@@ -495,10 +495,10 @@ Funkce poté vrací index pivotu, který se používá pro další rekurzivní v
 
 Hlavní optimalizace tohoto algoritmu se točí kolem efektivního výběru vhodného pivotu.
 Pokud totiž je pivot zvolen nevhodně, například jako nejmenší nebo největší prvek v poli, může dojít k tomu, že jedna část pole bude prázdná a druhá bude obsahovat všechny prvky, což vede k nejhoršímu scénáři s časovou složitostí $O(n^2)$.
-Pro zlepšení výkonu se často používá náhodný výběr pivotu, median-of-three metoda (kde se jako pivot zvolí medián z prvního, prostředního a posledního prvku) nebo jiné heuristiky, které pomáhají zajistit lepší rozdělení pole a tím i lepší výkon algoritmu.~\cite{freeCodeCamp}
+Pro zlepšení výkonu se často používá náhodný výběr pivotu, median-of-three metoda (kde se jako pivot zvolí medián z prvního, prostředního a posledního prvku) nebo jiné heuristiky, které pomáhají zajistit lepší rozdělení pole a tím i lepší výkon algoritmu.~\cite{morin2013}
 
 Algoritmus \textit{Quick Sort} je nestabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.
-Jeho prostorová složitost je $O(\log n)$ v průměrném případě, což je způsobeno rekurzivními voláními, ale v nejhorším případě může dosáhnout až $O(n)$, pokud jsou všechny prvky stejné nebo pokud je pole již seřazené a pivot je vždy nejmenší nebo největší prvek.~\cite{freeCodeCamp}
+Jeho prostorová složitost je $O(\log n)$ v průměrném případě, což je způsobeno rekurzivními voláními, ale v nejhorším případě může dosáhnout až $O(n)$, pokud jsou všechny prvky stejné nebo pokud je pole již seřazené a pivot je vždy nejmenší nebo největší prvek.~\cite{morin2013}
 
 \subsubsection*{Heap sort}
 
