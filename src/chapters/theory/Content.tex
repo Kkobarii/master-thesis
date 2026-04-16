@@ -180,7 +180,7 @@ Tento proces může vést k dalším změnám barev a rotacím, pokud dojde k na
     \label{img:rb_insertion_case2}
 \end{figure}
 
-Druhým případem je situace, kdy \textbf{strýc (U) je černý}, jak je znázorněno na \customref{Obrázku}{img:rb_insertion_case2}.
+Druhým případem je situace, kdy \textbf{strýc ($U$) je černý}, jak je znázorněno na \customref{Obrázku}{img:rb_insertion_case2}.
 V tomto případě se provádí nejen změna barev, ale i rotace.
 Dále se situace větví podle pozice nově přidaného uzlu (X) a jeho rodiče (P).
 Pro zjednodušení jsou uvedeny pouze dvě varianty, kdy je $P$ levým potomkem $G$.
@@ -230,7 +230,7 @@ Strom řádu $m$ tedy musí splňovat následující vlastnosti:
 \textbf{Vyhledávání} v B-stromu začíná u kořene a porovnává hledanou hodnotu s klíči v uzlu.
 Pokud se hodnota shoduje s některým z klíčů, operace je úspěšná a hledání končí.
 Pokud se hodnota neshoduje, klíče se použijí jako hraniční body určující, do kterého potomka se má hledání přesunout.
-Tento proces se opakuje, dokud se nenajde hledaná hodnota nebo nedojde k listu, což znamená, že hledaná hodnota není ve stromu přítomna.\cite{levitin}
+Tento proces se opakuje, dokud se nenajde hledaná hodnota nebo nedojde k listu, což znamená, že hledaná hodnota není ve stromu přítomna.~\cite{levitin}
 
 Operace \textbf{vložení} listu do B-stromu je stále přímočará, vyžaduje však případné rozdělení uzlů, pokud se počet klíčů v uzlu překročí.
 Pokud je uzel plný (obsahuje $m-1$ klíčů) a je třeba do něj vložit nový klíč, uzel se rozdělí na dva a prostřední klíč se přesune do nadřazeného uzlu.
@@ -252,7 +252,7 @@ Po odstranění klíče může dojít k situaci, kdy uzel obsahuje méně než $
 Oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s přilehlým sourozeneckým uzlem, a následná kontrola rodiče, dokud není strom opět vyvážený.~\cite{levitin}
 
 B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.
-Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je hlavním faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
+Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je hlavním faktorem pro jejich popularitu v těchto oblastech, a proto je důležité, aby byly zahrnuty do výukové aplikace.
 
 \subsection{Prioritní fronty a haldy}
 \label{sec:priority_queues}
@@ -418,7 +418,7 @@ Jeho časová i prostorová složitost je stejná jako u Bubble Sort, tedy $O(n^
 \subsubsection*{Insertion sort}
 
 Poslední algoritmus s kvadratickou časovou složitostí, který bude popsán, je \textit{Insertion Sort}.
-Stejně jako u předchozího algoritmu se zde setřízené pole vytváří zleva, ale místo toho, aby hledal nejmenší prvek v nesetříděné části, \textit{Insertion Sort} postupně posune všechny prvky větší než aktuální klíč doprava a vloží klíč na správnou pozici.
+Stejně jako u předchozího algoritmu se zde setříděné pole vytváří zleva, ale místo toho, aby hledal nejmenší prvek v nesetříděné části, \textit{Insertion Sort} postupně posune všechny prvky větší než aktuální klíč doprava a vloží klíč na správnou pozici.
 Tento proces se opakuje pro každý prvek v poli, dokud není celé pole seřazené.~\cite{morin2013}
 
 Logiku přesouvání prvků je možné vidět na \customref{Výpisu}{lst:insertionSort}, kde se prvně vybere klíč (aktuální prvek) a poté se porovnává s předchozími prvky v setříděné části pole.
@@ -430,7 +430,7 @@ Pokud je klíč menší než některý z těchto prvků, tyto prvky se posunou d
     \label{lst:insertionSort}
 \end{listing}
 
-Tento algoritmus má známou mírnou optimalizaci, kde místo toho, aby se klíč s prvky většími než on přehazoval, uloží se jeho hodnota do pomocné proměnné a poté se posouvají pouze větší prvky, dokud není nalezena správná pozice pro klíč, který se poté vloží na tuto pozici.
+Tento algoritmus má známou mírnou optimalizaci, kde místo toho, aby se klíč s většími prvky prohazoval, uloží se jeho hodnota do pomocné proměnné a poté se posouvají pouze větší prvky, dokud není nalezena správná pozice pro klíč, který se poté vloží na tuto pozici.
 Tato optimalizace snižuje počet výměn, což může zlepšit výkon algoritmu, zejména v případech, kdy je pole již téměř seřazené.
 
 \textit{Insertion Sort} je stabilní algoritmus, protože nezmění pořadí prvků se stejnou hodnotou během posouvání.
