@@ -85,15 +85,15 @@ Nevýhodou je naopak vyšší zátěž serveru, který musí dynamicky generovat
 \subsection{Static Site Generation}
 \label{subsec:static_site_generation}
 
-Poslední strategií v tomto výčtu je Static Site Generation (SSG). 
-Přístup je podobný SSR v tom, že klient obdrží předpřipravený HTML dokument, avšak k jeho generování nedochází při každém požadavku, ale již ve fázi sestavování aplikace (\textit{build time}). 
+Poslední strategií v tomto výčtu je Static Site Generation (SSG).
+Přístup je podobný SSR v tom, že klient obdrží předpřipravený HTML dokument, avšak k jeho generování nedochází při každém požadavku, ale již ve fázi sestavování aplikace (\textit{build time}).
 Server následně klientovi pouze distribuuje hotové statické soubory.
 
-Mezi výhody SSG patří bleskově rychlé načítání, výborné SEO a minimální nároky na provoz serveru, jelikož odpadá nutnost generování dat v reálném čase. 
+Mezi výhody SSG patří bleskově rychlé načítání, výborné SEO a minimální nároky na provoz serveru, jelikož odpadá nutnost generování dat v reálném čase.
 Nevýhodou je složitější správa dynamického obsahu -- jakákoliv změna dat vyžaduje nové sestavení celé aplikace, což je u rozsáhlých projektů s často se měnícím obsahem značně neefektivní.~\cite{kumar2025}
 
-Důležitým faktem je, že SSG nevylučuje následnou interaktivitu. 
-V kontextu moderních frameworků se často využívá k vygenerování statického základu, který je po načtení na straně klienta \textit{hydratován} a dále funguje jako plnohodnotná SPA. 
+Důležitým faktem je, že SSG nevylučuje následnou interaktivitu.
+V kontextu moderních frameworků se často využívá k vygenerování statického základu, který je po načtení na straně klienta \textit{hydratován} a dále funguje jako plnohodnotná SPA.
 Tento kombinovaný model je ideální pro výukové aplikace s fixními teoretickými materiály, kde je prioritou rychlost doručení a vysoká míra interaktivity v samotných vizualizacích.~\cite{kumar2025}
 
 \section{Webový framework}
@@ -114,7 +114,7 @@ Speciálním konceptem, který React zavádí, je tzv.
 \textit{Virtual DOM}, který slouží jako virtuální reprezentace skutečného DOM.
 Když dojde ke změně stavu aplikace, React nejprve aktualizuje Virtual DOM a poté porovná tuto aktualizaci s předchozím stavem Virtual DOM.
 Na základě tohoto porovnání React efektivně aktualizuje pouze ty části skutečného DOM, které se změnily.
-Tomuto procesu se říká \textit{reconciliation} a je jedním z klíčových faktorů, které přispívají k vysokému výkonu Reactu.~\cite{react}
+Tomuto procesu se říká \textit{reconciliation} a je jedním z hlavních faktorů, které přispívají k vysokému výkonu Reactu.~\cite{react}
 
 \subsection{Angular}
 \label{subsec:angular}
@@ -154,7 +154,7 @@ Absence virtuálního DOM a minimalizace kódu, který musí prohlížeč interp
 \subsubsection*{SvelteKit}
 
 Pro zjednodušení vývoje webových aplikací byl jako nadstavba na Svelte vyvinut meta-framework SvelteKit, který poskytuje nástroje jako směrování, správu stavu, podporu pro různé strategie renderování (CSR, SSR, SSG) a další.
-Pro potřeby této práce je klíčová podpora adaptérů, konkrétně \textit{adapter-static}, který umožňuje transformaci aplikace do sady statických souborů připravených pro hosting bez nutnosti serveru.~\cite{svelte}
+Pro potřeby této práce je důležitá podpora adaptérů, konkrétně \textit{adapter-static}, který umožňuje transformaci aplikace do sady statických souborů připravených pro hosting bez nutnosti serveru.~\cite{svelte}
 
 \section{Grafová knihovna}
 \label{sec:graph_library}
@@ -268,7 +268,7 @@ Stačí pouze nahrát statické soubory do repozitáře a nastavit správnou vě
 Na základě provedené analýzy byl pro realizaci projektu zvolen moderní technologický stack postavený na architektuře \textbf{SPA}.
 Co se týče strategie renderování, bude využita kombinace \textbf{SSG} pro generování statických HTML souborů a \textbf{CSR} pro zajištění interaktivity, čímž se umožní rychlé načítání stránek a zároveň poskytne plynulý uživatelský zážitek.
 
-Jako framework byl zvolen \textbf{Svelte} spolu s jeho meta-frameworkem \textbf{SvelteKit}, především pro jeho efektivitu, absenci virtuálního DOM a nativní podporu animací, což je klíčové pro plynulé zobrazení kroků algoritmů a operací nad datovými strukturami.
+Jako framework byl zvolen \textbf{Svelte} spolu s jeho meta-frameworkem \textbf{SvelteKit}, především pro jeho efektivitu, absenci virtuálního DOM a nativní podporu animací, což je stěžejní pro plynulé zobrazení kroků algoritmů a operací nad datovými strukturami.
 Využití \textbf{TypeScriptu} v rámci celého vývoje zajišťuje typovou bezpečnost při práci se složitými datovými strukturami.
 
 Pro samotnou vizualizaci grafů a stromů byla vybrána knihovna \textbf{vis-network}, která díky svému hierarchickému layoutu a možnosti odposlouchávání událostí umožňuje přehledné a interaktivní zobrazení jak pro jednoduché, tak i složitější datové struktury.

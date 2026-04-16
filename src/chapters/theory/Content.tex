@@ -252,7 +252,7 @@ Po odstranění klíče může dojít k situaci, kdy uzel obsahuje méně než $
 Oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s přilehlým sourozeneckým uzlem, a následná kontrola rodiče, dokud není strom opět vyvážený.~\cite{levitin}
 
 B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.
-Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je klíčovým faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
+Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je hlavním faktorem pro jejich popularitu v těchto oblastech a proto je důležité, aby byly zahrnuty do výukové aplikace.
 
 \subsection{Prioritní fronty a haldy}
 \label{sec:priority_queues}
@@ -313,7 +313,7 @@ Její časté využití je také v třídícím algoritmu Heapsort, který bude 
 \subsection{Srovnání popsaných datových struktur}
 \label{sec:data_structures_comparison}
 
-Pro přehlednost jsou v této části shrnuty klíčové vlastnosti a časové složitosti základních operací (vyhledávání, vkládání a mazání) u všech výše popsaných datových struktur.
+Pro přehlednost jsou v této části shrnuty podstatné vlastnosti a časové složitosti základních operací (vyhledávání, vkládání a mazání) u všech výše popsaných datových struktur.
 \customref{Tabulka}{tab:comparison_structures} poskytuje srovnání průměrných a nejhorších případů složitosti, které přímo ovlivňují volbu konkrétní struktury pro daný typ úlohy.
 V posledním sloupci je také uveden hlavní princip, na kterém daná datová struktura funguje, a který je důležitý pro pochopení jejího chování v rámci vizualizace a implementace v aplikaci.
 
@@ -362,14 +362,14 @@ Kromě této funkce bude také využita funkce \texttt{Length}, která vrací d�
     \label{lst:swap}
 \end{listing}
 
-Právě funkce \texttt{Swap} je klíčová pro vizualizaci třídících algoritmů, protože umožňuje jasně zobrazit, které prvky jsou během třídění vyměňovány.
+Právě funkce \texttt{Swap} je základem pro vizualizaci třídících algoritmů, protože umožňuje jasně zobrazit, které prvky jsou během třídění vyměňovány.
 Druhou důležitou operací je porovnávání prvků, které je v pseudokódu reprezentováno pomocí operátorů porovnávání v podmínce (například $<$, $>$, $==$ atd.) a bude také vizualizováno, aby uživatel mohl sledovat, které prvky jsou porovnávány a jak se rozhoduje o jejich výměně.~\cite{sedgewick}
 
 \subsection{Algoritmy s kvadratickou časovou složitostí}
 \label{subsec:quadratic_algorithms}
 
 Jako úvod do problematiky třídících algoritmů jsou nejprve popsány algoritmy s kvadratickou časovou složitostí, které jsou často považovány za základní a slouží jako výchozí bod pro pochopení složitějších algoritmů.
-Tyto algoritmy jsou charakterizovány tím, že v nejhorším případě provádějí přibližně $n^2$ operací, což je důvod, proč nejsou vhodné pro třídění velkých množství dat, ale jsou užitečné pro ilustraci základních principů třídění a pro výuku algoritmického myšlení.
+Tyto algoritmy jsou charakterizovány tím, že v nejhorším případě provádějí přibližně $n^2$ operací, což je důvod, proč nejsou vhodné pro třídění velkých množství dat, ale jsou užitečné pro ilustraci principů třídění a pro výuku algoritmického myšlení.
 
 V této kapitole budou uvedeny tři základní algoritmy s kvadratickou časovou složitostí: \textit{Bubble Sort}, \textit{Selection Sort} a \textit{Insertion Sort}.
 Každý z těchto algoritmů bude popsán svým principem fungování, složitostí a případnými optimalizacemi, které mohou být použity pro zlepšení jejich výkonu v určitých situacích.
@@ -527,7 +527,7 @@ Algoritmus \textit{Heap Sort} je nestabilní, protože může měnit pořadí pr
 \subsection{Srovnání třídících algoritmů}
 \label{subsec:sorting_comparison}
 
-Pro usnadnění výběru vhodného algoritmu a pro přehlednost teoretických poznatků jsou v této kapitole shrnuty klíčové vlastnosti všech implementovaných algoritmů.
+Pro usnadnění výběru vhodného algoritmu a pro přehlednost teoretických poznatků jsou v této kapitole shrnuty podstatné vlastnosti všech implementovaných algoritmů.
 Srovnání se zaměřuje na časovou složitost v různých případech, prostorovou náročnost a stabilitu, což je schopnost algoritmu zachovat původní relativní pořadí prvků se stejným klíčem.
 
 \begin{table}[ht]
@@ -557,7 +557,7 @@ Naopak algoritmy s logaritmickou složitostí vykazují výrazně vyšší efekt
 \textit{Quick Sort} je v praxi často nejrychlejší, avšak jeho výkon je silně závislý na volbě pivotu, což se projevuje v riziku nejhoršího případu $O(n^2)$.
 \textit{Heap Sort} představuje vyvážený kompromis, který garantuje logaritmický čas i v nejhorším případě při zachování konstantní prostorové složitosti.
 
-Výše uvedené algoritmy byly tedy označeny jako klíčové pro implementaci v rámci výukové aplikace, protože pokrývají široké spektrum třídících technik a umožňují uživatelům pochopit různé přístupy k třídění dat, jejich výhody a nevýhody.
+Výše uvedené algoritmy byly tedy označeny jako stěžejní pro implementaci v rámci výukové aplikace, protože pokrývají široké spektrum třídících technik a umožňují uživatelům pochopit různé přístupy k třídění dat, jejich výhody a nevýhody.
 
 \section{Význam vizualizace ve vzdělávání}
 

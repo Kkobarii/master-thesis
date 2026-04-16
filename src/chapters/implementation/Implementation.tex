@@ -1,7 +1,7 @@
 \chapter{Implementace}
 \label{chap:implementation}
 
-V této kapitole je podrobně popsán proces realizace výukové aplikace a technické řešení jejích klíčových komponent.
+V této kapitole je podrobně popsán proces realizace výukové aplikace a technické řešení jejích hlavních komponent.
 Text navazuje na teoretický návrh představený v předchozí části a zaměřuje se na praktickou aplikaci zvolených technologií a návrhových vzorů.
 
 \section{Celková architektura a modularita systému}
@@ -75,7 +75,7 @@ Nejprve algoritmus zavolá metodu \texttt{paint}, která dotčeným prvkům pole
 porovnávání, přesun) pomocí rozhraní, které je přirozenější pro samotnou implementaci algoritmů.
 Následně je zavolána metoda \texttt{record}, která provede hlubokou kopii (deep copy) celého pole.
 Tento postup, znázorněný ve \customref{Výpisu}{code:trace_builder}, zachovává neměnnost (immutability) dat, což zajišťuje správné fungování UI reaktivity.
-V metodě \texttt{record} se pod povrchem rovněž dynamicky vypočítávají a ukládají pozice prvků v matici rekurzivních úrovní (\texttt{rows}), jež jsou klíčové pro vizualizaci algoritmů typu Merge Sort.
+V metodě \texttt{record} se pod povrchem rovněž dynamicky vypočítávají a ukládají pozice prvků v matici rekurzivních úrovní (\texttt{rows}), jež jsou důležité pro vizualizaci algoritmů typu Merge Sort.
 Plné znění této metody však bylo z důvodu přehlednosti zkráceno.
 
 \begin{listing}[ht]
@@ -144,7 +144,7 @@ AVL strom) implementuje vlastního potomka této třídy.
     \label{code:step_handler_base}
 \end{listing}
 
-Klíčovou roli hraje metoda \texttt{stepRoute}, která slouží jako směrovač (dispatcher).
+Zásadní roli hraje metoda \texttt{stepRoute}, která slouží jako směrovač (dispatcher).
 Na základě typu kroku (\texttt{StepType}) asynchronně deleguje vykonání vizuální logiky na úzce specializované privátní metody (např.
 pro animaci rotace, přesun uzlu či zvýraznění potomků).
 Tímto přístupem je zajištěno, že samotný vizualizační engine zůstává univerzální a veškerá specifika chování konkrétní datové struktury jsou bezpečně zapouzdřena v odpovídajícím handleru.
@@ -167,8 +167,7 @@ Při zanoření do rekurze se zpracovávané prvky fyzicky přesouvají do nový
 U algoritmu Merge Sort má každá úroveň svůj vyhrazený plnohodnotný řádek.
 Naproti tomu u algoritmu Quick Sort je využito prostorové optimalizace -- protože nad sebou nikdy neoperují dva prvky současně, jednotlivé řádky jsou vysoké pouze jako polovina výšky prvku.
 
-Klíčovým navigačním prvkem je stínování pozadí (tzv.
-\textit{bounding boxes}), které vizuálně ohraničuje tu část pole, ve které se aktuálně rekurze provádí.
+Důležitým navigačním prvkem je obarvení pozadí prvků (tzv. \textit{bounding boxes}), které vizuálně ohraničuje tu část pole, ve které se aktuálně rekurze provádí.
 Toto ohraničení je implementováno pomocí absolutního pozicování, jehož rozměry a posun jsou dynamicky přepočítávány pomocí CSS funkcí \texttt{calc()}.
 
 \subsection{Orchestrace a animace grafových struktur}
