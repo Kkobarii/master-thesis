@@ -34,8 +34,9 @@ Pole \textit{(Array)} poskytují rychlý přístup k prvkům pomocí indexů, za
 \end{figure}
 
 Spojový seznam je tvořen uzly, kde každý uzel obsahuje datovou část a ukazatel na další uzel v seznamu.
-V případě obousměrného spojového seznamu obsahuje každý uzel také ukazatel na předchozí uzel, což umožňuje obousměrnou navigaci.
-List musí mít ukazatel na první uzel \textit{(head)} a často také na poslední uzel \textit{(tail)} pro efektivní přidávání prvků na konec seznamu.~\cite{cormen}
+V případě obousměrného spojového seznamu obsahuje každý uzel také ukazatel na předchozí uzel.
+Tato vlastnost umožňuje obousměrnou navigaci.
+Seznam musí mít ukazatel na první uzel \textit{(head)} a často také na poslední uzel \textit{(tail)} pro efektivní přidávání prvků na konec seznamu.~\cite{cormen}
 
 Spojový seznam i pole se využívají pro implementaci abstraktnějších seznamů, které obsahují sekvenci prvků a poskytují operace pro přidávání, odebírání a přístup k prvkům.~\cite{levitin}
 
@@ -44,9 +45,9 @@ Spojový seznam i pole se využívají pro implementaci abstraktnějších sezna
 Speciálním případem lineárních seznamů jsou zásobníky \textit{(Stack)} a fronty \textit{(Queue)}, jejichž vizualizaci je možné vidět na \customref{Obrázku}{img:stackQueue}.
 Jejich hlavní charakteristikou je předem specifikovaný způsob mazání a přidávání prvků.
 
-Zásobník funguje na principu LIFO \textit{(Last In, First Out)}, což znamená, že poslední prvek přidaný do zásobníku je prvním, který je z něj odebrán.
+Zásobník funguje na principu LIFO \textit{(Last In, First Out)}, poslední prvek přidaný do zásobníku je z něj tedy odebrán jako první.
 Operace přidání prvku se běžně nazývá \textit{push} a operace odebrání prvku se nazývá \textit{pop}.
-V zásobníku je přístup k prvkům omezen na vrchol zásobníku, jež se nazývá \textit{top}.~\cite{cormen}
+V zásobníku je přístup k prvkům omezen na vrchol zásobníku, jenž se označuje jako \textit{top}.~\cite{cormen}
 
 \begin{figure}[ht]
     \centering
@@ -57,7 +58,8 @@ V zásobníku je přístup k prvkům omezen na vrchol zásobníku, jež se nazý
 
 Naopak fronta funguje na principu FIFO \textit{(First In, First Out)}, kde první prvek přidaný do fronty je prvním, který je z ní odebrán.
 Operace přidání prvku se nazývá \textit{enqueue} a operace odebrání prvku se nazývá \textit{dequeue}.
-Fronta se implementuje pomocí ukazatele, který sleduje začátek \textit{(head)} fronty, a často bývá doplněna o ukazatel na konec \textit{(tail)} fronty, což umožňuje efektivní přidávání a odebírání prvků.~\cite{cormen}
+Fronta se implementuje pomocí ukazatele, který sleduje začátek \textit{(head)} fronty, a často bývá doplněna o ukazatel na konec \textit{(tail)} fronty.
+Přítomnost obou ukazatelů umožňuje efektivní přidávání a odebírání prvků.~\cite{cormen}
 
 Obě struktury mohou být efektivně implementovány pomocí spojových seznamů nebo polí, v závislosti na požadavcích na výkon a paměťovou efektivitu.~\cite{levitin}
 
@@ -84,7 +86,7 @@ Příklad binárního vyhledávacího stromu je znázorněn na \customref{Obráz
 
 Efektivita operací nad BST závisí na jeho výšce.
 Zde nastává problém degradace BST, kdy se strom stává nevyváženým a jeho výška se blíží počtu uzlů, což vede k lineární složitosti operací.
-V nejhorším případě se BST může stát podobným spojovému seznamu, což výrazně snižuje jeho výkon.
+V nejhorším případě se BST může stát podobným spojovému seznamu, a tím se výrazně snižuje jeho výkon.
 Degradovaný strom je možné vidět na \customref{Obrázku}{img:bst}.
 I přesto, že tedy operace nad BST mají průměrnou složitost $O(\log n)$, v nejhorším případě může být složitost $O(n)$.
 Pro zefektivnění těchto operací se používají samovyvažující se stromy, které z binárního vyhledávacího stromu vychází.~\cite{levitin}
@@ -95,8 +97,9 @@ Samovyvažující se AVL stromy jsou pojmenovány po svých tvůrcích, G.~M.~Ad
 AVL strom je binární vyhledávací strom, který udržuje vyváženost tím, že zajišťuje, aby výškový rozdíl mezi levým a pravým podstromem každého uzlu byl nejvýše 1.
 Tato vlastnost je patrná na \customref{Obrázku}{img:avl}, kde má každý uzel přidánu informaci o jeho vyvážení, znázorněnou jako číslo ve žlutém kruhu, které pro tento typ stromu může nabývat pouze hodnot -1, 0 nebo 1.
 Vyvážení je definováno jako rozdíl mezi výškou levého a pravého podstromu.
-V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení, což umožňuje efektivní výpočet vyvážení během operací vkládání a mazání.
-AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, což je důvod, proč jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{levitin,cormen}
+V samotné implementaci se často v každém uzlu ukládá právě výška podstromu namísto vyvážení.
+Tento přístup umožňuje efektivní výpočet vyvážení během operací vkládání a mazání.
+AVL stromy zajišťují, že všechny operace mají složitost $O(\log n)$, a proto jsou často používány v situacích, kde je důležitá rychlost přístupu k datům.~\cite{levitin,cormen}
 
 \begin{figure}[ht]
     \centering
@@ -117,21 +120,23 @@ Existují čtyři typy rotací: jednoduchá pravá rotace, jednoduchá levá rot
 \end{figure}
 
 Názornou ukázku pravých variant rotací (R a RL) je možné vidět na \customref{Obrázku}{img:avl_rotations}.
-Během rotace se mění struktura podstromu, což umožňuje obnovit vyváženost stromu a zajistit, že všechny operace zůstanou v logaritmické složitosti.
+Během rotace se mění struktura podstromu.
+Díky této změně lze obnovit vyváženost stromu a zajistit, že všechny operace zůstanou v logaritmické složitosti.
 Například \textbf{pravá rotace} se provádí, když levý podstrom vrcholu je příliš vysoký, a zahrnuje přesunutí levého potomka vrcholu nahoru a samotného vrcholu dolů do pravého podstromu.
 Akce přesunutí potomka nahoru je znázorněna oranžovou šipkou nad daným vrcholem.
 \textbf{Dvojitá pravá-levá rotace} se provádí, když pravý podstrom vrcholu je příliš vysoký a zároveň má levý podstrom, který je vyšší než jeho pravý podstrom.
 Tato rotace zahrnuje nejprve pravou rotaci na pravém potomku vrcholu a poté levou rotaci na vrcholu samotném.~\cite{levitin}
 
 Tyto rotace sice zvyšují složitost implementace AVL stromů, ale zajišťují, že všechny operace nad stromem mají složitost $\Theta(\log n)$.
-Kvůli počtu rotací, které mohou být nutné po každé operaci vkládání nebo mazání, sice zabránily AVL stromům stát se standardem pro implementaci seznamů\footnote{Seznam je v tomto kontextu myšlen jako datová struktura anglicky nazvaná \textit{dictionary}.}, ale jejich myšlenka a principy jsou základem pro další samovyvažující se stromy, které z nich vycházejí.~\cite{levitin}
+Nutný počet rotací, které mohou být nutné po každé operaci vkládání nebo mazání, sice zabránily AVL stromům stát se standardem pro implementaci seznamů\footnote{Seznam je v tomto kontextu myšlen jako datová struktura anglicky nazvaná \textit{dictionary}.}, ale jejich myšlenka a principy jsou základem pro další samovyvažující se stromy, které z nich vycházejí.~\cite{levitin}
 
 \subsubsection*{Červeno-černý strom}
 
 Dalším typem samovyvažujícího se stromu je červeno-černý strom, pojmenován podle barvy, kterou jsou označeny jeho uzly.
-Tento strom udržuje vyváženost pomocí pravidel týkajících se barev uzlů, což zajišťuje, že žádná cesta od kořene k listu není více než dvakrát delší než jakákoli jiná cesta.
+Tento strom udržuje vyváženost pomocí pravidel týkajících se barev uzlů.
+Dodržování těchto pravidel zajišťuje, že žádná cesta od kořene k listu není více než dvakrát delší než jakákoli jiná cesta.
 Červeno-černé stromy jsou často používány v implementacích map a množin, protože poskytují dobrý kompromis mezi složitostí implementace a výkonem.
-Příklad červeno-černého stromu je znázorněn na \customref{Obrázku}{img:rb}.~\cite{cormen}
+Příklad červeno-černého stromu ukazuje \customref{Obrázek}{img:rb}.~\cite{cormen}
 
 \begin{figure}[ht]
     \centering
@@ -149,16 +154,17 @@ Příklad červeno-černého stromu je znázorněn na \customref{Obrázku}{img:r
     \item Každá cesta od daného uzlu k jeho potomkům obsahuje stejný počet černých uzlů.
 \end{enumerate}
 
-Dodržování těchto pravidel zajišťuje, že strom zůstává vyvážený, což umožňuje efektivní operace vkládání, mazání a vyhledávání s logaritmickou složitostí $\Theta(\log n)$.
-Implementace červeno-černých stromů zahrnuje rotace a změny barev uzlů, které jsou prováděny po každé operaci vkládání nebo mazání, aby se udržela vyváženost stromu.
-Rotace jsou podobné těm, které se používají v AVL stromech, ale pravidla pro změnu barev uzlů jsou specifická pro červeno-černé stromy a zajišťují, že strom zůstává vyvážený i v případě, že dojde k narušení pravidel během operací.~\cite{cormen}
+Dodržování těchto pravidel zajišťuje, že strom zůstává vyvážený.
+Tato vlastnost umožňuje efektivní operace vkládání, mazání a vyhledávání s logaritmickou složitostí $\Theta(\log n)$.
+Implementace červeno-černých stromů zahrnuje rotace a změny barev uzlů, jež po každé operaci vkládání nebo mazání obnovují celkovou vyváženost stromu.
+Rotace fungují na podobném principu jako u AVL stromů, avšak pravidla pro změnu barev uzlů jsou pro červeno-černé stromy specifická a zaručují zachování vyváženosti i při dočasném narušení pravidel během operací.~\cite{cormen}
 
-Jako příklad operace červeno-černého stromu bude popsána implementace \textbf{vložení prvku}.
-Při vkládání nového prvku do červeno-černého stromu se nový uzel nejprve vloží jako červený, aby se minimalizovalo narušení vyváženosti stromu.
-Poté se provádí kontrola a případné opravy, které zahrnují rotace a změny barev uzlů, aby se zajistilo dodržení pravidel červeno-černého stromu.
-Pro ilustraci této operace je použit podstrom, kde jsou zobrazeny uzly důležité pro opravu stromu.
-Jedná se o čtyři uzly: nově přidaný uzel (\textbf{X}), jeho rodič (\textbf{P}), strýc (\textbf{U}) a prarodič (\textbf{G}).
-Konkrétní typ opravy se provádí v závislosti na barvě strýce (U) a pozici nově přidaného uzlu (X).~\cite{morin2013}
+Jako příklad základních úprav červeno-černého stromu je zde popsána implementace \textbf{vložení prvku}.
+Při vkládání nového prvku do struktury se nový uzel nejprve vloží jako červený, aby se minimalizovalo narušení vyváženosti.
+Následně probíhá kontrola a případné opravy zahrnující rotace a změny barev uzlů, čímž se zajistí opětovné dodržení definovaných pravidel.
+Pro ilustraci tohoto postupu slouží zjednodušený podstrom zachycující uzly nezbytné pro opravu struktury.
+Jedná se o čtyři vrcholy: nově přidaný uzel (\textbf{X}), jeho rodič (\textbf{P}), strýc (\textbf{U}) a prarodič (\textbf{G}).
+Volba konkrétního typu opravy závisí na barvě strýce (U) a pozici nově přidaného uzlu (X).~\cite{morin2013}
 
 \begin{figure}[ht]
     \centering
@@ -195,13 +201,13 @@ Nicméně principy jsou podobné jako při vkládání, kdy se nejprve odstraní
 \subsubsection*{B-stromy}
 
 Posledním typem datové struktury z oblasti stromů, který bude implementován v aplikaci, jsou B-stromy.
-B-stromy, které představili R.~Bayer a E.~McGreight, jsou samovyvažující se stromy navržené pro efektivní ukládání a vyhledávání dat na sekundárních úložištích, jako jsou pevné disky.
-V praxi je možné tyto stromy vidět primárně jako implementaci databázových indexů.
-B-stromy umožňují ukládání více klíčů v jednom uzlu a mají proměnný počet potomků, což zajišťuje, že strom zůstává vyvážený i při velkém množství dat.
+B-stromy, které představili R.~Bayer a E.~McCreight, jsou samovyvažující se stromy navržené pro efektivní ukládání a vyhledávání dat na sekundárních úložištích, jako jsou pevné disky.
+V praxi se tyto stromy uplatňují primárně při implementaci databázových indexů.
+B-stromy umožňují ukládání více klíčů v jednom uzlu a mají proměnný počet potomků.
+Tato architektura zaručuje zachování vyváženosti i při obrovském množství dat.
 
-Příklad B-stromu je znázorněn na \customref{Obrázku}{img:b_tree}, kde je vidět struktura stromu, dost odlišná od předchozích uvedených struktur.
-Každý uzel může obsahovat více klíčů a mít více potomků, přičemž všechny listy jsou na stejné úrovni, což zajišťuje vyváženost stromu.
-B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.~\cite{levitin}
+Strukturu B-stromu, jež se od dříve popsaných typů vizuálně i logicky liší, přibližuje \customref{Obrázek}{img:b_tree}.
+Každý uzel může obsahovat více datových prvků a mít více potomků. Samotná vyváženost stromu je pak striktně dána tím, že se všechny listy nacházejí na stejné úrovni.~\cite{levitin}
 
 \begin{figure}[ht]
     \centering
@@ -215,10 +221,11 @@ Je nutno zmínit, že v jiné literatuře se namísto řádu používá minimál
 Dále však v tomto textu bude použit pouze řád $m$.~\cite{levitin, cormen}
 
 Každý uzel v B-stromu může obsahovat nejvýše $m-1$ klíčů a mít nejvýše $m$ potomků.
-Uzel, který není listem, musí mít alespoň $\lceil m/2 \rceil$ potomků, což zajišťuje, že strom zůstává vyvážený.
-Vztah mezi klíči a potomky v B-stromu je takový, že klíče v uzlu rozdělují rozsah hodnot, které mohou být uloženy v jeho potomcích, při operacích tedy slouží k navigaci stromem.
-Listy B-stromu jsou všechny na stejné úrovni, což znamená, že všechny cesty od kořene k listům mají stejnou délku.
-Operace vkládání a mazání v B-stromech zahrnují rozdělení a sloučení uzlů, aby se udržela struktura stromu a jeho vyváženost.~\cite{levitin}
+Uzel, který není listem, musí mít alespoň $\lceil m/2 \rceil$ potomků.
+Tato podmínka zaručuje, že strom zůstává vyvážený.
+Klíče v uzlu logicky rozdělují rozsah hodnot, které mohou být uloženy v jeho potomcích, a při operacích tedy slouží k navigaci stromem.
+Všechny listy B-stromu leží na stejné úrovni, a proto mají veškeré cesty od kořene k listům shodnou délku.
+Operace vkládání a mazání pak zahrnují mechanismy rozdělení a sloučení uzlů pro trvalé udržení celkové struktury a vyváženosti.~\cite{levitin}
 
 Strom řádu $m$ tedy musí splňovat následující vlastnosti:
 \begin{enumerate}
@@ -230,12 +237,14 @@ Strom řádu $m$ tedy musí splňovat následující vlastnosti:
 \textbf{Vyhledávání} v B-stromu začíná u kořene a porovnává hledanou hodnotu s klíči v uzlu.
 Pokud se hodnota shoduje s některým z klíčů, operace je úspěšná a hledání končí.
 Pokud se hodnota neshoduje, klíče se použijí jako hraniční body určující, do kterého potomka se má hledání přesunout.
-Tento proces se opakuje, dokud se nenajde hledaná hodnota nebo nedojde k listu, což znamená, že hledaná hodnota není ve stromu přítomna.~\cite{levitin}
+Tento proces se opakuje, dokud algoritmus nenalezne požadovanou hodnotu nebo nedosáhne listu.
+Dosažení listu bez nalezení shody indikuje, že hledaná hodnota není ve stromu přítomna.~\cite{levitin}
 
-Operace \textbf{vložení} listu do B-stromu je stále přímočará, vyžaduje však případné rozdělení uzlů, pokud se počet klíčů v uzlu překročí.
-Pokud je uzel plný (obsahuje $m-1$ klíčů) a je třeba do něj vložit nový klíč, uzel se rozdělí na dva a prostřední klíč se přesune do nadřazeného uzlu.
-Tento proces může rekurzivně pokračovat až ke kořeni, což může vést k vytvoření nového kořene, pokud i ten bude plný.
-Na \customref{Obrázku}{img:btree_insert} jsou znázorněny oba případy, prvně při vložení klíče $2$ do listu, který není plný, a následně při vložení klíče $3$, kdy již dochází k rozdělení listu a přesunu klíče $3$ do nadřazeného uzlu, který se stává novým kořenem.
+Operace \textbf{vložení} klíče do B-stromu je přímočará, vyžaduje však případné rozdělení uzlů, pokud dojde k překročení maximální kapacity.
+Pokud je uzel plný (obsahuje $m-1$ klíčů) a je třeba do něj vložit nový prvek, uzel se rozdělí na dva a prostřední klíč se přesune do nadřazeného uzlu.
+Tento proces může rekurzivně pokračovat až ke kořeni a v případě jeho naplnění vyvolá vytvoření kořene zcela nového.
+Oba případy ilustruje \customref{Obrázek}{img:btree_insert}; nejprve zachycuje vložení klíče $2$ do neplného listu a následně vložení klíče $3$.
+Při tomto druhém kroku již dochází k rozdělení listu a přesunu klíče $3$ nahoru do nadřazeného uzlu, který se stává novým kořenem.
 Nově přidané klíče jsou na obrázku zvýrazněny oranžovou barvou.~\cite{levitin}
 
 \begin{figure}[ht]
@@ -246,19 +255,23 @@ Nově přidané klíče jsou na obrázku zvýrazněny oranžovou barvou.~\cite{l
 \end{figure}
 
 Operace \textbf{mazání} klíče z B-stromu je složitější, protože může vést k narušení struktury stromu a jeho vyváženosti.
-Pokud je klíč, který má být odstraněn, v listu, jednoduše se odstraní.
-Pokud je klíč v uzlu, který není listem, musí být nahrazen buď největším klíčem z levého podstromu (predecessor), nebo nejmenším klíčem z pravého podstromu (successor).
-Po odstranění klíče může dojít k situaci, kdy uzel obsahuje méně než $\lceil m/2 \rceil - 1$ klíčů, což znamená, že je potřeba provést opravu stromu.
-Oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s přilehlým sourozeneckým uzlem, a následná kontrola rodiče, dokud není strom opět vyvážený.~\cite{levitin}
+Pokud se klíč určený k odstranění nachází v listu, jednoduše se smaže.
+Pokud je klíč uložen ve vnitřním uzlu, musí být nahrazen buď největším klíčem z levého podstromu (predecessor), nebo naopak nejmenším klíčem z pravého podstromu (successor).
+Po odstranění prvku může dojít k situaci, kdy uzel obsahuje méně než $\lceil m/2 \rceil - 1$ klíčů.
+Tento stav vyžaduje dodatečnou opravu stromu.
+Samotná oprava zahrnuje buď přesun klíče z přilehlého sourozeneckého uzlu (pokud má dostatek klíčů), nebo sloučení s tímto sourozencem.
+Následně se rekurzivně kontroluje rodičovský uzel, dokud se neobnoví kompletní vyváženost struktury.~\cite{levitin}
 
-B-stromy jsou navrženy tak, aby minimalizovaly počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat, což je důvod, proč jsou široce používány v databázových systémech a souborových systémech.
-Jejich schopnost udržovat vyváženost a efektivně spravovat velké množství dat na sekundárních úložištích je hlavním faktorem pro jejich popularitu v těchto oblastech, a proto je důležité, aby byly zahrnuty do výukové aplikace.
+Architektura B-stromů je cíleně navržena tak, aby minimalizovala počet diskových operací potřebných pro vyhledávání, vkládání a mazání dat.
+Z tohoto důvodu jsou tyto struktury masivně využívány v databázových a souborových systémech.
+Schopnost udržovat striktní vyváženost a efektivně spravovat rozsáhlé objemy dat na sekundárních úložištích představuje stěžejní faktor jejich popularity, a proto bylo rozhodnuto o jejich začlenění do vytvářené výukové aplikace.
 
 \subsection{Prioritní fronty a haldy}
 \label{sec:priority_queues}
 
 Prioritní fronty jsou abstraktní datové struktury, které umožňují ukládání prvků s přiřazenou prioritou a poskytují operace pro vkládání prvků a odebírání prvku s nejvyšší prioritou.
-Oproti běžným frontám, které fungují na principu FIFO, prioritní fronty umožňují flexibilnější způsob správy prvků, což je užitečné v mnoha algoritmech a aplikacích, jako jsou plánování úloh, algoritmy pro hledání nejkratší cesty a další.
+Oproti běžným frontám, které fungují na principu FIFO, umožňují prioritní fronty flexibilnější způsob správy prvků.
+Tato vlastnost nachází široké uplatnění v mnoha algoritmech a aplikacích, jako je například plánování úloh či hledání nejkratší cesty.
 Halda \textit{(Heap)} je konkrétní implementací prioritní fronty, která využívá stromovou strukturu k efektivnímu ukládání a správě prvků podle jejich priorit.
 Na závěr teorie datových struktur jsou tedy popsány vlastnosti prioritních front a hald, včetně jejich operací a požadavků na vizualizaci.
 
@@ -307,7 +320,8 @@ Poté se provádí operace zvaná \textit{heapify-down}.
 Probíhá porovnávání nově umístěného prvku s jeho potomky a případné prohození s největším potomkem, pokud je nový prvek menší než některý z jeho potomků.
 Proces se opět opakuje až do splnění vlastnosti haldy nebo dosažení listu stromu.~\cite{levitin}
 
-Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$, což z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh.
+Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$.
+Tato vlastnost z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh.
 Její časté využití je také v třídícím algoritmu Heapsort, který bude detailněji popsán v \customref{Kapitole}{subsec:logarithmic_algorithms}.~\cite{cormen}
 
 \subsection{Srovnání popsaných datových struktur}
@@ -343,7 +357,7 @@ Jak vyplývá z tabulky, zatímco lineární struktury jsou vhodné pro specific
 Samovyvažující se stromy (AVL a červeno-černý) pak řeší problém degradace BST tím, že garantují logaritmickou složitost i v nejhorším případě.
 Speciální vlastnosti má B-strom, který díky své šířce optimalizuje přístup k datům v sekundárních úložištích, a binární halda, která je optimalizována pro operace s prioritami.
 
-Pro účel výukové aplikace zde tedy vznikají tři základní typy struktury, každá s konkrétními operacemi a stylem zobrazení nutným pro jejich názorné představení uživatelům.
+Pro účel výukové aplikace se zde tedy vymezují základní typy struktur, každá s konkrétními operacemi a stylem zobrazení nutným pro její názorné představení uživatelům.
 
 \section{Třídící algoritmy}
 \label{sec:algorithms}
@@ -368,11 +382,12 @@ Druhou důležitou operací je porovnávání prvků, které je v pseudokódu re
 \subsection{Algoritmy s kvadratickou časovou složitostí}
 \label{subsec:quadratic_algorithms}
 
-Jako úvod do problematiky třídících algoritmů jsou nejprve popsány algoritmy s kvadratickou časovou složitostí, které jsou často považovány za základní a slouží jako výchozí bod pro pochopení složitějších algoritmů.
-Tyto algoritmy jsou charakterizovány tím, že v nejhorším případě provádějí přibližně $n^2$ operací, což je důvod, proč nejsou vhodné pro třídění velkých množství dat, ale jsou užitečné pro ilustraci principů třídění a pro výuku algoritmického myšlení.
+Jako úvod do problematiky třídicích algoritmů jsou nejprve popsány metody s kvadratickou časovou složitostí, které jsou často považovány za základní a slouží jako výchozí bod pro pochopení složitějších postupů.
+Tyto algoritmy se vyznačují tím, že v nejhorším případě provádějí přibližně $n^2$ operací.
+Z tohoto důvodu nejsou vhodné pro zpracování velkého množství dat, avšak výborně slouží k ilustraci základních principů a k výuce algoritmického myšlení.
 
-V této kapitole budou uvedeny tři základní algoritmy s kvadratickou časovou složitostí: \textit{Bubble Sort}, \textit{Selection Sort} a \textit{Insertion Sort}.
-Každý z těchto algoritmů bude popsán svým principem fungování, složitostí a případnými optimalizacemi, které mohou být použity pro zlepšení jejich výkonu v určitých situacích.
+V této kapitole budou uvedeni tři základní zástupci ze zmíněné kategorie: \textit{Bubble Sort}, \textit{Selection Sort} a \textit{Insertion Sort}.
+U každého z nich je následně rozebrán princip fungování, časová složitost a případné optimalizace přispívající ke zlepšení výkonu ve specifických situacích.
 
 \subsubsection*{Bubble sort}
 
@@ -380,7 +395,7 @@ Prvním třídícím algoritmem s kvadratickou časovou složitostí, který bud
 Tento algoritmus funguje na principu opakovaného procházení seznamu, přičemž v každém průchodu nechá nejvyšší prvek \uv{vystoupat} na konec seznamu, ostatně z analogie k bublinám ve vodě získal svůj název.
 Algoritmus pokračuje v procházení seznamu, dokud není celý seznam seřazený.~\cite{morin2013}
 
-Názorný příklad fungování algoritmu \textit{Bubble Sort} je možné vidět na \customref{Výpisu}{lst:bubbleSort}, kde jsou zobrazeny jednotlivé kroky algoritmu při třídění pole.
+Jednotlivé kroky algoritmu \textit{Bubble Sort} při třídění pole názorně ilustruje \customref{Výpis}{lst:bubbleSort}.
 V každém kroku jsou porovnány sousední prvky a dle podmínky vyměněny, což vede k postupnému \uv{vystupování} největších prvků na konec pole.
 
 \begin{listing}[ht]
@@ -390,7 +405,8 @@ V každém kroku jsou porovnány sousední prvky a dle podmínky vyměněny, co�
 \end{listing}
 
 Tento algoritmus může být optimalizován pomocí příznaku, který sleduje, zda došlo k nějaké výměně během průchodu polem.
-Pokud během průchodu nedojde k žádné výměně, znamená to, že pole je již seřazené, a algoritmus může být ukončen dříve, což zlepšuje jeho výkon v případě, že je pole již téměř seřazené.
+Pokud během celého průchodu nedojde k žádné výměně, znamená to, že pole je již seřazené, a výpočet může být předčasně ukončen.
+Tato úprava výrazně zlepšuje celkový výkon v situacích, kdy je pole již téměř seřazené.
 
 I když je tento algoritmus jednoduchý a snadno pochopitelný, jeho kvadratická časová složitost $O(n^2)$ ho činí neefektivním pro třídění velkých množství dat, a proto se v praxi používá jen zřídka, spíše jako pedagogický nástroj pro ilustraci základních principů třídění.
 Jeho výhodou také může být jeho stabilita a konstantní prostorová složitost $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury, dá se tedy využít pro stroje s velmi omezenými zdroji.~\cite{morin2013}
@@ -411,7 +427,8 @@ Ve srovnání s předchozím algoritmem se tedy setříděné pole vytváří zl
     \label{lst:selectionSort}
 \end{listing}
 
-Co se týče optimalizace, u algoritmu \textit{Selection Sort} nejsou běžně používané žádné specifické optimalizace, z části i proto, že algoritmus již provádí minimální počet výměn (přesně $n-1$), což je výhodné v situacích, kdy jsou výměny nákladné.
+Co se týče optimalizace, u algoritmu \textit{Selection Sort} nejsou běžně používané žádné specifické optimalizace, z části i proto, že algoritmus již provádí minimální počet výměn (přesně $n-1$).
+To může být výhodné v situacích, kdy jsou výměny nákladné.
 Oproti předchozímu algoritmu Bubble Sort není tento algoritmus stabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.
 Jeho časová i prostorová složitost je stejná jako u Bubble Sort, tedy $O(n^2)$ pro časovou složitost a $O(1)$ pro prostorovou složitost, protože třídění probíhá přímo v původním poli.~\cite{morin2013}
 
@@ -430,20 +447,21 @@ Pokud je klíč menší než některý z těchto prvků, tyto prvky se posunou d
     \label{lst:insertionSort}
 \end{listing}
 
-Tento algoritmus má známou mírnou optimalizaci, kde místo toho, aby se klíč s většími prvky prohazoval, uloží se jeho hodnota do pomocné proměnné a poté se posouvají pouze větší prvky, dokud není nalezena správná pozice pro klíč, který se poté vloží na tuto pozici.
-Tato optimalizace snižuje počet výměn, což může zlepšit výkon algoritmu, zejména v případech, kdy je pole již téměř seřazené.
+Tento algoritmus nabízí známou optimalizaci -- místo neustálého prohazování klíče s většími prvky se jeho hodnota nejprve uloží do pomocné proměnné.
+Následně se pouze posouvají větší prvky, dokud není nalezena správná pozice, na kterou se klíč nakonec vloží.
+Tato optimalizace snižuje počet výměn, a tudíž může zlepšit výkon algoritmu, zejména v případech, kdy je pole již téměř seřazené.
 
-\textit{Insertion Sort} je stabilní algoritmus, protože nezmění pořadí prvků se stejnou hodnotou během posouvání.
-Jeho časová složitost je $O(n^2)$ v nejhorším případě, což nastává, když je pole seřazeno v opačném pořadí, ale v nejlepším případě, kdy je pole již seřazené, má časovou složitost $O(n)$, protože každý prvek je porovnán pouze jednou a není potřeba žádných posunů.
-Pro prostorovou složitost platí $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury.~\cite{morin2013}
+\textit{Insertion Sort} se řadí mezi stabilní algoritmy, protože během posouvání nemění vzájemné pořadí prvků se shodnou hodnotou.
+Jeho časová složitost dosahuje v nejhorším případě $O(n^2)$, k této situaci dochází tehdy, když je pole původně seřazeno v opačném pořadí.
+Naopak v nejlepším případě, kdy jsou data již předem seřazená, klesá časová složitost na $O(n)$, protože každý prvek je porovnán pouze jednou a nevyžaduje žádné posuny.
+Pro prostorovou složitost platí $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby další paměti pro pomocné struktury.~\cite{morin2013}
 
 \subsection{Algoritmy s logaritmickou časovou složitostí}
 \label{subsec:logarithmic_algorithms}
 
-Po seznámení s algoritmy s kvadratickou časovou složitostí je vhodné přejít k algoritmům, které jsou efektivnější a mají logaritmickou časovou složitost, v nejhorším případě tedy provádějí přibližně $O(n \log n)$ operací.
+Po seznámení s algoritmy s kvadratickou časovou složitostí je vhodné přejít k těm, které jsou efektivnější a mají logaritmickou časovou složitost, v nejhorším případě tedy provádějí přibližně $O(n \log n)$ operací.
 Tyto algoritmy jsou schopné třídit velké množství dat mnohem rychleji než algoritmy s kvadratickou složitostí, a proto jsou často používány v praxi.
 V této části budou popsány tři základní algoritmy s logaritmickou časovou složitostí: \textit{Merge Sort}, \textit{Quick Sort} a \textit{Heap Sort}.
-Každý z těchto algoritmů bude charakterizován svým principem fungování, složitostí a případnými optimalizacemi.
 
 \subsubsection*{Merge sort}
 
@@ -462,20 +480,23 @@ Samotná funkce \texttt{MergeSort} je velmi jednoduchá, její jediná funkciona
 \end{listing}
 
 Implementace funkce \texttt{Merge} je rozsáhlejší.
-Na začátku překopíruje levou a pravou část pole do dvou pomocných polí a následně u obě z nich prochází sekvenčně zleva a porovnává jejich prvky.
+Na začátku se levá a pravá část pole překopírují do dvou pomocných struktur.
+Následně se obě pole sekvenčně procházejí zleva a vzájemně se porovnávají jejich prvky.
 Menší prvek z obou polí se vloží do výsledného pole a index se posune o jednu pozici doprava.
-Tento proces se opakuje, dokud nejsou všechna data z obou pomocných polí zpracována, přičemž pokud jedno z polí dojde dříve, zbylé prvky z druhého pole se jednoduše překopírují do výsledného pole.
+Tento proces se opakuje, dokud nejsou zpracována všechna data.
+Pokud jedno z polí dojde dříve, zbylé prvky z toho druhého se jednoduše překopírují na konec výsledného pole.
 
-Tento algoritmus má časovou složitost $O(n \log n)$ v nejhorším, průměrném i nejlepším případě, protože vždy rozděluje pole na dvě poloviny a prochází všechny prvky během slučování.
-Prostorová složitost je však horší než u výše uvedených kvadratických algoritmů, protože vyžaduje dodatečný prostor pro pomocná pole během slučování, což vede k prostorové složitosti $O(n)$.
-Nicméně, \textit{Merge Sort} je stabilní a velmi dobře se paralelizuje, což z něj činí vhodný algoritmus pro třídění velkých datových sad, zejména v prostředí s více procesory.~\cite{morin2013}
+Tento algoritmus dosahuje časové složitosti $O(n \log n)$ v nejhorším, průměrném i nejlepším případě, protože vždy rozděluje pole na dvě poloviny a při slučování prochází všechny prvky.
+Prostorová složitost je však horší než u dříve popsaných kvadratických algoritmů.
+Během slučování je totiž vyžadován dodatečný prostor pro pomocná pole, a celková prostorová náročnost tedy narůstá na $O(n)$ -- tento algoritmus tedy není \textit{in-place}.
+Nicméně \textit{Merge Sort} je stabilní a velmi dobře se paralelizuje. Tyto vlastnosti z něj činí ideální algoritmus pro třídění velkých datových sad, zejména pak v prostředí s více procesory.~\cite{morin2013}
 
 \subsubsection*{Quick sort}
 
-Dalším velmi efektivním a často používaným algoritmem, který zde bude zmíněn, je algoritmus \textit{Quick Sort}.
-Stejně jako \textit{Merge Sort} je založen na principu \textit{divide and conquer}, jeho časová složitost je v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může dosáhnout až $O(n^2)$.
+Dalším velmi efektivním a často používaným algoritmem je \textit{Quick Sort}.
+Stejně jako \textit{Merge Sort} je založen na principu \textit{divide and conquer}. Jeho časová složitost dosahuje v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může vzrůst až na $O(n^2)$.
 Tento případ je obvykle způsoben nevhodným výběrem pivotu, což je prvek, dle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže.
-Nicméně, s vhodnými optimalizacemi, jako je například náhodný výběr pivotu, lze dosáhnout průměrné časové složitosti $O(n \log n)$ i v nejhorším případě.~\cite{morin2013}
+Nicméně s vhodnými optimalizacemi lze pravděpodobnost nejhoršího případu minimalizovat a zachovat tak očekávanou složitost $O(n \log n)$ pro libovolná vstupní data.~\cite{morin2013}
 
 \begin{listing}[h]
     \input{code/theoryContent/quickSort.tex}
@@ -488,17 +509,21 @@ Pokud je pole větší než jeden prvek, zavolá se funkce \texttt{Partition}, k
 Následně se funkce \texttt{Quick Sort} rekurzivně volá pro obě části pole.
 
 Funkce \texttt{Partition} nejprve zvolí pivot, v příkladu na \customref{Výpisu}{lst:quickSort} se jedná o poslední prvek pole.
-Poté prochází pole od začátku a porovnává každý prvek s pivotem.
-Pokud je prvek menší nebo roven pivotu, provede se výměna tohoto prvku s prvkem na indexu $i$ (který začíná na začátku pole) a tento index se posune o jednu pozici doprava.
-Po dokončení průchodu polem se pivot vymění s prvkem na indexu $i$, čímž se zajistí, že všechny prvky menší nebo rovné pivotu jsou nalevo od něj a všechny větší prvky jsou napravo.
-Funkce poté vrací index pivotu, který se používá pro další rekurzivní volání.
+Poté prochází data od začátku a porovnává každý prvek s pivotem.
+Pokud je prvek menší nebo roven pivotu, provede se jeho výměna s prvkem na indexu $i$ (který začíná na začátku pole) a tento index se posune o jednu pozici doprava.
+Po dokončení průchodu polem se pivot vymění s prvkem na indexu $i$.
+Tím se zajistí, že všechny hodnoty menší nebo rovné pivotu se nacházejí nalevo od něj a všechny větší napravo.
+Funkce následně vrací finální index pivotu, který slouží jako dělící bod pro další rekurzivní volání.
 
 Hlavní optimalizace tohoto algoritmu se točí kolem efektivního výběru vhodného pivotu.
-Pokud je totiž pivot zvolen nevhodně, například jako nejmenší nebo největší prvek v poli, může dojít k tomu, že jedna část pole bude prázdná a druhá bude obsahovat všechny prvky, což vede k nejhoršímu scénáři s časovou složitostí $O(n^2)$.
-Pro zlepšení výkonu se často používá náhodný výběr pivotu, median-of-three metoda (kde se jako pivot zvolí medián z prvního, prostředního a posledního prvku) nebo jiné heuristiky, které pomáhají zajistit lepší rozdělení pole a tím i lepší výkon algoritmu.~\cite{morin2013}
+Pokud je totiž pivot zvolen nevhodně, například jako nejmenší nebo největší prvek v poli, může dojít k situaci, kdy jedna část pole zůstane prázdná a druhá bude obsahovat všechny zbylé prvky.
+Tento extrém vede k nejhoršímu možnému scénáři s časovou složitostí $O(n^2)$.
+Pro zlepšení výkonu se proto často používá náhodný výběr pivotu, metoda \textit{median-of-three} (při níž se jako pivot volí medián z prvního, prostředního a posledního prvku) nebo jiné heuristiky.
+Tyto přístupy pomáhají zaručit rovnoměrnější rozdělení pole a tím i optimální chod algoritmu.~\cite{morin2013}
 
-Algoritmus \textit{Quick Sort} je nestabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.
-Jeho prostorová složitost je $O(\log n)$ v průměrném případě, což je způsobeno rekurzivními voláními, ale v nejhorším případě může dosáhnout až $O(n)$, pokud jsou všechny prvky stejné nebo pokud je pole již seřazené a pivot je vždy nejmenší nebo největší prvek.~\cite{morin2013}
+Algoritmus \textit{Quick Sort} se řadí mezi nestabilní metody, protože během výměn může narušit původní pořadí prvků se stejnou hodnotou.
+Jeho prostorová složitost dosahuje v průměrném případě $O(\log n)$, což je dáno pamětí alokovanou pro rekurzivní volání.
+V nejhorším případě však může vzrůst až na $O(n)$, pokud jsou všechny prvky shodné nebo pokud je pole již předem seřazené a pivot vždy spadne na pozici lokálního extrému.~\cite{morin2013}
 
 \subsubsection*{Heap sort}
 
@@ -514,7 +539,7 @@ Druhá část algoritmu má složitost $O(n \log n)$ a díky tomu, že obě čá
 \end{listing}
 
 Podobně jako u dvou předchozích příkladů se implementace skládá z hlavní funkce \texttt{HeapSort}, která je volána na celé pole a která využívá pomocnou funkci \texttt{Heapify} pro přetvoření pole do haldy.
-Nejprve se pole přetvoří do max-heapu, což zajišťuje, že největší prvek je na kořeni haldy.
+Nejprve se pole přetvoří do max-heapu, a je tedy zajištěno, že největší prvek je na kořeni haldy.
 Poté se tento prvek vymění s posledním prvkem pole a z o jeden prvek menšího pole se znovu vytvoří halda.
 
 Funkce \texttt{Heapify} je zodpovědná za udržení vlastnosti haldy.
@@ -528,7 +553,7 @@ Algoritmus \textit{Heap Sort} je nestabilní, protože může měnit pořadí pr
 \label{subsec:sorting_comparison}
 
 Pro usnadnění výběru vhodného algoritmu a pro přehlednost teoretických poznatků jsou v této kapitole shrnuty podstatné vlastnosti všech implementovaných algoritmů.
-Srovnání se zaměřuje na časovou složitost v různých případech, prostorovou náročnost a stabilitu, což je schopnost algoritmu zachovat původní relativní pořadí prvků se stejným klíčem.
+Srovnání se zaměřuje na časovou složitost v různých případech, prostorovou náročnost a stabilitu.
 
 \begin{table}[ht]
     \centering
@@ -553,23 +578,21 @@ Srovnání se zaměřuje na časovou složitost v různých případech, prostor
 Z \customref{Tabulky}{tab:sorting_comparison} je patrné, že algoritmy s kvadratickou časovou složitostí jsou vhodné spíše pro menší datové sady nebo pro specifické případy, jako je téměř seřazené pole u algoritmu \textit{Insertion Sort}, kde jeho nejlepší časová složitost dosahuje lineárních hodnot $O(n)$.
 
 Naopak algoritmy s logaritmickou složitostí vykazují výrazně vyšší efektivitu u velkých datových sad.
-\textit{Merge Sort} sice vykazuje vyšší prostorovou náročnost $O(n)$, ale na rozdíl od \textit{Quick Sortu} a \textit{Heap Sortu} garantuje stabilitu třídění.
-\textit{Quick Sort} je v praxi často nejrychlejší, avšak jeho výkon je silně závislý na volbě pivotu, což se projevuje v riziku nejhoršího případu $O(n^2)$.
+\textit{Merge Sort} má sice vyšší prostorovou náročnost $O(n)$, ale na rozdíl od \textit{Quick Sortu} a \textit{Heap Sortu} garantuje stabilitu třídění.
+\textit{Quick Sort} je v praxi často nejrychlejší, avšak jeho výkon je silně závislý na volbě pivotu, jak je patrné v riziku nejhoršího případu $O(n^2)$.
 \textit{Heap Sort} představuje vyvážený kompromis, který garantuje logaritmický čas i v nejhorším případě při zachování konstantní prostorové složitosti.
 
 Výše uvedené algoritmy byly tedy označeny jako stěžejní pro implementaci v rámci výukové aplikace, protože pokrývají široké spektrum třídících technik a umožňují uživatelům pochopit různé přístupy k třídění dat, jejich výhody a nevýhody.
 
 \section{Význam vizualizace ve vzdělávání}
-
 \label{sec:pedagogical-impact}
 
-Pochopení datových struktur a algoritmů vyžaduje od studentů vysokou míru abstraktního myšlení, což představuje jednu z největších překážek v informatickém vzdělávání.
+Pochopení datových struktur a algoritmů vyžaduje od studentů vysokou míru abstraktního myšlení, a představuje tedy jednu z nelehkých překážek v informatickém vzdělávání.
 Nástroje pro vizualizaci algoritmů pomáhají tuto bariéru překonat, avšak samotná přítomnost vizualizace automaticky nezaručuje zlepšení studijních výsledků.
 Z rozsáhlé metaanalýzy vyplývá, že úspěšnost učení je ovlivněna především mírou aktivního zapojení studenta.
 Studenti, kteří mohou s vizualizací aktivně manipulovat a krokovat ji, dosahují prokazatelně hlubšího porozumění než ti, kteří animaci pouze pasivně sledují.~\cite{urquiza2009}
 
-Empirické studie navíc potvrzují, že studenti využívající interaktivní vizualizační prostředí dosahují signifikantně lepších výsledků v porovnání s kontrolními skupinami odkázanými pouze na tradiční studijní materiály.~\cite{kogan2024}
-Nástroje, které se zaměřují na experimentování -- kde student může například vkládat či odebírat uzly a okamžitě sledovat vizuální odezvu struktury -- fungují v podstatě jako moderní \uv{hyperučebnice} (\textit{hypertextbooks}), jež efektivně propojují textovou teorii s okamžitou vizuální praxí.~\cite{fouh2012}
+Empirické studie navíc potvrzují, že studenti využívající interaktivní prostředí dosahují signifikantně lepších výsledků v porovnání s kontrolními skupinami odkázanými na tradiční studijní materiály.~\cite{kogan2024}
+Nástroje, které se zaměřují na experimentování -- kde student může například vkládat uzly a okamžitě sledovat vizuální odezvu struktury -- fungují v podstatě jako moderní \uv{hyperučebnice} (\textit{hypertextbooks}), jež efektivně propojují textovou teorii s okamžitou vizuální praxí.~\cite{fouh2012}
 
 Tato akademická zjištění plně opodstatňují potřebu vývoje vysoce interaktivních aplikací pro podporu výuky teoretické informatiky a tvoří základní pedagogický předpoklad pro návrh systému popsaného v této práci.
-
