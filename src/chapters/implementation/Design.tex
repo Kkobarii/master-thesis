@@ -40,7 +40,7 @@ Kromě stránek zaměřených čistě na výukový obsah má nástroj také str�
 \label{subsec:navigation-concept}
 
 Návrh se dále zaměřuje na navigační prvky uživatelského rozhraní aplikace.
-Výchozí layout stránky obsahuje fixní horní lištu, která je dostupná napříč celou aplikací, což zajišťuje, že uživatel je vždy schopen jednoduše navigovat, kam potřebuje.
+Výchozí layout stránky obsahuje fixní horní lištu, která je dostupná napříč celou aplikací a je tedy zajištěno, že uživatel je vždy schopen jednoduše navigovat, kam potřebuje.
 Navigační prvky jsou na všech stránkách umístěny stejně, aby byla zajištěna konzistence.
 
 Umístění i styl navigačních prvků se drží známých standardů webového designu, čímž je využita uživatelská znalost těchto principů, takže se může soustředit na samotný výukový obsah stránky.
@@ -149,7 +149,7 @@ Tato kapitola tedy poskytuje bližší pohled na tyto komponenty a způsob, jak�
 \label{subsec:structure-visualization}
 
 Co se týče datových struktur, základem jejich vizualizace je grafová knihovna, která byla zvolena v předchozí analýze \chapterref{sec:graph_library}, tedy \textit{vis-network}.
-Grafy zobrazené pomocí této knihovny se vykreslují do elementu \textit{canvas}, což umožňuje efektivní vykreslování i pro větší datové struktury.
+Grafy zobrazené pomocí této knihovny se vykreslují do elementu \textit{canvas} a je u nich zařízeno efektivní vykreslování i pro větší datové sady.
 Pro vizualizaci stromů je využíván hierarchický layout, který zajišťuje, že uzly jsou uspořádány do vrstev podle své hloubky ve stromu, pro lineární datové struktury se dá stejný princip použít také.
 
 Jelikož u některých datových struktur je třeba zobrazovat doplňující informace (např. informace o vyvážení uzlu AVL stromu nebo identifikace začátku a konce fronty), je u vizualizace nutné implementovat určitý způsob anotace grafu.
@@ -206,7 +206,7 @@ Vizuální styl výukové aplikace neslouží jen k estetickému dojmu, ale je s
 
 Výběr barevné palety pro uživatelské rozhraní se opírá o základní principy teorie barev a zaměřuje se na podporu pochopení principů učiva.
 Vzorník barev je přiložen na \customref{Obrázku}{fig:palette}.
-Zvolené barvy jsou převážně přirozené a méně saturované, což předchází únavě očí při delším používání aplikace.
+Zvolené barvy jsou převážně přirozené a méně saturované, aby u uživatelů nedocházelo k únavě očí při delším používání aplikace.
 
 \begin{figure}[ht]
     \centering
@@ -329,7 +329,7 @@ Z tohoto základu dědí specifické třídy uzlů (např. pro binární stromy 
 
 Společné rozhraní všech struktur zastřešuje abstraktní třída \texttt{DataStructure}.
 Ta automatizuje přidělování identifikátorů a definuje metodu pro tvorbu neměnných snímků stavu grafu (\texttt{snapshot}).
-Provádění samotných operací je abstrakcí rozděleno do dvou úrovní, což odráží hierarchický návrh krokování: \texttt{OperationData} obaluje celou makro-operaci (včetně stavu před a po), zatímco \texttt{StepData} slouží pro uložení dílčích atomických kroků uvnitř operace (mikro-úroveň).
+Provádění samotných operací je abstrakcí rozděleno do dvou úrovní, které odráží hierarchický návrh krokování: \texttt{OperationData} obaluje celou operaci (včetně stavu před a po), zatímco \texttt{StepData} slouží pro uložení dílčích atomických kroků uvnitř operace.
 Každý krok v sobě navíc může nést specifická data určující, které uzly se mají v danou chvíli zvýraznit.
 Díky této jednotné architektuře dokáže vizuální vrstva vykreslit jakoukoliv strukturu bez nutnosti znát její vnitřní implementační detaily.
 

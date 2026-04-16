@@ -20,7 +20,7 @@ Logika aplikace je v tomto případě primárně soustředěna na straně server
 
 Příklad životního cyklu v této architektuře je zobrazen na \customref{Obrázku}{fig:page_lifecycles} (levá část).
 Při každé akci uživatele je odeslán HTTP požadavek na server, který data zpracuje a jako odpověď vrátí novou HTML stránku.
-V praxi to znamená nutnost znovunačtení celého dokumentu s každou interakcí, což může vést k prodlevám a neefektivnímu využití přenosového pásma, jelikož se opakovaně přenáší i statické části rozhraní (např. navigace).
+V praxi to znamená nutnost znovunačtení celého dokumentu s každou interakcí, a to může vést k prodlevám a neefektivnímu využití přenosového pásma, jelikož se opakovaně přenáší i statické části rozhraní (např. navigace).
 
 \begin{figure}[ht]
     \centering
@@ -39,7 +39,7 @@ Namísto toho aplikace nezávisle žádá pouze o nezbytná data, typicky prost�
 Jak je znázorněno na pravé části \customref{Obrázku}{fig:page_lifecycles}, odpovědi ze serveru jsou přenášeny ve formátu JSON, což prohlížeči umožňuje reaktivně aktualizovat pouze dotčené části DOMu bez přerušení uživatelského zážitku.
 Tento model simuluje chování nativních desktopových aplikací s minimální odezvou.~\cite{kaluza2018}
 
-Výhodou tohoto přístupu je plynulejší interaktivita, což je pro výukový nástroj s animacemi zásadní.
+Výhodou tohoto přístupu je plynulejší interaktivita, která je pro výukový nástroj s animacemi zásadní.
 Díky tomu, že logika běží na straně klienta, mohou být aplikace částečně funkční i při nestabilním připojení, přičemž synchronizace probíhá po obnovení spojení.
 Nevýhodou je však vyšší náročnost na počáteční stažení JavaScriptových balíků a komplikovanější optimalizace pro vyhledávače (SEO), jelikož obsah není pro roboty (\textit{web-crawlers}) okamžitě dostupný v surovém HTML.~\cite{kaluza2018}
 Pro účely interního výukového nástroje však výhody plynulého vykreslování animací převažují nad požadavky na SEO.
@@ -48,7 +48,7 @@ Pro účely interního výukového nástroje však výhody plynulého vykreslov�
 \label{sec:rendering_strategies}
 
 Dalším důležitým aspektem architektury je strategie renderování, tedy způsob, jakým se generuje a zobrazuje obsah na stránce.
-Různé strategie se liší zejména tím, kde se provádí zpracování a generování HTML kódu, což zásadně ovlivňuje nejen uživatelský zážitek a výkon, ale také optimalizaci pro vyhledávače (SEO).
+Různé strategie se liší zejména tím, kde se provádí zpracování a generování HTML kódu, a to zásadně ovlivňuje nejen uživatelský zážitek a výkon, ale také optimalizaci pro vyhledávače (SEO).
 
 \subsection{Client-Side Rendering}
 \label{subsec:client_side_rendering}
@@ -80,7 +80,7 @@ Během ní klientský skript převezme kontrolu nad již vyrenderovaným statick
 
 Zásadní výhodou SSR je vynikající podpora SEO, jelikož je obsah okamžitě přístupný webovým crawlerům bez nutnosti spouštět JavaScript.
 Kvantitativní měření potvrzují, že SSR dosahuje výrazně lepších výsledků v metrikách prvotního načtení (TTFB), čímž poskytuje rychlou vizuální odezvu nezávisle na výkonu koncového zařízení.
-Nevýhodou je naopak vyšší zátěž serveru, který musí dynamicky generovat HTML pro každý požadavek, což může při větším množství uživatelů vést k degradaci výkonu.~\cite{kumar2025,alaa2025}
+Nevýhodou je naopak vyšší zátěž serveru, který musí dynamicky generovat HTML pro každý požadavek a jehož vytížení může při větším množství uživatelů vést k degradaci výkonu.~\cite{kumar2025,alaa2025}
 
 \subsection{Static Site Generation}
 \label{subsec:static_site_generation}
@@ -90,7 +90,7 @@ Přístup je podobný SSR v tom, že klient obdrží předpřipravený HTML doku
 Server následně klientovi pouze distribuuje hotové statické soubory.
 
 Mezi výhody SSG patří bleskově rychlé načítání, výborné SEO a minimální nároky na provoz serveru, jelikož odpadá nutnost generování dat v reálném čase.
-Nevýhodou je složitější správa dynamického obsahu -- jakákoliv změna dat vyžaduje nové sestavení celé aplikace, což je u rozsáhlých projektů s často se měnícím obsahem značně neefektivní.~\cite{kumar2025}
+Nevýhodou je složitější správa dynamického obsahu -- jakákoliv změna dat vyžaduje nové sestavení celé aplikace, které je u rozsáhlých projektů s často se měnícím obsahem značně neefektivní.~\cite{kumar2025}
 
 Důležitým faktem je, že SSG nevylučuje následnou interaktivitu.
 V kontextu moderních frameworků se často využívá k vygenerování statického základu, který je po načtení na straně klienta \textit{hydratován} a dále funguje jako plnohodnotná SPA.
@@ -107,7 +107,7 @@ Každý z nich má své výhody a nevýhody, které je třeba zvážit při výb
 \label{subsec:react}
 
 React je jedním z nejpopulárnějších JavaScriptových frameworků pro vývoj webových aplikací.
-Je vyvíjen společností Meta a má velkou komunitu vývojářů, což znamená, že existuje mnoho knihoven a nástrojů, které usnadňují vývoj.
+Je vyvíjen společností Meta a má velkou komunitu vývojářů, a proto pro něj existuje mnoho knihoven a nástrojů, které usnadňují vývoj.
 React používá komponentový přístup a zakládá se na deklarativním stylu programování UI.~\cite{react}
 
 Speciálním konceptem, který React zavádí, je tzv.
@@ -169,7 +169,7 @@ Následující podkapitoly se věnují jednotlivým knihovnám a jejich porovná
 \label{subsec:d3}
 
 Knihovna D3.js je open-source nástrojem umožňujícím vizualizaci dat pomocí webových standardů, jako jsou HTML, SVG a CSS.
-Grafy jsou vytvářeny pomocí DOM manipulace, což umožňuje vysokou míru přizpůsobení a interaktivity.
+Grafy jsou vytvářeny pomocí DOM manipulace a díky tomu nabízí velkou interaktivitu a možnosti přizpůsobení.
 D3 je velmi komplexní a nabízí širokou škálu funkcí pro práci s daty, ale může být náročný na učení a implementaci, zejména pro složitější vizualizace.~\cite{d3}
 
 \begin{figure}[ht]
@@ -186,7 +186,7 @@ D3 se zaměřuje hlavně na vizualizaci velkého množství dat a dokumentů, pr
 \label{subsec:cytoscape}
 
 Další možností je knihovna Cytoscape.js, která je navržena speciálně pro vizualizaci grafů a sítí.
-Opět se jedná o open-source nástroj, oproti tomu předchozímu však jeho vykreslování neprobíhá pomocí DOM, ale využívá HTML5 canvas, což umožňuje efektivnější zobrazení a lepší výkon, zejména u větších grafů.
+Opět se jedná o open-source nástroj, oproti tomu předchozímu však jeho vykreslování neprobíhá pomocí DOM, ale využívá HTML5 canvas, který umožňuje efektivnější zobrazení a lepší výkon, zejména u větších grafů.
 Cytoscape.js nabízí širokou škálu funkcí pro práci s grafy, včetně různých layoutů, stylů a interakcí.
 Je také poměrně snadný na použití a má dobrou dokumentaci.~\cite{cytoscape}
 
@@ -204,7 +204,7 @@ Tento typ zobrazení je již uživatelsky přívětivější a přehlednější 
 \label{subsec:vis}
 
 Zvažována byla také knihovna vis-network, která je součástí většího balíčku vis.js, jež byl vytvořen pro jednoduchou vizualizaci 2D i 3D grafů, strukturovaných dat, časových os a také právě sítí a grafů.
-Stejně jako Cytoscape.js využívá pro vykreslování HTML5 canvas, což zajišťuje dobrý výkon i u větších grafů.
+Stejně jako Cytoscape.js využívá pro vykreslování HTML5 canvas a nabízí tudíž dobrý výkon i u větších grafů.
 Samotná knihovna vis-network se snaží být co nejjednodušší pro vývojáře, pro zobrazení grafu stačí pouze definovat uzly a hrany a zbytek se postará o vykreslení a interakci.
 Nabízí také různé možnosti pro přizpůsobení zobrazení, například různé layouty, styly a možnosti interakce.~\cite{vis}
 
@@ -220,7 +220,7 @@ Tento způsob zobrazení je velmi přehledný a uživatelsky přívětivý, co s
 
 Animace grafu je zajištěna pomocí fyzikálního modelu, který simuluje síly mezi uzly a hranami, přímou možnost nastavení animace však knihovna nenabízí, ale existuje zde alespoň možnost nastavení pozic uzlů manuálně.
 Dalším přínosem této knihovny je implementace hierarchického layoutu, která je zabudovaná přímo do nastavení grafu, takže není nutné počítat pro každý vrchol souřadnice.
-Poskytuje taktéž velmi užitečnou možnost odposlouchávání událostí, jako například kliknutí na uzel, což umožňuje snadnou implementaci interakce s grafem.
+Poskytuje taktéž velmi užitečnou možnost odposlouchávání událostí, jako například kliknutí na uzel, čehož bude možné využít pro implementaci interakce s grafem.
 
 \section{Automatizace a nasazení (CI/CD)}
 \label{sec:ci_cd}

@@ -74,7 +74,7 @@ Záznam každého kroku probíhá ve dvou fázích.
 Nejprve algoritmus zavolá metodu \texttt{paint}, která dotčeným prvkům pole vnitřně přiřadí sémantické stavy (např.
 porovnávání, přesun) pomocí rozhraní, které je přirozenější pro samotnou implementaci algoritmů.
 Následně je zavolána metoda \texttt{record}, která provede hlubokou kopii (deep copy) celého pole.
-Tento postup, znázorněný ve \customref{Výpisu}{code:trace_builder}, zachovává neměnnost (immutability) dat, což zajišťuje správné fungování UI reaktivity.
+Tento postup, znázorněný ve \customref{Výpisu}{code:trace_builder}, zachovává neměnnost (immutability) dat a zajišťuje správné fungování UI reaktivity.
 V metodě \texttt{record} se pod povrchem rovněž dynamicky vypočítávají a ukládají pozice prvků v matici rekurzivních úrovní (\texttt{rows}), jež jsou důležité pro vizualizaci algoritmů typu Merge Sort.
 Plné znění této metody však bylo z důvodu přehlednosti zkráceno.
 
@@ -158,7 +158,7 @@ Při návrhu této vrstvy bylo nutné vyřešit několik netriviálních technol
 \subsection{Vizuální reprezentace rekurzivních algoritmů}
 \label{subsec:recursion-viz}
 
-Standardní třídicí algoritmy operují lineárně nad jedním polem, což v uživatelském rozhraní představuje jeden statický řádek prvků.
+Standardní třídicí algoritmy operují lineárně nad jedním polem, které v uživatelském rozhraní představuje jeden statický řádek prvků.
 Komplexnější rekurzivní algoritmy, jako jsou Merge Sort a Quick Sort, však logicky pole štěpí a pracují v oddělených podúrovních.
 Pro jejich pochopení je zásadní, aby student viděl vizuální ekvivalent rekurze.
 
@@ -186,7 +186,8 @@ Tím je zaručeno, že knihovna interpoluje pohyb prvků do plynulé animace.
 \subsection{Implementace vlastní anotační vrstvy}
 \label{subsec:custom-annotator}
 
-Knihovna \texttt{vis-network} disponuje pokročilým fyzikálním a hierarchickým layout enginem, což je výhodné pro automatické rozmisťování uzlů, avšak přináší to zásadní nevýhodu při potřebě přidat do grafu dodatečné informace.
+Knihovna \texttt{vis-network} disponuje pokročilým fyzikálním a hierarchickým layout enginem.
+Ten je výhodný pro automatické rozmisťování uzlů, avšak přináší zásadní nevýhodu při potřebě přidat do grafu dodatečné informace.
 Vložení doplňkových uzlů za účelem zobrazení textových ukazatelů by nevratně narušilo výpočet layoutu a zničilo by tvar stromu.
 
 Tento problém byl vyřešen implementací nezávislé překryvné vrstvy (\textit{overlay canvas}), kterou obsluhuje třída \texttt{DataStructureAnnotator}.
@@ -216,7 +217,7 @@ Tímto scénářem jsou především B-stromy.
 Hierarchický auto-layout knihovny \texttt{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu.
 Podstata B-stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje.
 Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané větvi, což ve specifických případech vede k vizuálnímu překryvu sousedních prvků.
-Tento nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního layout enginu, což představuje akceptované omezení implementace.
+Tento nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního layout enginu, představuje tedy akceptované omezení implementace.
 Ve výsledné aplikaci je tedy mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor často velkých mezer mezi listy stromu.
 
 \section{Automatizace nasazení a CI/CD}
@@ -272,7 +273,7 @@ Má také možnost zvolit si různé vstupní datové sady, jako jsou náhodné,
 \end{figure}
 
 Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick Sort, naopak poskytuje hluboký vhled do mikro-operací, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a dynamicky zvýrazňuje odpovídající řádky pseudokódu.
-Pole je zde zmenšeno na pouhých 16 prvků, což umožňuje detailní sledování každé operace.
+Pole je zde zmenšeno na pouhých 16 prvků, uživatelé tak mají možnost sledovat každou operaci ve větším detailu.
 
 \subsection{Přístupnost a adaptabilita prostředí}
 \label{subsec:accessibility-adaptability}
@@ -281,7 +282,7 @@ Moderní výuková aplikace musí být přístupná širokému spektru uživatel
 Adaptabilita prostředí stojí na třech hlavních pilířích: responzivitě, vizuálních motivech a mezinárodní lokalizaci.
 
 Pro zajištění responzivity a podpory tmavého režimu (Dark Mode) byl využit CSS framework Tailwind.
-Pomocí jeho utilitních tříd se rozložení prvků dynamicky přeskládává v závislosti na velikosti obrazovky, což umožňuje plnohodnotné používání aplikace i na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}.
+Pomocí jeho utilitních tříd se rozložení prvků dynamicky přeskládává v závislosti na velikosti obrazovky a rozhraní tak umožňuje plnohodnotné používání aplikace i na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}.
 Mezi úpravy mimo jiné patří přechod z horizontálního menu na hamburger menu, vertikální rozložení ovládacích prvků a zmenšení datové sady pro třídicí algoritmy na 50 a 8 prvků v obecném a detailním pohledu, aby se zachovala přehlednost na menších obrazovkách.
 
 \begin{figure}[ht]
@@ -321,8 +322,8 @@ Aby se předešlo zatěžování klientského prohlížeče parsováním velkéh
 Logika načítání dynamicky identifikuje požadovaný soubor na základě zvolené struktury a aktuálního jazyka (např.
 \texttt{rb\_tree.cs.md}).
 Tento soubor je následně asynchronně načten ze souborového systému serveru a pomocí knihovny \texttt{marked} převeden do HTML podoby.
-Zásadní je zde implementace paměťové cache na straně serveru, která zajišťuje, že se každý soubor parsuje pouze při prvním požadavku, což dramaticky snižuje latenci sítě a urychluje vykreslení stránky.
-Uživateli je tak ze serveru odesláno již hotové, zformátované HTML.
+Zásadní je zde implementace paměťové cache na straně serveru, která zajišťuje, že se každý soubor parsuje pouze při prvním požadavku.
+Díky tomuto mechanismu se dramaticky snižuje latence sítě a urychluje vykreslení stránky, protože uživateli je ze serveru odesláno již hotové, zformátované HTML.
 
 \subsection{Komparace algoritmů v reálném čase}
 \label{subsec:algorithm-race}
