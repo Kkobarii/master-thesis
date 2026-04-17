@@ -419,7 +419,7 @@ Prvky se tímto způsobem přesouvají, dokud algoritmus nedosáhne konce pole.~
 
 Z příkladu na \customref{Výpisu}{lst:selectionSort} je možné vidět, jak algoritmus pracuje.
 Sekvenčně prochází nesetříděnou část pole, \uv{vybere} nejmenší prvek a vymění ho s prvním prvkem této části, čímž se rozšiřuje setříděná část.
-Ve srovnání s předchozím algoritmem se tedy setříděné pole vytváří zleva, zatímco u Bubble Sortu se největší prvky přesouvají doprava.
+Ve srovnání s předchozím algoritmem se tedy setříděné pole vytváří zleva, zatímco u algoritmu Bubble Sort se největší prvky přesouvají doprava.
 
 \begin{listing}[ht]
     \input{code/theoryContent/selectionSort.tex}
@@ -495,7 +495,7 @@ Nicméně \textit{Merge Sort} je stabilní a velmi dobře se paralelizuje. Tyto 
 
 Dalším velmi efektivním a často používaným algoritmem je \textit{Quick Sort}.
 Stejně jako \textit{Merge Sort} je založen na principu \textit{divide and conquer}. Jeho časová složitost dosahuje v průměrném a nejlepším případě $O(n \log n)$, ale v nejhorším případě může vzrůst až na $O(n^2)$.
-Tento případ je obvykle způsoben nevhodným výběrem pivotu, což je prvek, dle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže.
+Tento případ je obvykle způsoben nevhodným výběrem dělícího prvku (pivot), podle kterého se pole rozděluje na dvě části, jak bude vysvětleno níže.
 Nicméně s vhodnými optimalizacemi lze pravděpodobnost nejhoršího případu minimalizovat a zachovat tak očekávanou složitost $O(n \log n)$ pro libovolná vstupní data.~\cite{morin2013}
 
 \begin{listing}[h]
@@ -539,7 +539,7 @@ Druhá část algoritmu má složitost $O(n \log n)$ a díky tomu, že obě čá
 \end{listing}
 
 Podobně jako u dvou předchozích příkladů se implementace skládá z hlavní funkce \texttt{HeapSort}, která je volána na celé pole a která využívá pomocnou funkci \texttt{Heapify} pro přetvoření pole do haldy.
-Nejprve se pole přetvoří do max-heapu, a je tedy zajištěno, že největší prvek je na kořeni haldy.
+Nejprve se pole přetvoří do struktury max-heap, a je tedy zajištěno, že největší prvek je na kořeni haldy.
 Poté se tento prvek vymění s posledním prvkem pole a z o jeden prvek menšího pole se znovu vytvoří halda.
 
 Funkce \texttt{Heapify} je zodpovědná za udržení vlastnosti haldy.
@@ -578,7 +578,7 @@ Srovnání se zaměřuje na časovou složitost v různých případech, prostor
 Z \customref{Tabulky}{tab:sorting_comparison} je patrné, že algoritmy s kvadratickou časovou složitostí jsou vhodné spíše pro menší datové sady nebo pro specifické případy, jako je téměř seřazené pole u algoritmu \textit{Insertion Sort}, kde jeho nejlepší časová složitost dosahuje lineárních hodnot $O(n)$.
 
 Naopak algoritmy s logaritmickou složitostí vykazují výrazně vyšší efektivitu u velkých datových sad.
-\textit{Merge Sort} má sice vyšší prostorovou náročnost $O(n)$, ale na rozdíl od \textit{Quick Sortu} a \textit{Heap Sortu} garantuje stabilitu třídění.
+\textit{Merge Sort} má sice vyšší prostorovou náročnost $O(n)$, ale na rozdíl od algoritmů \textit{Quick Sort} a \textit{Heap Sort} garantuje stabilitu třídění.
 \textit{Quick Sort} je v praxi často nejrychlejší, avšak jeho výkon je silně závislý na volbě pivotu, jak je patrné v riziku nejhoršího případu $O(n^2)$.
 \textit{Heap Sort} představuje vyvážený kompromis, který garantuje logaritmický čas i v nejhorším případě při zachování konstantní prostorové složitosti.
 

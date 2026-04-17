@@ -56,7 +56,7 @@ Tento přístup mimo jiné umožňuje automatické generování komparačních m
 Samotný běh animace a správu času zapouzdřuje třída \texttt{StepManager}.
 Funguje jako centrální stavový automat, který využívá reaktivní primitiva frameworku Svelte (\texttt{\$state}) k udržování informací o aktuálním indexu přehrávaného kroku (\texttt{currentStepIndex}), stavu přehrávání (\texttt{isPlaying}) a rychlosti (\texttt{delayMs}).
 
-Změna indexu uvnitř \texttt{StepManageru} automaticky vyvolá překreslení závislých komponent, aniž by bylo nutné explicitně volat aktualizační metody.
+Změna indexu uvnitř třídy \texttt{StepManager} automaticky vyvolá překreslení závislých komponent, aniž by bylo nutné explicitně volat aktualizační metody.
 Plynulý běh simulace zajišťuje delegovaný časovač (z \texttt{utils}), který v nastaveném intervalu inkrementuje index kroku.
 Zjednodušená ukázka tohoto mechanismu, zahrnující metody pro spuštění, pozastavení a cyklické posouvání (\texttt{tickStep}), je uvedena ve \customref{Výpisu}{code:step_manager}.
 
@@ -147,7 +147,7 @@ AVL strom) implementuje vlastního potomka této třídy.
 Zásadní roli hraje metoda \texttt{stepRoute}, která slouží jako směrovač (dispatcher).
 Na základě typu kroku (\texttt{StepType}) asynchronně deleguje vykonání vizuální logiky na úzce specializované privátní metody (např.
 pro animaci rotace, přesun uzlu či zvýraznění potomků).
-Tímto přístupem je zajištěno, že samotný vizualizační engine zůstává univerzální a veškerá specifika chování konkrétní datové struktury jsou bezpečně zapouzdřena v odpovídajícím handleru.
+Tímto přístupem je zajištěno, že samotný vizualizační engine zůstává univerzální a veškerá specifika chování konkrétní datové struktury jsou bezpečně zapouzdřena v odpovídající \texttt{Handler} třídě.
 
 \section{Vizualizační engine a řešení technologických omezení}
 \label{sec:visualization-engine}
@@ -179,7 +179,7 @@ Abstrakci nad jejím API poskytuje \texttt{DataStructureAnimator}.
 Největší výzvou při plynulé animaci struktur bylo zamezení takzvanému \uv{blikání} grafu.
 Pokud by se při každém logickém kroku knihovně podstrčila zcela nová datová sada uzlů, knihovna by zahodila předchozí fyzikální model a celý strom by z ničeho skokově překreslila.
 \texttt{Animator} proto implementuje vlastní mechanismus pro výpočet rozdílů.
-Při obdržení nového snímku stavu ze \texttt{StepHandleru} jej porovná s aktuálním stavem na plátně.
+Při obdržení nového snímku stavu ze třídy \texttt{StepHandler} jej porovná s aktuálním stavem na plátně.
 Následně volá nízkoúrovňové aktualizační metody (jako \texttt{update}, \texttt{add} či \texttt{remove}) pouze nad těmi uzly a hranami, u kterých došlo k logické změně.
 Tím je zaručeno, že knihovna interpoluje pohyb prvků do plynulé animace.
 
@@ -188,7 +188,7 @@ Tím je zaručeno, že knihovna interpoluje pohyb prvků do plynulé animace.
 
 Knihovna \texttt{vis-network} disponuje pokročilým fyzikálním a hierarchickým layout enginem.
 Ten je výhodný pro automatické rozmisťování uzlů, avšak přináší zásadní nevýhodu při potřebě přidat do grafu dodatečné informace.
-Vložení doplňkových uzlů za účelem zobrazení textových ukazatelů by nevratně narušilo výpočet layoutu a zničilo by tvar stromu.
+Vložení doplňkových uzlů za účelem zobrazení textových ukazatelů by nevratně narušilo výpočet rozvržení a zničilo by tvar stromu.
 
 Tento problém byl vyřešen implementací nezávislé překryvné vrstvy (\textit{overlay canvas}), kterou obsluhuje třída \texttt{DataStructureAnnotator}.
 Jak ukazuje \customref{Výpis}{code:annotator_redraw}, tato třída se napojuje na událost \texttt{afterDrawing} vyvolávanou přímo vykreslovacím jádrem knihovny.
@@ -309,7 +309,7 @@ varovná červená, potvrzovací zelená) zůstala zachována a plně kontrastn�
 
 Třetím pilířem je plná internacionalizace (i18n).
 Aplikace je bilingvní a podporuje plynulé přepínání mezi českým a anglickým jazykem.
-Z architektonického hlediska bylo největší výzvou zajištění překladů uvnitř elementu Canvas, který na rozdíl od HTML DOMu nereaguje na změny jazyka automaticky.
+Z architektonického hlediska bylo největší výzvou zajištění překladů uvnitř elementu Canvas, který na rozdíl od HTML DOM nereaguje na změny jazyka automaticky.
 Tento problém řeší přesun klíčů pro překlad z HTML do datových modelů, které jsou následně zpracovávány vizualizačním enginem.
 
 \subsection{Server-Side Rendering výukových materiálů}

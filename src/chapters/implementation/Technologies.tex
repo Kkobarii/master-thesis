@@ -36,7 +36,7 @@ Jako reakce na omezení tradičního modelu se v posledních letech stal standar
 Hlavním rysem SPA je, že po úvodním načtení základního značení (markup) aplikace již nevyžaduje opětovné načítání celé stránky.
 Namísto toho aplikace nezávisle žádá pouze o nezbytná data, typicky prostřednictvím technologie AJAX.~\cite{joseph2015}
 
-Jak je znázorněno na pravé části \customref{Obrázku}{fig:page_lifecycles}, odpovědi ze serveru jsou přenášeny ve formátu JSON, což prohlížeči umožňuje reaktivně aktualizovat pouze dotčené části DOMu bez přerušení uživatelského zážitku.
+Jak je znázorněno na pravé části \customref{Obrázku}{fig:page_lifecycles}, odpovědi ze serveru jsou přenášeny ve formátu JSON, což prohlížeči umožňuje reaktivně aktualizovat pouze dotčené části DOM bez přerušení uživatelského zážitku.
 Tento model simuluje chování nativních desktopových aplikací s minimální odezvou.~\cite{kaluza2018}
 
 Výhodou tohoto přístupu je plynulejší interaktivita, která je pro výukový nástroj s animacemi zásadní.
@@ -60,7 +60,7 @@ Princip fungování CSR je zobrazen v horní části \customref{Obrázku}{fig:re
 Hlavní výhodou CSR je plynulá interaktivita a rychlé přechody po prvotním načtení aplikace.
 Zároveň se minimalizuje výpočetní zátěž serveru, který figuruje pouze jako poskytovatel dat.
 Na druhou stranu, nutnost stažení a spuštění objemných skriptů vede k delší prodlevě při prvním načtení, což může zhoršit uživatelský zážitek na zařízeních s nižším výkonem.
-Další nevýhodou je horší indexovatelnost pro vyhledávače (SEO), jelikož web crawlery při prvním průchodu aplikací často nevidí vygenerovaný obsah.~\cite{alaa2025, kumar2025}
+Další nevýhodou je horší indexovatelnost pro vyhledávače (SEO), jelikož webové prohledávače (\textit{web-crawlers}) při prvním průchodu aplikací často nevidí vygenerovaný obsah.~\cite{alaa2025, kumar2025}
 
 \begin{figure}[ht]
     \centering
@@ -78,7 +78,7 @@ Tato prvotní stránka však zatím není interaktivní.
 Plnou funkčnost získává až po stažení JavaScriptu prostřednictvím procesu zvaného \textit{hydratace}.
 Během ní klientský skript převezme kontrolu nad již vyrenderovaným statickým HTML a naváže na něj potřebnou aplikační logiku a interaktivitu.~\cite{chen2025}
 
-Zásadní výhodou SSR je vynikající podpora SEO, jelikož je obsah okamžitě přístupný webovým crawlerům bez nutnosti spouštět JavaScript.
+Zásadní výhodou SSR je vynikající podpora SEO, jelikož je obsah okamžitě přístupný webovým prohledávačům bez nutnosti spouštět JavaScript.
 Kvantitativní měření potvrzují, že SSR dosahuje výrazně lepších výsledků v metrikách prvotního načtení (TTFB), čímž poskytuje rychlou vizuální odezvu nezávisle na výkonu koncového zařízení.
 Nevýhodou je naopak vyšší zátěž serveru, který musí dynamicky generovat HTML pro každý požadavek a jehož vytížení může při větším množství uživatelů vést k degradaci výkonu.~\cite{kumar2025,alaa2025}
 
@@ -114,7 +114,7 @@ Speciálním konceptem, který React zavádí, je tzv.
 \textit{Virtual DOM}, který slouží jako virtuální reprezentace skutečného DOM.
 Když dojde ke změně stavu aplikace, React nejprve aktualizuje Virtual DOM a poté porovná tuto aktualizaci s předchozím stavem Virtual DOM.
 Na základě tohoto porovnání React efektivně aktualizuje pouze ty části skutečného DOM, které se změnily.
-Tomuto procesu se říká \textit{reconciliation} a je jedním z hlavních faktorů, které přispívají k vysokému výkonu Reactu.~\cite{react}
+Tomuto procesu se říká \textit{reconciliation} a je jedním z hlavních faktorů, které přispívají k vysokému výkonu knihovny React.~\cite{react}
 
 \subsection{Angular}
 \label{subsec:angular}
@@ -187,8 +187,7 @@ D3 se zaměřuje hlavně na vizualizaci velkého množství dat a dokumentů, pr
 
 Další možností je knihovna Cytoscape.js, která je navržena speciálně pro vizualizaci grafů a sítí.
 Opět se jedná o open-source nástroj, oproti tomu předchozímu však jeho vykreslování neprobíhá pomocí DOM, ale využívá HTML5 canvas, který umožňuje efektivnější zobrazení a lepší výkon, zejména u větších grafů.
-Cytoscape.js nabízí širokou škálu funkcí pro práci s grafy, včetně různých layoutů, stylů a interakcí.
-Je také poměrně snadný na použití a má dobrou dokumentaci.~\cite{cytoscape}
+Cytoscape.js nabízí širokou škálu funkcí pro práci s grafy, je poměrně snadný na použití a má dobrou dokumentaci.~\cite{cytoscape}
 
 \begin{figure}[ht]
     \centering
@@ -206,7 +205,7 @@ Tento typ zobrazení je již uživatelsky přívětivější a přehlednější 
 Zvažována byla také knihovna vis-network, která je součástí většího balíčku vis.js, jež byl vytvořen pro jednoduchou vizualizaci 2D i 3D grafů, strukturovaných dat, časových os a také právě sítí a grafů.
 Stejně jako Cytoscape.js využívá pro vykreslování HTML5 canvas a nabízí tudíž dobrý výkon i u větších grafů.
 Samotná knihovna vis-network se snaží být co nejjednodušší pro vývojáře, pro zobrazení grafu stačí pouze definovat uzly a hrany a zbytek se postará o vykreslení a interakci.
-Nabízí také různé možnosti pro přizpůsobení zobrazení, například různé layouty, styly a možnosti interakce.~\cite{vis}
+Nabízí také různé možnosti pro přizpůsobení zobrazení, například různá rozvržení, styly a možnosti interakce.~\cite{vis}
 
 \begin{figure}[ht]
     \centering
@@ -219,7 +218,7 @@ Na \customref{Obrázku}{fig:vis_tree} je zobrazen strom vykreslený pomocí vis-
 Tento způsob zobrazení je velmi přehledný a uživatelsky přívětivý, co se týče interakce s grafem poskytuje podobné možnosti jako Cytoscape.
 
 Animace grafu je zajištěna pomocí fyzikálního modelu, který simuluje síly mezi uzly a hranami, přímou možnost nastavení animace však knihovna nenabízí, ale existuje zde alespoň možnost nastavení pozic uzlů manuálně.
-Dalším přínosem této knihovny je implementace hierarchického layoutu, která je zabudovaná přímo do nastavení grafu, takže není nutné počítat pro každý vrchol souřadnice.
+Dalším přínosem této knihovny je implementace pro hierarchický layout, která je zabudovaná přímo do nastavení grafu, takže není nutné počítat pro každý vrchol souřadnice.
 Poskytuje taktéž velmi užitečnou možnost odposlouchávání událostí, jako například kliknutí na uzel, čehož bude možné využít pro implementaci interakce s grafem.
 
 \section{Automatizace a nasazení (CI/CD)}
@@ -232,7 +231,7 @@ Pro tento projekt bude využit GitHub Actions, nástroj pro automatizaci pracovn
 \subsection{GitHub Actions}
 \label{subsec:github_actions}
 
-Tato platforma pro CI/CD umožňuje kompilovat, testovat a nasazovat kód přímo z repozitáře na GitHubu, přičemž spuštění těchto procesů lze nastavit na různé události, například při pushnutí kódu do repozitáře nebo při vytvoření pull requestu.
+Tato platforma pro CI/CD umožňuje kompilovat, testovat a nasazovat kód přímo z repozitáře na GitHubu, přičemž spuštění těchto procesů lze nastavit na různé události, například při pushnutí kódu do repozitáře nebo při vytvoření požadavku typu pull request.
 Mimo to je možné pomocí něj spravovat štítky nebo provádět další akce, které mohou být užitečné pro vývojový proces.
 Spouštění pracovních postupů se provádí na virtuálních strojích, které jsou k dispozici pro různé operační systémy a prostředí a jsou poskytnuty zdarma platformou GitHub.~\cite{actions}
 
@@ -271,6 +270,6 @@ Co se týče strategie renderování, bude využita kombinace \textbf{SSG} pro g
 Jako framework byl zvolen \textbf{Svelte} spolu s jeho meta-frameworkem \textbf{SvelteKit}, především pro jeho efektivitu, absenci virtuálního DOM a nativní podporu animací, což je stěžejní pro plynulé zobrazení kroků algoritmů a operací nad datovými strukturami.
 Využití \textbf{TypeScriptu} v rámci celého vývoje zajišťuje typovou bezpečnost při práci se složitými datovými strukturami.
 
-Pro samotnou vizualizaci grafů a stromů byla vybrána knihovna \textbf{vis-network}, která díky svému hierarchickému layoutu a možnosti odposlouchávání událostí umožňuje přehledné a interaktivní zobrazení jak pro jednoduché, tak i složitější datové struktury.
+Pro samotnou vizualizaci grafů a stromů byla vybrána knihovna \textbf{vis-network}, která díky svému hierarchickému rozvržení a možnosti odposlouchávání událostí umožňuje přehledné a interaktivní zobrazení jak pro jednoduché, tak i složitější datové struktury.
 Celý proces sestavení a nasazení aplikace je automatizován pomocí \textbf{GitHub Actions} a výsledná statická aplikace je hostována na \textbf{GitHub Pages}, aby byl vývoj co nejvíce ulehčen a aby byla omezena lidská chyba.
 Tento technologický stack poskytuje solidní základ pro vývoj výukové aplikace, která bude funkční rychlá a uživatelsky přívětivá.
