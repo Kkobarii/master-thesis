@@ -233,9 +233,7 @@ Aby zároveň zůstala plynulá animace přechodů, byla změna indexů doplněn
 Pro zajištění kontinuální dostupnosti aplikace pro koncové uživatele a eliminaci chyb při manuálním nasazování byl implementován plně automatizovaný proces sestavení a publikace.
 Tento proces využívá platformu GitHub Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
 
-Ačkoliv je aplikace technicky nasazena v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména druhého řádu odpovídající zvolenému jménu nástroje.
-V nastavení DNS záznamů a v konfiguračním rozhraní platformy GitHub byla vytvořena subdoména, která pomocí záznamu CNAME směřuje na servery poskytovatele.
-
+Ačkoliv je aplikace technicky nasazena v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména odpovídající zvolenému jménu nástroje.
 Aplikace je tak vždy dostupná na nastavené adrese\footnote{\href{https://treeline.kkobari.eu}{https://treeline.kkobari.eu}}, přičemž veškeré aktualizace jsou automaticky publikovány bez nutnosti manuálního zásahu.
 
 \section{Uživatelské testování a iterativní vývoj}
@@ -314,6 +312,10 @@ Pole je zde zmenšeno na pouhých 16 prvků, uživatelé tak mají možnost sled
     \label{fig:sorting_detail_page}
 \end{figure}
 
+Jak bylo již zmíněno výše v návrhu, aplikace obsahuje také stránku s vizualizací vyhledávacích algoritmů nad polem, která je implementována jako varianta detailního pohledu na třídicí algoritmy.
+Vizualizace zde obsahuje pouze jednu variantu pole, ale umožňuje uživateli zvolit mezi lineárním a binárním vyhledáváním, vybrat si hledaný prvek a sledovat, jak algoritmus postupně prohledává pole.
+Samozřejmě i tato vizualizace podporuje dynamické zvýrazňování odpovídajících řádků pseudokódu a je také doplněna teoretickými informacemi a analýzou časové složitosti.
+
 \subsection{Přístupnost a adaptabilita prostředí}
 \label{subsec:accessibility-adaptability}
 
@@ -390,3 +392,68 @@ Výsledkem je vizuálně atraktivní porovnání algoritmů, které empiricky do
 
 % Pro mobilní zařízení je tento modul optimalizován tak, zobrazuje jen jednu datovou sadu vůči všem algoritmům, které jsou zobrazeny v řádcích pod sebou. 
 % Uživatel má možnost přepínat mezi různými datovými sadami, jen je zde není možné zobrazit vedle sebe pro přímé porovnání.
+
+\section{Srovnání s existujícími řešeními}
+\label{sec:comparison_with_others}
+
+Po implementaci výukové aplikace bylo provedeno zhodnocení výsledku v kontextu existujících nástrojů analyzovaných dříve v \customref{Kapitole}{chap:other_apps}.
+Cílem tohoto srovnání je demonstrovat, do jaké míry se podařilo naplnit stanovené požadavky a jak nově vytvořený nástroj obstojí v konkurenci zavedených výukových platforem.
+
+V oblasti vizualizace datových struktur je výsledná aplikace nejvíce srovnatelná s nástrojem \textit{Data Structure Visualizations}.
+Oproti němu přináší výrazně modernější a sjednocené uživatelské rozhraní, plnou responzivitu a lokalizaci do českého jazyka.
+Oproti aplikaci \textit{Gnarley Trees} zase nabízí lepší responzivitu, uživatelské přizpůsobení vyšší míru interaktivity v rámci simulace.
+V původním návrhu se počítalo rovněž s vizualizací B+ stromů, pro kterou byla analyzována dedikovaná aplikace \textit{B Plus Tree}.
+Během vývoje však narazila implementace na zásadní architektonická omezení zvolené grafické knihovny.
+Z důvodu těchto technologických limitů a pro zachování celkové stability a plynulosti aplikace bylo nakonec od implementace B+ stromů upuštěno.
+Tento krok umožnil věnovat větší kapacity detailnímu odladění zbývajících komplexních struktur, jako jsou B-stromy a červeno-černé stromy.
+
+Přehledné srovnání vlastností v oblasti datových struktur poskytuje \customref{Tabulka}{tab:final_comparison_ds}.
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{l c c c c}
+            \toprule
+            \textbf{Vlastnost}       & \textbf{Výsledná aplikace} & \textbf{Gnarley Trees}  & \textbf{DS Visualizations} & \textbf{B Plus Tree} \\
+            \midrule
+            Podpora více struktur    & Ano                        & Ano                     & Ano                        & Ne                   \\
+            Uživatelské přizpůsobení & Tmavý/světlý režim         & Omezené                 & Omezené                    & Žádné                \\
+            Krokování animací        & Ano                        & Ano                     & Ano                        & Ne                   \\
+            Vysvětlivky k operacím   & Ano                        & Ano                     & Ne                         & Ne                   \\
+            Generování náhodných dat & Ano                        & Ano                     & Ne                         & Ano                  \\
+            Responzivita             & Výborná                    & Dobrá                   & Slabá                      & Výborná              \\
+            Jazyková podpora         & Čeština, Angličtina        & Angličtina, Slovenština & Angličtina                 & Angličtina           \\
+            \bottomrule
+        \end{tabular}}
+    \caption{Srovnání výsledné aplikace s existujícími nástroji pro datové struktury}
+    \label{tab:final_comparison_ds}
+\end{table}
+
+V části pro simulaci třídicích algoritmů si výsledná aplikace bere inspiraci z více nástrojů, responzivitou a uživatelskou přívětivostí se vyrovnává aplikaci \textit{Sort Visualizer}.
+Podobně jako \textit{Sorting Algorithms Animations} aplikace nabízí srovnávací matici pro porovnání výkonu na různých typech vstupních dat.
+Na rozdíl od statických animací webu \textit{Sorting Algorithms Animations} však nová aplikace implementuje plné krokování vpřed i vzad, podobně jako komplexnější platforma \textit{VisuAlgo}.
+Výsledné řešení tedy úspěšně kombinuje přehlednost maticového zobrazení s hlubokou mírou interakce a detailním krokováním, a to vše s důrazem na intuitivní ovládání a příjemný uživatelský prožitek.
+
+Detailní srovnání v oblasti třídicích algoritmů ilustruje \tableref{tab:final_comparison_sa}.
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{l c c c c}
+            \toprule
+            \textbf{Vlastnost}   & \textbf{Výsledná aplikace} & \textbf{Sort Visualizer} & \textbf{VisuAlgo}         & \textbf{Sorting Algorithms Animations} \\
+            \midrule
+            Srovnávací matice    & Ano                        & Ne                       & Ne                        & Ano                                    \\
+            Krokování animací    & Ano                        & Ne                       & Ano                       & Ne                                     \\
+            Vysvětlivky a teorie & Ano                        & Ano                      & Ano                       & Ano                                    \\
+            Zvukové efekty       & Ne                         & Ano                      & Ne                        & Ne                                     \\
+            Responzivita         & Výborná                    & Výborná                  & Dobrá                     & Dobrá                                  \\
+            Jazyková podpora     & Čeština, Angličtina        & Angličtina               & Angličtina, čínština, aj. & Angličtina                             \\
+            \bottomrule
+        \end{tabular}}
+    \caption{Srovnání výsledné aplikace s existujícími nástroji pro třídicí algoritmy}
+    \label{tab:final_comparison_sa}
+\end{table}
+
+Celkové srovnání prokazuje, že vytvořená aplikace úspěšně sjednocuje nejlepší prvky z analyzovaných řešení do jedné moderní platformy.
+Poskytuje ucelené studijní prostředí, které díky lokalizaci a intuitivnímu ovládání představuje vysoce přínosný nástroj pro výuku algoritmů.
