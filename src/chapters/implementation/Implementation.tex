@@ -216,18 +216,57 @@ Tímto scénářem jsou především B-stromy.
 
 Hierarchický auto-layout knihovny \texttt{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu.
 Podstata B-stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje.
-Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané větvi, což ve specifických případech vede k vizuálnímu překryvu sousedních prvků.
-Tento nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního layout enginu, představuje tedy akceptované omezení implementace.
-Ve výsledné aplikaci je tedy mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor často velkých mezer mezi listy stromu.
+Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané větvi.
+Tento stav ve specifických případech vede k vizuálnímu překryvu sousedních prvků.
+Zmíněný nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního vykreslovacího modelu, a představuje tak akceptované omezení implementace.
+Ve výsledné aplikaci je proto mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor občasných větších mezer mezi listy stromu.
 
-\section{Automatizace nasazení a CI/CD}
+Zvolená knihovna rovněž neumožňuje explicitně definovat pořadí potomků uzlu.
+Tento problém vyvstal až během implementace B-stromu, neboť u binárních stromů jsou uzly implicitně řazeny v pořadí jejich přidání do grafu.
+U struktur s více než dvěma potomky však toto chování neplatí a algoritmus rozložení namísto toho sourozence seřazuje primárně podle jejich identifikátoru (\texttt{id}).
+Pro korektní zobrazení B-stromu tak bylo nutné při každém přidání či odebrání uzlu kompletně přepočítat identifikátory a přiřadit je na základě průchodu \textit{post-order}.
+Aby zároveň zůstala plynulá animace přechodů, byla změna indexů doplněna o překladové pole mapující relace mezi původními a novými identifikátory jednotlivých uzlů.
+
+\section{Automatizace nasazení}
 \label{sec:implementation-cicd}
 
 Pro zajištění kontinuální dostupnosti aplikace pro koncové uživatele a eliminaci chyb při manuálním nasazování byl implementován plně automatizovaný proces sestavení a publikace.
 Tento proces využívá platformu GitHub Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
 
-Ačkoliv je aplikace technicky hostována v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména druhého řádu.
-V nastavení DNS záznamů a v konfiguračním rozhraní GitHubu byla vytvořena subdoména (\texttt{treeline.kkobari.eu}), která pomocí záznamu CNAME směřuje na servery poskytovatele.
+Ačkoliv je aplikace technicky nasazena v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména druhého řádu odpovídající zvolenému jménu nástroje.
+V nastavení DNS záznamů a v konfiguračním rozhraní platformy GitHub byla vytvořena subdoména, která pomocí záznamu CNAME směřuje na servery poskytovatele.
+
+Aplikace je tak vždy dostupná na nastavené adrese\footnote{\href{https://treeline.kkobari.eu}{https://treeline.kkobari.eu}}, přičemž veškeré aktualizace jsou automaticky publikovány bez nutnosti manuálního zásahu.
+
+\section{Uživatelské testování a iterativní vývoj}
+\label{sec:testing_and_iteration}
+
+Během vývoje aplikace proběhlo uživatelské testování cílovou skupinou, kterou tvořili vysokoškolští studenti.
+Získané podněty a nalezené nedostatky byly systematicky evidovány pomocí nástroje GitHub Issues.
+Samotné testování potvrdilo vysokou úroveň navrženého uživatelského prostředí.
+Uživatelé od počátku intuitivně chápali význam jednotlivých ovládacích prvků a nevykazovali žádné problémy s navigací či pochopením logiky systému.
+
+I přes velmi pozitivní hodnocení celkové ergonomie vedla zpětná vazba k implementaci řady funkčních vylepšení.
+V oblasti simulace datových struktur se vývoj zaměřil na pokrytí okrajových případů (\textit{edge-cases}), a to primárně u složitějších operací v B-stromech.
+Do aplikace přibyla možnost volby mezi vygenerováním zcela prázdné, nebo naopak předvyplněné datové struktury.
+Rozšíření se dočkala také srovnávací matice třídicích algoritmů, kam byla doplněna počítadla provedených porovnání a výměn včetně celkového pořadí.
+Souběžně probíhaly průběžné opravy drobných chyb a průběžné zvyšování spolehlivosti chodu aplikace.
+
+Další iterace se věnovaly úpravám zobrazení a výukového obsahu.
+Vizuální stránka prošla revizí responzivity a ovládací prvky datových struktur byly pro lepší přehlednost rozděleny do samostatných logických sekcí.
+Z produkční verze byly skryty vývojářské nástroje, jako jsou detailní informační výpisy či specifické krokovací prvky určené výhradně pro ladění.
+Úpravou prošly rovněž samotné studijní materiály, u nichž došlo k detailnějšímu rozvedení náročnějších pasáží pro maximální srozumitelnost probírané teorie.
+
+% - Testováno několika studenty (mými kolegy)
+% - Podněty byly sledovány pomocí Github Issues
+% - UI improvements - responzivita, rozdělení ovládání struktur do sekcí
+% - Skrytí debugovacích nástrojů - informační výpisky, detailní zobrazení kroků, dev ovládací prvky
+% - Přidání možností vytvoření prázdné nebo předvyplněné datové struktury (původně byla jen ta předvyplněná)
+% - Revize studijních materiálů - rozvití vysvětlení určitých textů
+% - Pokrytí edge-cases v simulaci datových struktur (primárně B-stromu)
+% - Přidání pořadí a počítadel porovnání a prohození v porovnávací matici algoritmů
+% - Various bugfixes and polish tweaks
+% - Na základě testování nebyly odhlalené žádné problémy s ovládáním, uživatelé přesně věděli co funguje jak a jak můžou udělat to, co chtějí - dobrý ux design už od začátku, yay
 
 \section{Uživatelské rozhraní a další funkcionality}
 \label{sec:ui-and-advanced-features}
@@ -252,13 +291,6 @@ V rámci implementace byl pro výukovou aplikaci zvolen název \textit{Treeline}
 Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur (na příkladu AVL stromu).
 Pro graf je vyhrazena většina horizontálního prostoru, zatímco ovládací prvky pro manipulaci se strukturou (vkládání, mazání, hledání) jsou umístěny v pravé postranní liště.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{figures/implementation/sortingFirstPage.png}
-    \caption{Obecný přehled třídicího algoritmu s využitím sloupcové vizualizace}
-    \label{fig:sorting_first_page}
-\end{figure}
-
 Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující pohledy.
 Obecný přehled \imageref{fig:sorting_first_page} nabízí sloupcovou vizualizaci, která je ideální pro demonstraci celkového chování algoritmu nad větším množstvím dat.
 V rámci běhu algoritmu se dynamicky zvýrazňují porovnávané a přesouvané prvky, kterých je v tomto přehledu 100.
@@ -267,13 +299,20 @@ Má také možnost zvolit si různé vstupní datové sady, jako jsou náhodné,
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/implementation/sortingDetailPage.png}
-    \caption{Detailní pohled rekurzivního algoritmu Quick Sort}
-    \label{fig:sorting_detail_page}
+    \includegraphics[width=0.95\textwidth]{figures/implementation/sortingFirstPage.png}
+    \caption{Obecný přehled třídicího algoritmu s využitím sloupcové vizualizace}
+    \label{fig:sorting_first_page}
 \end{figure}
 
 Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick Sort, naopak poskytuje hluboký vhled do mikro-operací, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a dynamicky zvýrazňuje odpovídající řádky pseudokódu.
 Pole je zde zmenšeno na pouhých 16 prvků, uživatelé tak mají možnost sledovat každou operaci ve větším detailu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/implementation/sortingDetailPage.png}
+    \caption{Detailní pohled rekurzivního algoritmu Quick Sort}
+    \label{fig:sorting_detail_page}
+\end{figure}
 
 \subsection{Přístupnost a adaptabilita prostředí}
 \label{subsec:accessibility-adaptability}
@@ -303,14 +342,14 @@ varovná červená, potvrzovací zelená) zůstala zachována a plně kontrastn�
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{figures/implementation/darkMode.png}
-    \caption{Podpora tmavého režimu s plnou zachováním kontrastu a sémantiky barev}
+    \caption{Podpora tmavého režimu s plným zachováním kontrastu a sémantiky barev}
     \label{fig:responsive_dark_mode}
 \end{figure}
 
 Třetím pilířem je plná internacionalizace (i18n).
 Aplikace je bilingvní a podporuje plynulé přepínání mezi českým a anglickým jazykem.
 Z architektonického hlediska bylo největší výzvou zajištění překladů uvnitř elementu Canvas, který na rozdíl od HTML DOM nereaguje na změny jazyka automaticky.
-Tento problém řeší přesun klíčů pro překlad z HTML do datových modelů, které jsou následně zpracovávány vizualizačním enginem.
+Tento problém řeší přesun klíčů pro překlad z HTML do datových modelů, které jsou následně zpracovávány vizualizačními komponentami.
 
 \subsection{Server-Side Rendering výukových materiálů}
 \label{subsec:ssr-descriptions}

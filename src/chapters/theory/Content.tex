@@ -3,7 +3,7 @@
 
 V této kapitole jsou popsány teoretické základy týkající se obsahu aplikace.
 Nejprve je uveden přehled různých datových struktur, které aplikace podporuje, včetně jejich vlastností, operací a požadavků na vizualizaci.
-Dále jsou diskutovány třídící algoritmy, které budou implementovány, a jejich význam pro pochopení základních konceptů informatiky.
+Dále jsou diskutovány třídicí algoritmy, které budou implementovány, a jejich význam pro pochopení základních konceptů informatiky.
 Nakonec je popsán přístup k vizualizaci těchto datových struktur a algoritmů, včetně použitých technik a metod pro efektivní zobrazení a interakci s uživatelem.
 
 \section{Datové struktury}
@@ -322,7 +322,7 @@ Proces se opět opakuje až do splnění vlastnosti haldy nebo dosažení listu 
 
 Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$.
 Tato vlastnost z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh.
-Její časté využití je také v třídícím algoritmu Heapsort, který bude detailněji popsán v \customref{Kapitole}{subsec:logarithmic_algorithms}.~\cite{cormen}
+Její časté využití je také v třídicím algoritmu Heapsort, který bude detailněji popsán v \customref{Kapitole}{subsec:logarithmic_algorithms}.~\cite{cormen}
 
 \subsection{Srovnání popsaných datových struktur}
 \label{sec:data_structures_comparison}
@@ -359,13 +359,13 @@ Speciální vlastnosti má B-strom, který díky své šířce optimalizuje př�
 
 Pro účel výukové aplikace se zde tedy vymezují základní typy struktur, každá s konkrétními operacemi a stylem zobrazení nutným pro její názorné představení uživatelům.
 
-\section{Třídící algoritmy}
+\section{Třídicí algoritmy}
 \label{sec:algorithms}
 
-V této kapitole jsou popsány třídící algoritmy, které budou implementovány v aplikaci.
+V této kapitole jsou popsány třídicí algoritmy, které budou implementovány v aplikaci.
 Každý algoritmus je charakterizován svým principem fungování, složitostí a významem pro pochopení základních konceptů informatiky.
 
-Většina třídících algoritmů uvedených v této kapitole během práce s polem často využívá vyměňování dvou prvků mezi sebou.
+Většina třídicích algoritmů uvedených v této kapitole během práce s polem často využívá vyměňování dvou prvků mezi sebou.
 Pro zjednodušení implementace a zvýšení přehlednosti kódu je vhodné mít pomocnou funkci pro výměnu dvou prvků v poli, která bude využívána napříč různými algoritmy.
 Tato funkce má název \texttt{Swap}, a její pseudokód je uveden ve \customref{Výpisu}{lst:swap}.
 Kromě této funkce bude také využita funkce \texttt{Length}, která vrací délku pole a její implementace je zřejmá a není zde uvedena.
@@ -376,7 +376,7 @@ Kromě této funkce bude také využita funkce \texttt{Length}, která vrací d�
     \label{lst:swap}
 \end{listing}
 
-Právě funkce \texttt{Swap} je základem pro vizualizaci třídících algoritmů, protože umožňuje jasně zobrazit, které prvky jsou během třídění vyměňovány.
+Právě funkce \texttt{Swap} je základem pro vizualizaci třídicích algoritmů, protože umožňuje jasně zobrazit, které prvky jsou během třídění vyměňovány.
 Druhou důležitou operací je porovnávání prvků, které je v pseudokódu reprezentováno pomocí operátorů porovnávání v podmínce (například $<$, $>$, $==$ atd.) a bude také vizualizováno, aby uživatel mohl sledovat, které prvky jsou porovnávány a jak se rozhoduje o jejich výměně.~\cite{sedgewick}
 
 \subsection{Algoritmy s kvadratickou časovou složitostí}
@@ -391,7 +391,7 @@ U každého z nich je následně rozebrán princip fungování, časová složit
 
 \subsubsection*{Bubble sort}
 
-Prvním třídícím algoritmem s kvadratickou časovou složitostí, který bude popsán, je \textit{Bubble Sort}.
+Prvním třídicím algoritmem s kvadratickou časovou složitostí, který bude popsán, je \textit{Bubble Sort}.
 Tento algoritmus funguje na principu opakovaného procházení seznamu, přičemž v každém průchodu nechá nejvyšší prvek \uv{vystoupat} na konec seznamu, ostatně z analogie k bublinám ve vodě získal svůj název.
 Algoritmus pokračuje v procházení seznamu, dokud není celý seznam seřazený.~\cite{morin2013}
 
@@ -413,7 +413,7 @@ Jeho výhodou také může být jeho stabilita a konstantní prostorová složit
 
 \subsubsection*{Selection sort}
 
-Další algoritmus s kvadratickou časovou složitostí je \textit{Selection Sort}, který je často považován za jeden z nejjednodušších třídících algoritmů.
+Další algoritmus s kvadratickou časovou složitostí je \textit{Selection Sort}, který je často považován za jeden z nejjednodušších třídicích algoritmů.
 V každé iteraci vždy hledá nejmenší prvek v nesetříděné části pole a vymění ho s prvním prvkem této části, čímž postupně rozšiřuje setříděnou část pole.
 Prvky se tímto způsobem přesouvají, dokud algoritmus nedosáhne konce pole.~\cite{morin2013}
 
@@ -549,7 +549,7 @@ Jak již bylo zmíněno, algoritmus \textit{Heap Sort} má časovou složitost $
 Prostorová složitost je $O(1)$, protože třídění probíhá přímo v původním poli bez potřeby dalšího prostoru pro pomocné struktury.
 Algoritmus \textit{Heap Sort} je nestabilní, protože může měnit pořadí prvků se stejnou hodnotou během výměn.~\cite{levitin}
 
-\subsection{Srovnání třídících algoritmů}
+\subsection{Srovnání třídicích algoritmů}
 \label{subsec:sorting_comparison}
 
 Pro usnadnění výběru vhodného algoritmu a pro přehlednost teoretických poznatků jsou v této kapitole shrnuty podstatné vlastnosti všech implementovaných algoritmů.
@@ -571,7 +571,7 @@ Srovnání se zaměřuje na časovou složitost v různých případech, prostor
         Heap Sort           & $O(n \log n)$                                 & $O(n \log n)$       & $O(1)$             & Ne  \\
         \bottomrule
     \end{tabular}
-    \caption{Srovnání vlastností a složitosti třídících algoritmů}
+    \caption{Srovnání vlastností a složitosti třídicích algoritmů}
     \label{tab:sorting_comparison}
 \end{table}
 
@@ -582,7 +582,7 @@ Naopak algoritmy s logaritmickou složitostí vykazují výrazně vyšší efekt
 \textit{Quick Sort} je v praxi často nejrychlejší, avšak jeho výkon je silně závislý na volbě pivotu, jak je patrné v riziku nejhoršího případu $O(n^2)$.
 \textit{Heap Sort} představuje vyvážený kompromis, který garantuje logaritmický čas i v nejhorším případě při zachování konstantní prostorové složitosti.
 
-Výše uvedené algoritmy byly tedy označeny jako stěžejní pro implementaci v rámci výukové aplikace, protože pokrývají široké spektrum třídících technik a umožňují uživatelům pochopit různé přístupy k třídění dat, jejich výhody a nevýhody.
+Výše uvedené algoritmy byly tedy označeny jako stěžejní pro implementaci v rámci výukové aplikace, protože pokrývají široké spektrum třídicích technik a umožňují uživatelům pochopit různé přístupy k třídění dat, jejich výhody a nevýhody.
 
 \section{Význam vizualizace ve vzdělávání}
 \label{sec:pedagogical-impact}
