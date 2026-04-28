@@ -1,0 +1,21 @@
+\begin{algorithm}[H]
+    \SetKwFunction{FBinarySearch}{BinarySearch}
+
+    \Fn{\FBinarySearch{$A, target$}}{
+        $low \gets 0$\;
+        $high \gets \FLength{A} - 1$\;
+        \While{$low \leq high$}{
+            $mid \gets (low + high) / 2$\;
+            \If{$A[mid] == target$}{
+                \Return{mid}\;
+            }
+            \ElseIf{$A[mid] < target$}{
+                $low \gets mid + 1$\;
+            }
+            \Else{
+                $high \gets mid - 1$\;
+            }
+        }
+        \Return{-1}\;
+    }
+\end{algorithm}
