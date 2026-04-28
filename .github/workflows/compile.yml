@@ -28,7 +28,7 @@ jobs:
           root_file: main.tex
           working_directory: src
           args: -pdf -halt-on-error -synctex=1 -interaction=nonstopmode --shell-escape --enable-write18
-          extra_system_packages: 'inkscape openjdk17'
+          extra_system_packages: "inkscape openjdk17"
           docker_image: ghcr.io/xu-cheng/texlive-full:20240315
 
       # Rename the resulting PDF
@@ -102,4 +102,22 @@ jobs:
             git commit -F "$COMMIT_FILE"
             git push
           fi
-          
+
+  publish-release:
+    needs: build-latex
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - name: Download project artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Master-Thesis
+          path: release-assets
+
+      - name: Publish GitHub Release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release-assets/master.pdf
