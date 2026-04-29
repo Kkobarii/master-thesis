@@ -7,15 +7,15 @@ Text navazuje na teoretický návrh představený v předchozí části a zamě�
 \section{Celková architektura a modularita systému}
 \label{sec:overall-architecture}
 
-Aplikace je postavena na moderním webovém frameworku SvelteKit s využitím silně typovaného jazyka TypeScript.
-Návrh softwarové architektury nevyužívá tradiční historické vzory (jako je například striktní MVC), které jsou pro reaktivní frontendové aplikace často svazující.
+Základem celého řešení je moderní webový framework SvelteKit ve spojení se silně typovaným jazykem TypeScript.
+Návrh softwarové architektury nevyužívá tradiční historické vzory (jako je například striktní MVC), jelikož jsou pro moderní reaktivní \textit{frontend} aplikace mnohdy nevhodné.
 Namísto toho architektura kombinuje principy \textit{Domain-Driven Design} (DDD) s komponentovým přístupem a reaktivním řízením stavu.
 Tento přístup umožňuje striktní oddělení prezentační vrstvy od aplikační logiky, a to při zachování vysoké plynulosti a responzivity.
 
 Základním pilířem architektury je rozdělení kódu na sdílenou infrastrukturu a dvě na sobě nezávislé logické domény: \textit{Datové struktury} a \textit{Třídicí algoritmy}.
-Toto oddělení bylo zvoleno, jelikož obě domény využívají odlišné renderovací mechanismy (HTML/CSS animace pro algoritmy a Canvas API přes \textit{vis-network} pro struktury) a vyžadují odlišný přístup k řízení simulace.
+Toto oddělení bylo zvoleno, jelikož obě domény využívají odlišné renderovací mechanismy (HTML/CSS animace pro algoritmy a \texttt{canvas} API přes \textit{vis-network} pro struktury) a vyžadují odlišný přístup k řízení simulace.
 
-\subsection{Struktura adresářů a sdílený kód}
+\subsection{Organizace zdrojových kódů}
 \label{subsec:directory-structure}
 
 Aby bylo zabráněno duplicitě kódu a byl dodržen princip DRY (\textit{Don't Repeat Yourself}), jsou obecné nástroje izolovány od doménově specifické logiky.
@@ -30,10 +30,10 @@ Celková organizace zdrojových kódů v adresáři \texttt{src/lib} a statický
 Sdílená infrastruktura zahrnuje adresáře \texttt{components} (obsahující globální layout či standardizovaná tlačítka), \texttt{utils} a \texttt{i18n}.
 Systém internacionalizace aktuálně poskytuje plnou podporu pro český a anglický jazyk, přičemž architektura umožňuje triviální přidání dalších jazykových mutací.
 
-Důležitým architektonickým prvkem je adresář \texttt{server/}, který obstarává načítání a zpracování statických Markdown souborů z adresáře \texttt{static/descriptions/}.
+Důležitým architektonickým prvkem je adresář \texttt{server}, který obstarává načítání a zpracování statických Markdown souborů z adresáře \texttt{static/descriptions}.
 Tyto soubory obsahují detailní výukové texty pro jednotlivé algoritmy.
 Aplikace využívá výhod Server-Side Renderingu (SSR), kdy se tyto texty načtou, spárují s odpovídající jazykovou lokalizací a vyrenderují do HTML ještě předtím, než se stránka odešle klientovi.
-Tento mechanismus nejen zrychluje úvodní načtení aplikace, ale také výrazně zlepšuje SEO (optimalizaci pro vyhledávače).
+Tento mechanismus nejen zrychluje úvodní načtení aplikace, ale také výrazně zlepšuje SEO.
 Detailní technické řešení tohoto načítání je popsáno v \customref{Kapitole}{subsec:ssr-descriptions}.
 
 Samotné logické domény (\texttt{data-structures} a \texttt{sorting-algorithms}) jsou následně zcela izolované.
@@ -44,8 +44,7 @@ Každá obsahuje svůj vlastní \texttt{registry.ts}, který slouží jako centr
 
 Jádro domény třídicích algoritmů je postaveno na maximální znovupoužitelnosti kódu a oddělení správy stavu od vizualizační vrstvy.
 Uživatelské rozhraní pro oba typy vizualizací (obecný přehled i detailní simulace) sdílí jednotnou komponentu ovládacího panelu (\textit{Controls}).
-Tato komponenta zpřístupňuje instanci řídicí třídy, skrze kterou uživatel ovládá přehrávání, krokování, rychlost animace a výběr vstupní datové sady (např.
-náhodné, téměř setříděné či reverzní pole).
+Tato komponenta zpřístupňuje instanci řídicí třídy, skrze kterou uživatel ovládá přehrávání, krokování, rychlost animace a výběr vstupní datové sady (např. náhodné, téměř setříděné či reverzní data).
 
 Díky implementaci návrhového vzoru Registry (\texttt{registry.ts}) jsou všechny algoritmy a datové sady dynamicky evidovány.
 Tento přístup mimo jiné umožňuje automatické generování komparačních matic -- při přidání nového algoritmu nebo datové sady není nutné modifikovat kód srovnávacích pohledů, systém novou kombinaci automaticky detekuje a vyrenderuje.
@@ -54,10 +53,10 @@ Tento přístup mimo jiné umožňuje automatické generování komparačních m
 \label{subsec:step-manager}
 
 Samotný běh animace a správu času zapouzdřuje třída \texttt{StepManager}.
-Funguje jako centrální stavový automat, který využívá reaktivní primitiva frameworku Svelte (\texttt{\$state}) k udržování informací o aktuálním indexu přehrávaného kroku (\texttt{currentStepIndex}), stavu přehrávání (\texttt{isPlaying}) a rychlosti (\texttt{delayMs}).
+Funguje jako centrální stavový automat, který využívá reaktivní primitiva nástroje Svelte (\texttt{\$state}) k udržování informací o aktuálním indexu přehrávaného kroku (\texttt{currentStepIndex}), stavu přehrávání (\texttt{isPlaying}) a rychlosti (\texttt{delayMs}).
 
 Změna indexu uvnitř třídy \texttt{StepManager} automaticky vyvolá překreslení závislých komponent, aniž by bylo nutné explicitně volat aktualizační metody.
-Plynulý běh simulace zajišťuje delegovaný časovač (z \texttt{utils}), který v nastaveném intervalu inkrementuje index kroku.
+Plynulý běh simulace zajišťuje delegovaný časovač, který v nastaveném intervalu inkrementuje index kroku.
 Zjednodušená ukázka tohoto mechanismu, zahrnující metody pro spuštění, pozastavení a cyklické posouvání (\texttt{tickStep}), je uvedena ve \customref{Výpisu}{code:step_manager}.
 
 \begin{listing}[ht]
@@ -66,16 +65,16 @@ Zjednodušená ukázka tohoto mechanismu, zahrnující metody pro spuštění, p
     \label{code:step_manager}
 \end{listing}
 
-\subsection{Generování kroků a optimalizace pohledů}
+\subsection{Generování kroků}
 \label{subsec:trace-generation}
 
 Jak bylo teoreticky navrženo v \customref{Kapitole}{subsec:algorithm-interface}, algoritmy svůj běh neanimují přímo, ale prostřednictvím třídy \texttt{TraceBuilder} generují sekvenci neměnných stavů.
 Záznam každého kroku probíhá ve dvou fázích.
 Nejprve algoritmus zavolá metodu \texttt{paint}, která dotčeným prvkům pole vnitřně přiřadí sémantické stavy (např.
 porovnávání, přesun) pomocí rozhraní, které je přirozenější pro samotnou implementaci algoritmů.
-Následně je zavolána metoda \texttt{record}, která provede hlubokou kopii (deep copy) celého pole.
-Tento postup, znázorněný ve \customref{Výpisu}{code:trace_builder}, zachovává neměnnost (immutability) dat a zajišťuje správné fungování UI reaktivity.
-V metodě \texttt{record} se pod povrchem rovněž dynamicky vypočítávají a ukládají pozice prvků v matici rekurzivních úrovní (\texttt{rows}), jež jsou důležité pro vizualizaci algoritmů typu Merge Sort.
+Následně je zavolána metoda \texttt{record}, která provede hlubokou kopii (\texttt{deep copy}) celého pole.
+Tento postup, znázorněný ve \customref{Výpisu}{code:trace_builder}, zachovává neměnnost (\textit{immutability}) dat a zajišťuje správné fungování UI reaktivity.
+V metodě \texttt{record} se pod povrchem rovněž dynamicky vypočítávají a ukládají pozice prvků v matici rekurzivních úrovní (\texttt{rows}), jež jsou důležité pro vizualizaci algoritmů typu Merge sort.
 Plné znění této metody však bylo z důvodu přehlednosti zkráceno.
 
 \begin{listing}[ht]
@@ -84,7 +83,7 @@ Plné znění této metody však bylo z důvodu přehlednosti zkráceno.
     \label{code:trace_builder}
 \end{listing}
 
-Zásadním implementačním rozhodnutím pro dodržení principu DRY (\textit{Don't Repeat Yourself}) je způsob generování dvou úrovní vizualizace.
+Zásadním implementačním rozhodnutím pro dodržení principu DRY je způsob generování dvou úrovní vizualizace.
 Standardní třídicí algoritmy explicitně implementují pouze metodu pro tvorbu detailních kroků (\texttt{generateDetailedSteps}).
 Metoda pro obecný pohled (\texttt{generateSteps}) si tyto detailní kroky vyžádá a programově z nich odfiltruje veškerou vizuální logiku kromě operací typu \textit{Porovnání} a \textit{Prohození}.
 Výjimku tvoří složité rekurzivní algoritmy, které implementují obě metody odděleně, neboť jejich komplexní práce s rekurzivními podúrovněmi nelze algoritmicky zjednodušit.
@@ -99,14 +98,14 @@ Mechanismus je implementován pomocí abstrakce \texttt{DetailedCodeTemplate}.
 Při generování historie neukládá \texttt{TraceBuilder} statický text kódu, ale pouze logický identifikátor \texttt{codePartId}.
 Uživatelské rozhraní následně reaguje na reaktivní změnu zvoleného jazyka tím, že pro něj vyhledá řádky se shodným identifikátorem a vizuálně je zvýrazní.
 Protože je volba jazyka nezávislá na stavové proměnné \texttt{currentStepIndex}, může uživatel libovolně měnit jazyk i uprostřed běžící simulace.
-Kód se okamžitě překreslí do syntaxe vybraného jazyka, přičemž algoritmus vizuálně zůstává přesně v tom kroku, ve kterém byl pozastaven.
+Kód se okamžitě překreslí do syntaxe vybraného jazyka, přičemž algoritmus vizuálně zůstává přesně v tom kroku, ve kterém byl před změnou.
 
 \section{Implementační jádro datových struktur}
 \label{sec:data-structures-core}
 
 Na rozdíl od třídicích algoritmů, které operují nad předem vygenerovaným fixním polem kroků, je doména datových struktur výrazně dynamičtější.
 Uživatel s těmito strukturami interaktivně manipuluje (vkládá, hledá a maže uzly), což vyžaduje komplexnější architekturu schopnou reagovat na asynchronní události.
-Z tohoto důvodu byla logika datových struktur striktně oddělena od vizuální vrstvy pomocí událostmi řízeného návrhu (Event-Driven Architecture) a systému specializovaných delegátů.
+Z tohoto důvodu byla logika datových struktur striktně oddělena od vizuální vrstvy pomocí událostmi řízeného návrhu (\textit{Event-Driven Architecture}) a systému specializovaných delegátů.
 
 \subsection{Událostmi řízený model simulace}
 \label{subsec:event-driven-model}
@@ -117,8 +116,8 @@ Místo toho, aby logické modely přímo volaly funkce pro překreslení uživat
 začátek nové operace, změna aktuálního kroku).
 Komponenty uživatelského rozhraní (stejně jako vizualizační engine) tyto události pouze poslouchají a reaktivně se jim přizpůsobují.
 
-Tento manažer zároveň obstarává logiku hierarchického dvouúrovňového krokování, které bylo navrženo v \customref{Kapitole}{subsec:structure-representation}.
-Jak demonstruje zjednodušený \customref{Výpis}{code:operation_manager}, manažer na základě uživatelského nastavení (\texttt{showSteps}) dynamicky rozhoduje, zda posun vpřed (\texttt{next}) znamená pouhý přechod na další atomický krok v rámci právě probíhající operace, nebo zda má přeskočit rovnou na začátek operace následující.
+\texttt{OperationManager} zároveň obstarává logiku hierarchického dvouúrovňového krokování, které bylo navrženo v \customref{Kapitole}{subsec:structure-representation}.
+Jak demonstruje zjednodušený \customref{Výpis}{code:operation_manager}, třída na základě uživatelského nastavení (\texttt{showSteps}) dynamicky rozhoduje, zda posun vpřed (\texttt{next}) znamená pouhý přechod na další atomický krok v rámci právě probíhající operace, nebo zda má přeskočit rovnou na začátek operace následující.
 
 \begin{listing}[ht]
     \inputminted{typescript}{code/implementation/operationManager.ts}
@@ -129,14 +128,13 @@ Jak demonstruje zjednodušený \customref{Výpis}{code:operation_manager}, mana�
 \subsection{Zpracování kroků a systém delegace}
 \label{subsec:step-handler-system}
 
-Při emisi události o změně kroku je nutné abstraktní datový záznam (např.
-„provedena rotace vlevo“) přeložit na konkrétní vizuální povely pro grafickou knihovnu.
-K tomuto překladu slouží architektonický vzor \textit{Strategy}, implementovaný prostřednictvím systému handlerů.
+Při emisi události o změně kroku je nutné abstraktní datový záznam (např. \uv{porovnání dvou uzlů} nebo \uv{provedení rotace vlevo}) přeložit na konkrétní vizuální povely pro grafickou knihovnu.
+K tomuto překladu slouží architektonický vzor \textit{Strategy}, implementovaný prostřednictvím systému handler tříd.
 
 Základem je abstraktní třída \texttt{StepHandlerBase}, jejíž rozhraní je uvedeno ve \customref{Výpisu}{code:step_handler_base}.
 Každá datová struktura (např.
 AVL strom) implementuje vlastního potomka této třídy.
-Životní cyklus zpracování jednoho kroku je zde rozdělen do tří fází: \texttt{stepSetup} (příprava plátna a aplikace datového snapshotu), \texttt{stepRoute} (samotné spuštění animace) a \texttt{stepCleanup} (zajištění konzistentního stavu po dojetí animace).
+Životní cyklus zpracování jednoho kroku je zde rozdělen do tří fází: \texttt{stepSetup} (příprava plátna a aplikace datového snapshotu), \texttt{stepRoute} (samotné spuštění animace) a \texttt{stepCleanup} (zajištění konzistentního stavu po ukončení animace).
 
 \begin{listing}[ht]
     \inputminted{typescript}{code/implementation/stepHandlerBase.ts}
@@ -144,9 +142,9 @@ AVL strom) implementuje vlastního potomka této třídy.
     \label{code:step_handler_base}
 \end{listing}
 
-Zásadní roli hraje metoda \texttt{stepRoute}, která slouží jako směrovač (dispatcher).
-Na základě typu kroku (\texttt{StepType}) asynchronně deleguje vykonání vizuální logiky na úzce specializované privátní metody (např.
-pro animaci rotace, přesun uzlu či zvýraznění potomků).
+Zásadní roli hraje metoda \texttt{stepRoute}, která slouží jako směrovač (\textit{dispatcher}).
+Na základě typu kroku (\texttt{StepType}) asynchronně deleguje vykonání vizuální logiky na úzce specializované privátní metody (např. pro animaci rotace, přesun uzlu či zvýraznění potomků).
+Metoda kromě toho definuje chování pro krok vpřed i vzad zvlášť, pokud se tyto akce liší.
 Tímto přístupem je zajištěno, že samotný vizualizační engine zůstává univerzální a veškerá specifika chování konkrétní datové struktury jsou bezpečně zapouzdřena v odpovídající \texttt{Handler} třídě.
 
 \section{Vizualizační engine a řešení technologických omezení}
@@ -159,24 +157,25 @@ Při návrhu této vrstvy bylo nutné vyřešit několik netriviálních technol
 \label{subsec:recursion-viz}
 
 Standardní třídicí algoritmy operují lineárně nad jedním polem, které v uživatelském rozhraní představuje jeden statický řádek prvků.
-Komplexnější rekurzivní algoritmy, jako jsou Merge Sort a Quick Sort, však logicky pole štěpí a pracují v oddělených podúrovních.
+Komplexnější rekurzivní algoritmy, jako jsou Merge sort a Quick sort, však logicky pole štěpí a pracují v oddělených podúrovních.
 Pro jejich pochopení je zásadní, aby student viděl vizuální ekvivalent rekurze.
 
-Z tohoto důvodu je pole v těchto případech rozprostřeno do dvourozměrné mřížky využívající technologii CSS Grid.
+Z tohoto důvodu je pole v těchto případech rozprostřeno do dvourozměrné mřížky využívající technologii CSS \texttt{grid}.
 Při zanoření do rekurze se zpracovávané prvky fyzicky přesouvají do nových vertikálních úrovní (řádků), přičemž přesun je plynulý pomocí CSS animací.
-U algoritmu Merge Sort má každá úroveň svůj vyhrazený plnohodnotný řádek.
-Naproti tomu u algoritmu Quick Sort je využito prostorové optimalizace -- protože nad sebou nikdy neoperují dva prvky současně, jednotlivé řádky jsou vysoké pouze jako polovina výšky prvku.
+U algoritmu Merge sort má každá úroveň svůj vyhrazený plnohodnotný řádek.
+Naproti tomu u algoritmu Quick sort je využito prostorové optimalizace -- protože nad sebou nikdy neoperují dva prvky současně, jednotlivé řádky jsou vysoké pouze jako polovina výšky prvku.
 
-Důležitým navigačním prvkem je obarvení pozadí prvků (tzv. \textit{bounding boxes}), které vizuálně ohraničuje tu část pole, ve které se aktuálně rekurze provádí.
+Významný navigační nástroj představuje barevné podbarvení konkrétních úseků (takzvané \textit{bounding boxes}).
+Tento vizuální prvek jasně ohraničuje segment pole, ve kterém aktuálně probíhá rekurze.
 Toto ohraničení je implementováno pomocí absolutního pozicování, jehož rozměry a posun jsou dynamicky přepočítávány pomocí CSS funkcí \texttt{calc()}.
 
 \subsection{Orchestrace a animace grafových struktur}
 \label{subsec:graph-animator}
 
-Jak již bylo uvedeno v návrhu, pro vykreslování stromů a dalších datových struktur byla zvolena open-source knihovna \texttt{vis-network}.
+Jak již bylo uvedeno v návrhu, pro vykreslování stromů a dalších datových struktur byla zvolena open-source knihovna \textit{vis-network}.
 Abstrakci nad jejím API poskytuje \texttt{DataStructureAnimator}.
 
-Největší výzvou při plynulé animaci struktur bylo zamezení takzvanému \uv{blikání} grafu.
+Hlavní překážku při implementaci plynulých animací datových struktur představovala eliminace nežádoucího problikávání výsledného grafu.
 Pokud by se při každém logickém kroku knihovně podstrčila zcela nová datová sada uzlů, knihovna by zahodila předchozí fyzikální model a celý strom by z ničeho skokově překreslila.
 \texttt{Animator} proto implementuje vlastní mechanismus pro výpočet rozdílů.
 Při obdržení nového snímku stavu ze třídy \texttt{StepHandler} jej porovná s aktuálním stavem na plátně.
@@ -186,18 +185,18 @@ Tím je zaručeno, že knihovna interpoluje pohyb prvků do plynulé animace.
 \subsection{Implementace vlastní anotační vrstvy}
 \label{subsec:custom-annotator}
 
-Knihovna \texttt{vis-network} disponuje pokročilým fyzikálním a hierarchickým layout enginem.
+Nedílnou součástí knihovny \textit{vis-network} je pokročilý fyzikální a hierarchický layout engine.
 Ten je výhodný pro automatické rozmisťování uzlů, avšak přináší zásadní nevýhodu při potřebě přidat do grafu dodatečné informace.
-Vložení doplňkových uzlů za účelem zobrazení textových ukazatelů by nevratně narušilo výpočet rozvržení a zničilo by tvar stromu.
+Vložení doplňkových uzlů za účelem zobrazení doplňujícího textu by nevratně narušilo výpočet rozvržení a zničilo by tvar stromu.
 
 Tento problém byl vyřešen implementací nezávislé překryvné vrstvy (\textit{overlay canvas}), kterou obsluhuje třída \texttt{DataStructureAnnotator}.
 Jak ukazuje \customref{Výpis}{code:annotator_redraw}, tato třída se napojuje na událost \texttt{afterDrawing} vyvolávanou přímo vykreslovacím jádrem knihovny.
-Pokaždé, když knihovna dokončí překreslení, Anotátor nad grafem na vlastním průhledném plátně vykreslí statické popisky.
+Pokaždé, když knihovna dokončí překreslení, \texttt{DataStructureAnnotator} nad grafem na vlastním průhledném plátně vykreslí statické popisky.
 
 Tato nezávislá vrstva umožňuje vykreslovat hned několik typů anotací:
 \begin{itemize}
-    \item \textbf{InfoAnnotation:} Dynamické textové štítky umístěné pod existujícími uzly, sloužící typicky pro zobrazení textu popisujícího aktuální krok.
-    \item \textbf{ValueAnnotation:} Speciální štítky pro dočasné hodnoty, které se nevejdou přímo do těla uzlu, nebo znázorňují hodnoty v procesu přesunu.
+    \item \textbf{InfoAnnotation:} Dynamický textový štítek umístěný pod existujícími uzly, sloužící typicky pro zobrazení textu popisujícího aktuální krok.
+    \item \textbf{ValueAnnotation:} Speciální štítek pro dočasné hodnoty, které se nevejdou přímo do těla uzlu, nebo znázorňují hodnoty v procesu přesunu.
     \item \textbf{IdAnnotation:} Nízkoúrovňové zobrazení unikátních identifikátorů uzlů, vykreslované pouze v režimu ladění pro vývojáře.
     \item \textbf{LegsAnnotation:} Vykreslování \uv{nožiček} (prázdných hran) indikujících prázdné větve listů.
 \end{itemize}
@@ -214,9 +213,9 @@ Tato nezávislá vrstva umožňuje vykreslovat hned několik typů anotací:
 Navzdory robustnímu systému tříd \texttt{Annotator} a \texttt{Animator} existují scénáře, ve kterých zvolená knihovna naráží na své nepřekročitelné architektonické limity.
 Tímto scénářem jsou především B-stromy.
 
-Hierarchický auto-layout knihovny \texttt{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu.
+Hierarchický auto-layout knihovny \textit{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu.
 Podstata B-stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje.
-Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané větvi.
+Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané úrovni.
 Tento stav ve specifických případech vede k vizuálnímu překryvu sousedních prvků.
 Zmíněný nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního vykreslovacího modelu, a představuje tak akceptované omezení implementace.
 Ve výsledné aplikaci je proto mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor občasných větších mezer mezi listy stromu.
@@ -227,28 +226,19 @@ U struktur s více než dvěma potomky však toto chování neplatí a algoritmu
 Pro korektní zobrazení B-stromu tak bylo nutné při každém přidání či odebrání uzlu kompletně přepočítat identifikátory a přiřadit je na základě průchodu \textit{post-order}.
 Aby zároveň zůstala plynulá animace přechodů, byla změna indexů doplněna o překladové pole mapující relace mezi původními a novými identifikátory jednotlivých uzlů.
 
-\section{Automatizace nasazení}
-\label{sec:implementation-cicd}
-
-Pro zajištění kontinuální dostupnosti aplikace pro koncové uživatele a eliminaci chyb při manuálním nasazování byl implementován plně automatizovaný proces sestavení a publikace.
-Tento proces využívá platformu GitHub Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
-
-Ačkoliv je aplikace technicky nasazena v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména odpovídající zvolenému jménu nástroje.
-Aplikace je tak vždy dostupná na nastavené adrese\footnote{\href{https://treeline.kkobari.eu}{https://treeline.kkobari.eu}}, přičemž veškeré aktualizace jsou automaticky publikovány bez nutnosti manuálního zásahu.
-
 \section{Uživatelské testování a iterativní vývoj}
 \label{sec:testing_and_iteration}
 
 Během vývoje aplikace proběhlo uživatelské testování cílovou skupinou, kterou tvořili vysokoškolští studenti.
 Získané podněty a nalezené nedostatky byly systematicky evidovány pomocí nástroje GitHub Issues.
 Samotné testování potvrdilo vysokou úroveň navrženého uživatelského prostředí.
-Uživatelé od počátku intuitivně chápali význam jednotlivých ovládacích prvků a nevykazovali žádné problémy s navigací či pochopením logiky systému.
+Uživatelé od počátku intuitivně chápali význam jednotlivých ovládacích prvků a nevykazovali žádné problémy s navigací či pochopením logiky a ovládání systému.
 
 I přes velmi pozitivní hodnocení celkové ergonomie vedla zpětná vazba k implementaci řady funkčních vylepšení.
 V oblasti simulace datových struktur se vývoj zaměřil na pokrytí okrajových případů (\textit{edge-cases}), a to primárně u složitějších operací v B-stromech.
 Do aplikace přibyla možnost volby mezi vygenerováním zcela prázdné, nebo naopak předvyplněné datové struktury.
 Rozšíření se dočkala také srovnávací matice třídicích algoritmů, kam byla doplněna počítadla provedených porovnání a výměn včetně celkového pořadí.
-Souběžně probíhaly průběžné opravy drobných chyb a průběžné zvyšování spolehlivosti chodu aplikace.
+Paralelně s těmito vylepšeními docházelo ke průběžnému odstraňování drobných chyb a celkové optimalizaci stability aplikace.
 
 Další iterace se věnovaly úpravám zobrazení a výukového obsahu.
 Vizuální stránka prošla revizí responzivity a ovládací prvky datových struktur byly pro lepší přehlednost rozděleny do samostatných logických sekcí.
@@ -266,6 +256,15 @@ Z produkční verze byly skryty vývojářské nástroje, jako jsou detailní in
 % - Various bugfixes and polish tweaks
 % - Na základě testování nebyly odhlalené žádné problémy s ovládáním, uživatelé přesně věděli co funguje jak a jak můžou udělat to, co chtějí - dobrý ux design už od začátku, yay
 
+\subsection{Automatizace nasazení}
+\label{subsec:implementation-cicd}
+
+Pro zajištění kontinuální dostupnosti aplikace pro koncové uživatele a eliminaci chyb při manuálním nasazování byl implementován plně automatizovaný proces sestavení a publikace.
+Tento proces využívá platformu GitHub Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
+
+Ačkoliv je aplikace technicky nasazena v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména odpovídající zvolenému jménu nástroje.
+Aplikace je tak vždy dostupná na nastavené adrese\footnote{\href{https://treeline.kkobari.eu}{https://treeline.kkobari.eu}}, přičemž veškeré aktualizace jsou automaticky publikovány bez nutnosti manuálního zásahu.
+
 \section{Uživatelské rozhraní a další funkcionality}
 \label{sec:ui-and-advanced-features}
 
@@ -277,7 +276,7 @@ Dále také představuje pokročilé funkce, které zvyšují ergonomii a edukat
 
 Jednotlivé vizualizační moduly jsou přístupné z hlavní navigace, která je implementována jako horizontální menu v horní části obrazovky.
 Barva a styl stránek jsou konzistentní napříč celou aplikací a jsou v souladu s barevnou paletou, která byla definována v \customref{Kapitole}{sec:visual-style-colors}.
-V rámci implementace byl pro výukovou aplikaci zvolen název \textit{Treeline}, který se objevuje v logu a dalších vizuálních prvcích.
+V rámci implementace byl pro výukovou aplikaci zvolen název \textbf{Treeline}, který se objevuje v logu a dalších vizuálních prvcích.
 
 \begin{figure}[ht]
     \centering
@@ -286,7 +285,7 @@ V rámci implementace byl pro výukovou aplikaci zvolen název \textit{Treeline}
     \label{fig:structure_page}
 \end{figure}
 
-Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur (na příkladu AVL stromu).
+Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur na příkladu AVL stromu.
 Pro graf je vyhrazena většina horizontálního prostoru, zatímco ovládací prvky pro manipulaci se strukturou (vkládání, mazání, hledání) jsou umístěny v pravé postranní liště.
 
 Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující pohledy.
@@ -302,18 +301,19 @@ Má také možnost zvolit si různé vstupní datové sady, jako jsou náhodné,
     \label{fig:sorting_first_page}
 \end{figure}
 
-Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick Sort, naopak poskytuje hluboký vhled do mikro-operací, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a dynamicky zvýrazňuje odpovídající řádky pseudokódu.
+Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick sort, naopak poskytuje hlubší vhled do atomických kroků, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a dynamicky zvýrazňuje odpovídající řádky pseudokódu.
 Pole je zde zmenšeno na pouhých 16 prvků, uživatelé tak mají možnost sledovat každou operaci ve větším detailu.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/implementation/sortingDetailPage.png}
-    \caption{Detailní pohled rekurzivního algoritmu Quick Sort}
+    \caption{Detailní pohled rekurzivního algoritmu s dynamickým mapováním pseudokódu}
     \label{fig:sorting_detail_page}
 \end{figure}
 
 Jak bylo již zmíněno výše v návrhu, aplikace obsahuje také stránku s vizualizací vyhledávacích algoritmů nad polem, která je implementována jako varianta detailního pohledu na třídicí algoritmy.
-Vizualizace zde obsahuje pouze jednu variantu pole, ale umožňuje uživateli zvolit mezi lineárním a binárním vyhledáváním, vybrat si hledaný prvek a sledovat, jak algoritmus postupně prohledává pole.
+Vizualizace v tomto případě nabízí pouze jeden typ pole, a to náhodně uspořádané.
+Po definování cílové hodnoty a výběru požadované metody (lineární nebo binární vyhledávání) nástroj detailně demonstruje průběh, jakým konkrétní algoritmus prohledává dostupná data.
 Samozřejmě i tato vizualizace podporuje dynamické zvýrazňování odpovídajících řádků pseudokódu a je také doplněna teoretickými informacemi a analýzou časové složitosti.
 
 \subsection{Přístupnost a adaptabilita prostředí}
@@ -322,35 +322,34 @@ Samozřejmě i tato vizualizace podporuje dynamické zvýrazňování odpovídaj
 Moderní výuková aplikace musí být přístupná širokému spektru uživatelů a zařízení.
 Adaptabilita prostředí stojí na třech hlavních pilířích: responzivitě, vizuálních motivech a mezinárodní lokalizaci.
 
-Pro zajištění responzivity a podpory tmavého režimu (Dark Mode) byl využit CSS framework Tailwind.
-Pomocí jeho utilitních tříd se rozložení prvků dynamicky přeskládává v závislosti na velikosti obrazovky a rozhraní tak umožňuje plnohodnotné používání aplikace i na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}.
+Pro zajištění responzivity a podpory tmavého režimu (\textit{Dark Mode}) byl použit CSS framework \devTool{Tailwind}{https://tailwindcss.com/}.
+S využitím jeho pomocných tříd se rozložení prvků dynamicky přeskládává v závislosti na velikosti obrazovky a rozhraní tak umožňuje plnohodnotné používání aplikace i na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}.
 Mezi úpravy mimo jiné patří přechod z horizontálního menu na hamburger menu, vertikální rozložení ovládacích prvků a zmenšení datové sady pro třídicí algoritmy na 50 a 8 prvků v obecném a detailním pohledu, aby se zachovala přehlednost na menších obrazovkách.
 
 \begin{figure}[ht]
     \centering
-    \subfloat[Datová struktura]{\includegraphics[width=0.29\textwidth]{figures/implementation/mobile_structure.png}}
+    \subfloat[Datová struktura]{\includegraphics[width=0.28\textwidth]{figures/implementation/mobile_structure.png}}
     \qquad
-    \subfloat[Třídicí algoritmus -- Obecný]{\includegraphics[width=0.29\textwidth]{figures/implementation/mobile_sortingFirst.png}}
+    \subfloat[Třídicí algoritmus -- Obecný]{\includegraphics[width=0.28\textwidth]{figures/implementation/mobile_sortingFirst.png}}
     \qquad
-    \subfloat[Třídicí algoritmus -- Detail]{\includegraphics[width=0.29\textwidth]{figures/implementation/mobile_sortingDetail.png}}
+    \subfloat[Třídicí algoritmus -- Detail]{\includegraphics[width=0.28\textwidth]{figures/implementation/mobile_sortingDetail.png}}
     \caption{Ukázka responzivního chování na mobilním zařízení}
     \label{fig:responsive_mobile}
 \end{figure}
 
 Aplikace plně respektuje preferenci uživatele ohledně barevného motivu.
-Inverze barev je navržena tak, aby sémantika barev (např.
-varovná červená, potvrzovací zelená) zůstala zachována a plně kontrastní v obou režimech \imageref{fig:responsive_dark_mode}.
+Inverze barev je navržena tak, aby sémantika barev zůstala zachována a plně kontrastní v obou režimech \imageref{fig:responsive_dark_mode}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{figures/implementation/darkMode.png}
-    \caption{Podpora tmavého režimu s plným zachováním kontrastu a sémantiky barev}
+    \caption{Podpora tmavého režimu a anglické lokalizace}
     \label{fig:responsive_dark_mode}
 \end{figure}
 
 Třetím pilířem je plná internacionalizace (i18n).
 Aplikace je bilingvní a podporuje plynulé přepínání mezi českým a anglickým jazykem.
-Z architektonického hlediska bylo největší výzvou zajištění překladů uvnitř elementu Canvas, který na rozdíl od HTML DOM nereaguje na změny jazyka automaticky.
+Z architektonického hlediska bylo největší výzvou zajištění překladů uvnitř elementu \texttt{canvas}, který na rozdíl od HTML DOM nereaguje na změny jazyka automaticky.
 Tento problém řeší přesun klíčů pro překlad z HTML do datových modelů, které jsou následně zpracovávány vizualizačními komponentami.
 
 \subsection{Server-Side Rendering výukových materiálů}
@@ -359,11 +358,10 @@ Tento problém řeší přesun klíčů pro překlad z HTML do datových modelů
 Kromě interaktivních vizualizací obsahuje aplikace také rozsáhlé textové materiály.
 Tyto texty jsou z vývojářského hlediska udržovány ve formátu Markdown (\texttt{.md}), což usnadňuje jejich editaci a formátování.
 
-Aby se předešlo zatěžování klientského prohlížeče parsováním velkého množství textu a zároveň se maximalizovala optimalizace pro vyhledávače (SEO), využívá aplikace výhod Server-Side Renderingu (SSR).
-Logika načítání dynamicky identifikuje požadovaný soubor na základě zvolené struktury a aktuálního jazyka (např.
-\texttt{rb\_tree.cs.md}).
+Aby se předešlo zatěžování klientského prohlížeče zpracováváním velkého objemu textu a zároveň se maximalizovala optimalizace pro vyhledávače (SEO), využívá aplikace výhod Server-Side Renderingu (SSR).
+Logika načítání dynamicky identifikuje požadovaný soubor na základě zvolené struktury a aktuálního jazyka (např. \texttt{rb\_tree.cs.md}).
 Tento soubor je následně asynchronně načten ze souborového systému serveru a pomocí knihovny \texttt{marked} převeden do HTML podoby.
-Zásadní je zde implementace paměťové cache na straně serveru, která zajišťuje, že se každý soubor parsuje pouze při prvním požadavku.
+Zásadní je zde implementace paměťové cache na straně serveru, která zajišťuje, že se každý soubor načítá a zpracovává pouze při prvním požadavku.
 Díky tomuto mechanismu se dramaticky snižuje latence sítě a urychluje vykreslení stránky, protože uživateli je ze serveru odesláno již hotové, zformátované HTML.
 
 \subsection{Komparace algoritmů v reálném čase}
@@ -379,8 +377,8 @@ Tato obrazovka umožňuje uživateli spustit souběžný běh několika různýc
     \label{fig:sorting_comparison_page}
 \end{figure}
 
-Tato funkcionalita je umožněna díky skutečnosti, že každý vizualizační blok na obrazovce si instancuje svůj vlastní izolovaný \texttt{StepManager}.
-Jeden centrální časovač následně distribuuje impulsy do všech aktivních manažerů, které inkrementují svůj stav zcela nezávisle na ostatních.
+Tato funkcionalita je umožněna díky skutečnosti, že každý vizualizační blok na obrazovce si vytváří vlastní izolovanou instanci třídy \texttt{StepManager}.
+Jeden centrální časovač následně distribuuje impulsy do všech těchto instancí, které inkrementují svůj stav zcela nezávisle na ostatních.
 Výsledkem je vizuálně atraktivní porovnání algoritmů, které empiricky dokazuje teoretické předpoklady o asymptotické složitosti, a zároveň slouží jako zajímavý příklad pro uživatele.
 
 % \begin{figure}[ht]
@@ -397,15 +395,15 @@ Výsledkem je vizuálně atraktivní porovnání algoritmů, které empiricky do
 \label{sec:comparison_with_others}
 
 Po implementaci výukové aplikace bylo provedeno zhodnocení výsledku v kontextu existujících nástrojů analyzovaných dříve v \customref{Kapitole}{chap:other_apps}.
-Cílem tohoto srovnání je demonstrovat, do jaké míry se podařilo naplnit stanovené požadavky a jak nově vytvořený nástroj obstojí v konkurenci zavedených výukových platforem.
+Cílem tohoto srovnání je demonstrovat, do jaké míry se podařilo naplnit stanovené požadavky a jak nově vytvořený nástroj obstojí v konkurenci existujících výukových platforem.
 
 V oblasti vizualizace datových struktur je výsledná aplikace nejvíce srovnatelná s nástrojem \textit{Data Structure Visualizations}.
 Oproti němu přináší výrazně modernější a sjednocené uživatelské rozhraní, plnou responzivitu a lokalizaci do českého jazyka.
-Oproti aplikaci \textit{Gnarley Trees} zase nabízí lepší responzivitu, uživatelské přizpůsobení vyšší míru interaktivity v rámci simulace.
+Oproti aplikaci \textit{Gnarley Trees} zase nabízí lepší uživatelské přizpůsobení a vyšší míru interaktivity v rámci simulace.
 V původním návrhu se počítalo rovněž s vizualizací B+ stromů, pro kterou byla analyzována dedikovaná aplikace \textit{B Plus Tree}.
-Během vývoje však narazila implementace na zásadní architektonická omezení zvolené grafické knihovny.
-Z důvodu těchto technologických limitů a pro zachování celkové stability a plynulosti aplikace bylo nakonec od implementace B+ stromů upuštěno.
-Tento krok umožnil věnovat větší kapacity detailnímu odladění zbývajících komplexních struktur, jako jsou B-stromy a červeno-černé stromy.
+Během vývoje však narazila implementace na architektonická omezení zvolené grafické knihovny.
+Z důvodu těchto technologických limitů a pro zachování stability a plynulosti aplikace bylo nakonec od implementace B+ stromů upuštěno.
+Tento krok umožnil věnovat větší kapacity detailnímu odladění zbývajících komplexních struktur, jako jsou B-stromy a červeno-černé stromy.~\cite{gnarleyTrees,dataStructureVisualization,bPlusTree}
 
 Přehledné srovnání vlastností v oblasti datových struktur poskytuje \customref{Tabulka}{tab:final_comparison_ds}.
 
@@ -431,10 +429,11 @@ Přehledné srovnání vlastností v oblasti datových struktur poskytuje \custo
 
 V části pro simulaci třídicích algoritmů si výsledná aplikace bere inspiraci z více nástrojů, responzivitou a uživatelskou přívětivostí se vyrovnává aplikaci \textit{Sort Visualizer}.
 Podobně jako \textit{Sorting Algorithms Animations} aplikace nabízí srovnávací matici pro porovnání výkonu na různých typech vstupních dat.
-Na rozdíl od statických animací webu \textit{Sorting Algorithms Animations} však nová aplikace implementuje plné krokování vpřed i vzad, podobně jako komplexnější platforma \textit{VisuAlgo}.
-Výsledné řešení tedy úspěšně kombinuje přehlednost maticového zobrazení s hlubokou mírou interakce a detailním krokováním, a to vše s důrazem na intuitivní ovládání a příjemný uživatelský prožitek.
+Na rozdíl od statických animací tohoto webu však nová aplikace implementuje plné krokování vpřed i vzad, podobně jako komplexnější platforma \textit{VisuAlgo}.
+Oproti všem zkoumaným alternativám obsahuje navržená výuková aplikace navíc zcela novou funkcionalitu, a to interaktivní vizualizaci vyhledávacích algoritmů nad polem.
+Výsledné řešení tedy úspěšně kombinuje přehlednost maticového zobrazení s hlubokou mírou interakce, detailním krokováním a novými algoritmy, a to vše s důrazem na intuitivní ovládání a příjemný uživatelský prožitek.~\cite{sortVisualizer,visualgo,toptalSorting}
 
-Detailní srovnání v oblasti třídicích algoritmů ilustruje \tableref{tab:final_comparison_sa}.
+Detailní srovnání v oblasti třídicích algoritmů ilustruje \customref{Tabulka}{tab:final_comparison_sa}.
 
 \begin{table}[H]
     \centering

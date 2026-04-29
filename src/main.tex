@@ -15,6 +15,8 @@
 \usepackage{color} % barvickyy
 \usepackage{array} % schovavani sloupcu v tabulkach
 \usepackage[linesnumbered,tworuled,vlined]{algorithm2e} % pseudokod
+\usepackage{nameref} % odkazovani na nazvy kapitol, obrazku atd.
+\usepackage{pdfcomment} % pro vkladani tooltipu do PDF (nameref + hyperref)
 
 \newcommand{\todo}[1]{\noindent\textcolor{red}{TODO: #1}}
 
@@ -30,7 +32,7 @@
 \ThesisAssignmentFileName{../specification.pdf}
 
 \Acknowledgement{%
-Ráda bych na tomto místě poděkovala svému vedoucímu Ing. Radoslavu Fasugovi, Ph.D. za odborné vedení a trpělivost během celého procesu psaní této diplomové práce. 
+Ráda bych na tomto místě poděkovala svému vedoucímu Ing. Radoslavu Fasugovi, Ph.D. za odborné vedení a trpělivost během celého procesu psaní této diplomové práce.
 Taktéž bych chtěla poděkovat svému příteli, rodině a přátelům za jejich neustálou podporu a motivaci, která mi pomohla překonat náročné chvíle během studia.
 }
 
@@ -55,7 +57,7 @@ The result is a fully responsive and modular educational application that allows
 % teorie
 \AddAcronym{LIFO}{Last In, First Out}
 \AddAcronym{FIFO}{First In, First Out}
-\AddAcronym{BST}{Binární vyhledávací strom}
+\AddAcronym{BST}{Binary Search Tree (Binární vyhledávací strom)}
 
 % architektura
 \AddAcronym{SPA}{Single Page Application}
@@ -67,12 +69,12 @@ The result is a fully responsive and modular educational application that allows
 % obecné it
 % \AddAcronym{JS}{JavaScript}
 \AddAcronym{API}{Application Programming Interface}
-\AddAcronym{AJAX}{Asynchronous JavaScript and XML}
+\AddAcronym{AJAX}{Asynchronous JavaScript And XML}
 \AddAcronym{JSON}{JavaScript Object Notation}
-\AddAcronym{HTML}{Hypertext Markup Language}
-\AddAcronym{YAML}{Yet Another Markup Language}
+\AddAcronym{HTML}{HyperText Markup Language}
+\AddAcronym{YAML}{Yet Another Markup Language / YAML Ain't a Markup Language}
 \AddAcronym{URL}{Uniform Resource Locator}
-\AddAcronym{HTTP}{Hypertext Transfer Protocol}
+\AddAcronym{HTTP}{HyperText Transfer Protocol}
 
 % rendering
 \AddAcronym{SEO}{Search Engine Optimization}
@@ -121,11 +123,11 @@ The result is a fully responsive and modular educational application that allows
 % \setcounter{tocdepth}{2}
 
 % Custom reference
-\newcommand{\customref}[2]{\hyperref[#2]{#1~\ref*{#2}}}
-\newcommand{\chapterref}[1]{(\hyperref[#1]{Kapitola~\ref*{#1}})}
-\newcommand{\imageref}[1]{(\hyperref[#1]{Obrázek~\ref*{#1}})}
-\newcommand{\tableref}[1]{(\hyperref[#1]{Tabulka~\ref*{#1}})}
-\newcommand{\listingref}[1]{(\hyperref[#1]{Výpis~\ref*{#1}})}
+\newcommand{\customref}[2]{\pdftooltip{\hyperref[#2]{#1~\ref*{#2}}}{\nameref*{#2}}}
+\newcommand{\chapterref}[1]{\pdftooltip{(\hyperref[#1]{Kapitola~\ref*{#1}})}{\nameref*{#1}}}
+\newcommand{\imageref}[1]{\pdftooltip{(\hyperref[#1]{Obrázek~\ref*{#1}})}{\nameref*{#1}}}
+\newcommand{\tableref}[1]{\pdftooltip{(\hyperref[#1]{Tabulka~\ref*{#1}})}{\nameref*{#1}}}
+\newcommand{\listingref}[1]{\pdftooltip{(\hyperref[#1]{Výpis~\ref*{#1}})}{\nameref*{#1}}}
 \newcommand{\glsref}[1]{\textit{\gls{#1}}}
 \newcommand{\gameref}[1]{\textit{#1}}
 \newcommand{\attr}[1]{(\texttt{#1})}

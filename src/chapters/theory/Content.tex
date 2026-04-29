@@ -63,7 +63,7 @@ Přítomnost obou ukazatelů umožňuje efektivní přidávání a odebírání 
 
 Obě struktury mohou být efektivně implementovány pomocí spojových seznamů nebo polí, v závislosti na požadavcích na výkon a paměťovou efektivitu.~\cite{levitin}
 
-\subsection{Nelineární (stromové) datové struktury}
+\subsection{Vyhledávací stromy}
 \label{sec:nonlinear_data_structures}
 
 Mezi nelineární datové struktury patří stromy, hierarchické struktury představující spojitý acyklický graf, kde každý prvek (uzel) může mít více potomků.
@@ -566,7 +566,7 @@ Tento algoritmus se nazývá \textit{Lineární vyhledávání} a má časovou s
 
 \begin{listing}[ht]
     \input{code/theoryContent/linearSearch.tex}
-    \caption{Pseudokód algoritmu Lineární vyhledávání}
+    \caption{Pseudokód lineárního vyhledávání}
     \label{lst:linearSearch}
 \end{listing}
 
@@ -584,14 +584,14 @@ Tento proces se opakuje, dokud není nalezena shoda nebo dokud není prohledáno
 
 \begin{listing}[ht]
     \input{code/theoryContent/binarySearch.tex}
-    \caption{Pseudokód algoritmu Binární vyhledávání}
+    \caption{Pseudokód binárního vyhledávání}
     \label{lst:binarySearch}
 \end{listing}
 
 \textit{Binární vyhledávání} má časovou složitost $O(\log n)$, protože s každým porovnáním se velikost prohledávané části pole zmenší na polovinu.
 Je však důležité poznamenat, že tento algoritmus vyžaduje, aby pole bylo již seřazené, což může být nákladné, pokud není k dispozici žádný efektivní způsob, jak pole seřadit.~\cite{sedgewick}
 
-\subsection{Srovnání třídicích a vyhledávacích algoritmů}
+\subsection{Srovnání popsaných algoritmů}
 \label{subsec:sorting_comparison}
 
 Pro usnadnění výběru vhodného algoritmu a pro přehlednost teoretických poznatků jsou v této kapitole shrnuty podstatné vlastnosti všech implementovaných algoritmů.

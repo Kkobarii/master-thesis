@@ -15,9 +15,9 @@ export class DataStructureAnnotator {
 
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
+    this.infoAnnotation.draw(this.ctx);
+    this.valueAnnotation.draw(this.ctx);
     this.idAnnotations.forEach((a) => a.draw(this.ctx));
     this.legsAnnotations.forEach((a) => a.draw(this.ctx));
-    this.infoAnnotations.forEach((a) => a.draw(this.ctx));
-    this.valueAnnotations.forEach((a) => a.draw(this.ctx));
   }
 }

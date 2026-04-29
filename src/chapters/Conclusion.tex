@@ -1,23 +1,24 @@
 \chapter{Závěr}
 \label{chap:conclusion}
 
-Hlavním cílem této diplomové práce bylo navrhnout, zdokumentovat a naimplementovat interaktivní výukovou aplikaci, která studentům usnadní pochopení datových struktur a třídicích a vyhledávacích algoritmů.
-Tento cíl byl úspěšně splněn vytvořením komplexního webového nástroje \textit{Treeline}, který propojuje teoretické studijní materiály s moderními přístupy v softwarovém inženýrství.
+Hlavním cílem této diplomové práce bylo navrhnout, zdokumentovat a implementovat interaktivní výukovou aplikaci, která studentům usnadní pochopení datových struktur a třídicích a vyhledávacích algoritmů.
+Tento cíl byl úspěšně splněn vytvořením komplexního webového nástroje \textbf{Treeline}, který propojuje teoretické studijní materiály s moderními přístupy v softwarovém inženýrství.
 
 Z inženýrského hlediska je největším přínosem práce návrh modulární a škálovatelné architektury.
 Aplikace striktně odděluje aplikační logiku algoritmů od prezentační vrstvy.
-Toho bylo dosaženo implementací událostmi řízeného modelu pro asynchronní operace nad datovými strukturami a mechanismem generování předpočítaných stavů pro plynulou animaci třídicích algoritmů.
-Úspěšně se podařilo překonat i technologické limity použitých knihoven třetích stran, například vývojem vlastní nezávislé anotační vrstvy nad plátnem \texttt{vis-network} a adaptivním výpočtem překryvů v rekurzivních algoritmech.
-Z uživatelského hlediska aplikace nabízí plně responzivní prostředí, dynamické přepínání programovacích jazyků pseudokódu, podporu tmavého režimu a plynulou mezinárodní lokalizaci jak v interaktivních prvcích stránky a jednotlivých vizualizacích, tak v teoretických materiálech, jež vizualizace doplňují.
+Toho bylo dosaženo implementací událostmi řízeného modelu pro asynchronní operace nad datovými strukturami a mechanismem generování předpočítaných stavů pro plynulou animaci třídicích i vyhledávacích algoritmů.
+Během vývoje byly úspěšně překonány technologické limity použitých externích knihoven, například implementace vlastní nezávislé anotační vrstvy nad vykreslovacím rozhraním nástroje \textit{vis-network}.
+Systém byl dále rozšířen o pokročilé funkce, mezi které patří adaptivní výpočet překryvů v rekurzivních algoritmech a automatické zvýrazňování příslušných částí pseudokódu při manuálním řízení simulace.
+Z uživatelského hlediska aplikace nabízí plně responzivní prostředí, dynamické přepínání programovacích jazyků pseudokódu, podporu světlého i tmavého režimu a plynulou mezinárodní lokalizaci jak v interaktivních prvcích stránky a jednotlivých vizualizacích, tak v teoretických materiálech, jež vizualizace doplňují.
 
 Zásadní výhodou výsledného řešení je jeho infrastruktura.
-Díky využití generování statických stránek (SSG), automatizované CI/CD linky přes GitHub Actions a hostingu prostřednictvím GitHub Pages je aplikace zcela nezávislá na komplexních backendových serverech.
+Díky využití generování statických stránek (SSG), automatizované CI/CD linky přes GitHub Actions a hostingu prostřednictvím GitHub Pages je aplikace zcela nezávislá na vlastních serverech dedikovaných pro backend.
 Tento bezúdržbový model provozu v kombinaci s nasazením na vlastní doméně zajišťuje dlouhodobou udržitelnost a dostupnost projektu do budoucnosti s minimálními provozními náklady -- přístup vhodný pro aplikaci zaměřenou na vzdělávání a jednoduchou integraci do výuky.
 Aplikace má tak velký potenciál stát se nejen cenným podpůrným nástrojem pro oficiální univerzitní výuku předmětů zaměřených na algoritmy, ale může stabilně sloužit i široké veřejnosti a studentům mimo akademickou půdu.
 
 Navržená architektura představuje pevný základ, který je připraven pro další rozšiřování.
 V rámci budoucího vývoje se nabízí implementace dalších teoretických konceptů, pro které je stávající systém již připraven.
-Patří mezi ně zejména doména grafových algoritmů (např. procházení grafu do šířky a do hloubky, hledání nejkratší cesty, konstrukce minimální kostry či toky v sítích), komplexnější datové struktury jako hašovací tabulky, nebo různé metody průchodu stromem (inorder, preorder, postorder).
+Patří mezi ně zejména doména grafových algoritmů (např. procházení grafu do šířky a do hloubky, hledání nejkratší cesty, konstrukce minimální kostry či toky v sítích), komplexnější datové struktury jako hašovací tabulky, nebo různé metody průchodu stromem.
 
 Dalším významným směrem pro budoucí rozvoj je rozšíření aplikace o evaluační modul.
 Začlenění interaktivních testů, kvízů a praktických cvičení by studentům umožnilo ověřit si, zda danou problematiku po zhlédnutí vizualizace skutečně plně pochopili, a poskytlo by jim cennou zpětnou vazbu.

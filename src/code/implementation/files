@@ -6,7 +6,7 @@ src/lib/
 |
 |-- data-structures/        # Doména datových struktur
 |   |-- structures/         # Datové reprezentace (AVL, BST, B-strom...)
-|   |-- visual/             # Vykreslovací enginy (Animator, Annotator) a vizualizace
+|   |-- visual/             # Komponenty pro vykreslování (Animator, Annotator) vizualizací
 |   |-- operations/         # Událostní model simulace (OperationManager)
 |   |-- controls/           # UI komponenty pro ovládání simulace (tlačítka, posuvníky)
 |   `-- registry.ts         # Registrace struktur pro dynamické načítaní

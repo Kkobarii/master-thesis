@@ -6,10 +6,7 @@ export class OperationManager {
 
     if (this.showSteps) {
       // Mikro-úroveň: Posun po jednotlivých atomech operace
-      if (
-        this.currentStep <
-        this.operations[this.currentOperation].steps.length - 1
-      ) {
+      if (this.currentStep < this.operations[this.currentOperation].steps.length - 1) {
         this.incrementCurrentStep(); // Interně emituje CurrentStepChanged
       } else if (this.currentOperation < this.operations.length - 1) {
         this.incrementCurrentOperation(); // Interně emituje CurrentOperationChanged
