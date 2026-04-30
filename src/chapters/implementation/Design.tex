@@ -1,66 +1,66 @@
 \chapter{Návrh aplikace}
 \label{chap:design}
 
-Posledním krokem před samotnou implementací výukové aplikace je vytvoření jejího návrhu, který je zdokumentován v této kapitole.
-Ta se prvně soustředí na hrubý náčrt uživatelského rozhraní, jednotlivých stránek a vizualizací, které bude aplikace poskytovat.
-Dále se zaměří na vizuální styl detailněji a stanoví jasné standardy pro použití barev, ikon a dalších grafických prvků.
-Pozornost bude věnována také architektuře aplikace, detailům návrhu datových modelů a rozmístění funkcionality v rámci projektu.
+Posledním krokem před samotnou implementací výukové aplikace je vytvoření jejího návrhu, který je zdokumentován v~této kapitole.
+Ta se prvně soustředí na hrubý náčrt uživatelského rozhraní, jednotlivých stránek a~vizualizací, které bude aplikace poskytovat.
+Dále se zaměří na vizuální styl detailněji a~stanoví jasné standardy pro použití barev, ikon a~dalších grafických prvků.
+Pozornost bude věnována také architektuře aplikace, detailům návrhu datových modelů a~rozmístění funkcionality v~rámci projektu.
 
-\section{Informační architektura a navigace}
+\section{Informační architektura a~navigace}
 \label{sec:architecture-navigation}
 
-Jako první část, kterou je třeba dobře a logicky navrhnout, je informační architektura aplikace.
-Vzhledem k tomu, že hlavním účelem vyvíjeného nástroje je podpora výuky algoritmů a datových struktur, byl při návrhu kladen maximální důraz na intuitivnost.
-Při práci s aplikací musí být student schopen rychle najít požadovanou látku, proto je v této kapitole popsáno nejprve celkové uspořádání obsahu aplikace a dále jsou definovány navigační koncepty pro pohyb mezi stránkami.
+Jako první část, kterou je třeba dobře a~logicky navrhnout, je informační architektura aplikace.
+Vzhledem k~tomu, že hlavním účelem vyvíjeného nástroje je podpora výuky algoritmů a~datových struktur, byl při návrhu kladen maximální důraz na intuitivnost.
+Při práci s~aplikací musí být student schopen rychle najít požadovanou látku, proto je v~této kapitole popsáno nejprve celkové uspořádání obsahu aplikace a~dále jsou definovány navigační koncepty pro pohyb mezi stránkami.
 
 \subsection{Struktura aplikace}
 \label{subsec:app-structure}
 
 Hlavním principem, který byl důležitý pro návrh informační struktury, byla její hloubka.
-Pro výukové aplikace je vhodné, aby tato informační hloubka byla mělká, protože se uživatel musí být schopen dostat na požadovanou interaktivní vizualizaci v minimálním počtu kroků.
-Sitemap diagram aplikace \imageref{fig:sitemap} znázorňuje hierarchii stránek a jejich propojení, přičemž jednotlivé obdélníky představují stránky a jsou rozšířeny i o přesnou cestu, která na danou stránku vede v rámci URL adresy.
+Pro výukové aplikace je vhodné, aby tato informační hloubka byla mělká, protože se uživatel musí být schopen dostat na požadovanou interaktivní vizualizaci v~minimálním počtu kroků.
+Sitemap diagram aplikace \imageref{fig:sitemap} znázorňuje hierarchii stránek a~jejich propojení, přičemž jednotlivé obdélníky představují stránky a~jsou rozšířeny i~o~přesnou cestu, která na danou stránku vede v~rámci URL adresy.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/design/sitemap.pdf}
-    \caption{Sitemap diagram aplikace znázorňující hierarchii stránek a jejich propojení}
+    \caption{Sitemap diagram aplikace znázorňující hierarchii stránek a~jejich propojení}
     \label{fig:sitemap}
 \end{figure}
 
-\textit{Hlavní stránka} aplikace slouží jako její primární vstupní bod; účelem jejího atraktivního vizuálního zpracování je zaujmout uživatele a motivovat jej k dalšímu prozkoumání nabízeného obsahu.
-Tato stránka obsahuje odkazy směřující uživatele do jedné z dvou hlavních větví: \textit{Datové struktury} a \textit{Třídicí algoritmy}.
-Ve větvi \textit{Datové struktury} se aplikace dále větví na jednotlivé struktury, přičemž každá z nich má svou dedikovanou stránku, která v sobě integruje veškerou teorii i samotnou simulaci.
+\textit{Hlavní stránka} aplikace slouží jako její primární vstupní bod; účelem jejího atraktivního vizuálního zpracování je zaujmout uživatele a~motivovat jej k~dalšímu prozkoumání nabízeného obsahu.
+Tato stránka obsahuje odkazy směřující uživatele do jedné z~dvou hlavních větví: \textit{Datové struktury} a~\textit{Třídicí algoritmy}.
+Ve větvi \textit{Datové struktury} se aplikace dále větví na jednotlivé struktury, přičemž každá z~nich má svou dedikovanou stránku, která v~sobě integruje veškerou teorii i~samotnou simulaci.
 Stejnou strukturou se vyznačuje rovněž část \textit{Třídicí algoritmy}.
-Pro každý algoritmus je připraven úvodní přehled s obecnou simulací, jehož cílem je představit danou problematiku v širším kontextu.
-K důkladnějšímu studiu následně slouží obrazovka \textit{Detail}, která nabízí detailnější průběh simulace obohacený o krokování zdrojového kódu.
-Mezi ostatními třídicími algoritmy je v této větvi zahrnuta také stránka zaměřená na \textit{Vyhledávací algoritmy}.
-K tomuto rozhodnutí vedl primárně malý počet algoritmů, které bylo v této kategorii možné zahrnout, a proto by bylo zbytečné věnovat každému z nich samostatnou stránku.
-Závěr větve \textit{Třídicí algoritmy} tvoří srovnávací přehled, který uživateli umožňuje vyhodnotit efektivitu jednotlivých algoritmů v reálném čase.
-Vedle čistě edukačních částí obsahuje aplikace rovněž stránku \textit{O aplikaci} s obecnými informacemi o poslání a funkčnosti celého projektu.
+Pro každý algoritmus je připraven úvodní přehled s~obecnou simulací, jehož cílem je představit danou problematiku v~širším kontextu.
+K~důkladnějšímu studiu následně slouží obrazovka \textit{Detail}, která nabízí detailnější průběh simulace obohacený o~krokování zdrojového kódu.
+Mezi ostatními třídicími algoritmy je v~této větvi zahrnuta také stránka zaměřená na \textit{Vyhledávací algoritmy}.
+K~tomuto rozhodnutí vedl primárně malý počet algoritmů, které bylo v~této kategorii možné zahrnout, a~proto by bylo zbytečné věnovat každému z~nich samostatnou stránku.
+Závěr větve \textit{Třídicí algoritmy} tvoří srovnávací přehled, který uživateli umožňuje vyhodnotit efektivitu jednotlivých algoritmů v~reálném čase.
+Vedle čistě edukačních částí obsahuje aplikace rovněž stránku \textit{O~aplikaci} s~obecnými informacemi o~poslání a~funkčnosti celého projektu.
 
 \subsection{Navigační koncept}
 \label{subsec:navigation-concept}
 
 Návrh se dále zaměřuje na navigační prvky uživatelského rozhraní aplikace.
-Výchozí layout stránky obsahuje fixní horní lištu, která je dostupná napříč celou aplikací a je tedy zajištěno, že uživatel je vždy schopen jednoduše navigovat, kam potřebuje.
+Výchozí layout stránky obsahuje fixní horní lištu, která je dostupná napříč celou aplikací a~je tedy zajištěno, že uživatel je vždy schopen jednoduše navigovat, kam potřebuje.
 Navigační prvky jsou na všech stránkách umístěny stejně, aby byla zajištěna konzistence.
 
-Umístění i styl navigačních prvků se drží známých standardů webového designu, čímž je využita uživatelská znalost těchto principů, aby se mohl soustředit na samotný výukový obsah stránky.
-Vzhledem k tomu, že jde o SPA \chapterref{subsec:spa}, změna stránky je okamžitá a nedochází k problikávání obrazovky, což přispívá k plynulosti výuky.
+Umístění i~styl navigačních prvků se drží známých standardů webového designu, čímž je využita uživatelská znalost těchto principů, aby se mohl soustředit na samotný výukový obsah stránky.
+Vzhledem k~tomu, že jde o~SPA \chapterref{subsec:spa}, změna stránky je okamžitá a~nedochází k~problikávání obrazovky, což přispívá k~plynulosti výuky.
 
-\section{Uživatelské rozhraní a prožitek}
+\section{Uživatelské rozhraní a~prožitek}
 \label{sec:ui-ux-design}
 
-Po definici struktury informací v aplikaci se tato kapitola zaměřuje na samotnou prezentaci obsahu uživateli.
-Návrh uživatelského rozhraní (UI) a uživatelského prožitku (UX) je pro výukovou aplikaci kritický, neboť je nutné udržet pozornost uživatele u samotné probírané látky, nikoliv u zdlouhavého pochopení ovládání aplikace.
-Cílem návrhu bylo tedy vytvořit čisté a přehledné prostředí, které zajišťuje interaktivní vizualizace a poskytuje intuitivní ovládací prvky pro ovládání simulací.
+Po definici struktury informací v~aplikaci se tato kapitola zaměřuje na samotnou prezentaci obsahu uživateli.
+Návrh uživatelského rozhraní (UI) a~uživatelského prožitku (UX) je pro výukovou aplikaci kritický, neboť je nutné udržet pozornost uživatele u~samotné probírané látky, nikoliv u~zdlouhavého pochopení ovládání aplikace.
+Cílem návrhu bylo tedy vytvořit čisté a~přehledné prostředí, které zajišťuje interaktivní vizualizace a~poskytuje intuitivní ovládací prvky pro ovládání simulací.
 
 \subsection{Rozvržení uživatelského rozhraní}
 \label{subsec:layout-wireframes}
 
-Struktura rozvržení stránek byla vyvinuta s důrazem na jednoduchost a přehlednost.
-Každá stránka je rozdělena do několika sekcí, které jsou jasně oddělené a logicky uspořádané.
-Koncepty rozvržení jsou zpracovány ve formě drátěných modelů (\textit{wireframe}), které jsou popsány v následujících odstavcích.
+Struktura rozvržení stránek byla vyvinuta s~důrazem na jednoduchost a~přehlednost.
+Každá stránka je rozdělena do několika sekcí, které jsou jasně oddělené a~logicky uspořádané.
+Koncepty rozvržení jsou zpracovány ve formě drátěných modelů (\textit{wireframe}), které jsou popsány v~následujících odstavcích.
 
 \begin{figure}[ht]
     \centering
@@ -70,14 +70,14 @@ Koncepty rozvržení jsou zpracovány ve formě drátěných modelů (\textit{wi
 \end{figure}
 
 Na prvním diagramu \imageref{fig:wire_layout} je vyobrazen obecný layout webové aplikace.
-Fixní horní lišta zajišťuje konzistentní možnost navigace mezi stránkami a zároveň dává aplikaci vizuální rámec.
-Lišta obsahuje ikonu a název aplikace, rozbalovací menu pro zobrazení odkazů jak na datové struktury, tak třídicí algoritmy a také tlačítka pro uživatelské přizpůsobení na pravé straně.
-Podobným způsobem je navržena i spodní lišta, která sice není fixní, ale obsahuje tutéž informaci o názvu aplikace a také doplňující tlačítka na pravé straně.
+Fixní horní lišta zajišťuje konzistentní možnost navigace mezi stránkami a~zároveň dává aplikaci vizuální rámec.
+Lišta obsahuje ikonu a~název aplikace, rozbalovací menu pro zobrazení odkazů jak na datové struktury, tak třídicí algoritmy a~také tlačítka pro uživatelské přizpůsobení na pravé straně.
+Podobným způsobem je navržena i~spodní lišta, která sice není fixní, ale obsahuje tutéž informaci o~názvu aplikace a~také doplňující tlačítka na pravé straně.
 
-Co se týče konkrétního obsahu, každá vizualizace má \textit{Nadpis}, tedy název dané struktury nebo algoritmu, a \textit{Popis}, text vysvětlující základní principy a obecnou teorii ohledně tématu.
+Co se týče konkrétního obsahu, každá vizualizace má \textit{Nadpis}, tedy název dané struktury nebo algoritmu, a~\textit{Popis}, text vysvětlující základní principy a~obecnou teorii ohledně tématu.
 Tento popis je zamýšlen jako doplňující výukový materiál, který studentům pomůže pochopit detaily.
-Nadpis i popis jsou stejné pro všechny stránky, podporují tak konzistenci a také možnost znovupoužití za pomocí implementace jako modulární komponenta uživatelského rozhraní.
-Poslední částí obecného rozvržení je \textit{Obsah}, který, jak název napovídá, zaštiťuje konkrétní vizualizaci a simulaci, a spolu s nadpisem je pro jednotlivé typy vizualizací navržen v následujících odstavcích.
+Nadpis i~popis jsou stejné pro všechny stránky, podporují tak konzistenci a~také možnost znovupoužití za pomocí implementace jako modulární komponenta uživatelského rozhraní.
+Poslední částí obecného rozvržení je \textit{Obsah}, který, jak název napovídá, zaštiťuje konkrétní vizualizaci a~simulaci, a~spolu s~nadpisem je pro jednotlivé typy vizualizací navržen v~následujících odstavcích.
 
 \begin{figure}[ht]
     \centering
@@ -86,9 +86,9 @@ Poslední částí obecného rozvržení je \textit{Obsah}, který, jak název n
     \label{fig:wire_structure}
 \end{figure}
 
-Neboť se u datových struktur podporovaných výukovou aplikací jedná především o stromy, pro jejich vizualizaci je důležité zajistit dostatečný horizontální prostor, aby strom mohl růst do šířky a zůstal stále viditelný.
-Z tohoto důvodu zabírá komponenta \textit{Vizualizace struktury} většinu horizontálního prostoru stránky.
-Na pravé straně obrazovky je umístěno \textit{Ovládání}, které uživatelům zajišťuje pohodlné volání operací nad datovou strukturou a jejich krokování tak, aby bylo vždy při ruce.
+Neboť se u~datových struktur podporovaných výukovou aplikací jedná především o~stromy, pro jejich vizualizaci je důležité zajistit dostatečný horizontální prostor, aby strom mohl růst do šířky a~zůstal stále viditelný.
+Z~tohoto důvodu zabírá komponenta \textit{Vizualizace struktury} většinu horizontálního prostoru stránky.
+Na pravé straně obrazovky je umístěno \textit{Ovládání}, které uživatelům zajišťuje pohodlné volání operací nad datovou strukturou a~jejich krokování tak, aby bylo vždy při ruce.
 Celkový návrh pro tuto vizualizaci je znázorněn na \customref{Obrázku}{fig:wire_structure}.
 
 \begin{figure}[ht]
@@ -98,12 +98,12 @@ Celkový návrh pro tuto vizualizaci je znázorněn na \customref{Obrázku}{fig:
     \label{fig:wire_sorting}
 \end{figure}
 
-Jak již bylo definováno výše, stránky pro simulaci třídicích algoritmů mají dvě úrovně vizualizace, přičemž první z nich je obecná, která zobrazuje pouze pole a jeho prvky, jež se mění v průběhu chodu algoritmu.
-Vpravo od nadpisu je tedy u třídicích algoritmů přidán přepínač, kterým si uživatelé mohou zvolit úroveň vizualizace.
+Jak již bylo definováno výše, stránky pro simulaci třídicích algoritmů mají dvě úrovně vizualizace, přičemž první z~nich je obecná, která zobrazuje pouze pole a~jeho prvky, jež se mění v~průběhu chodu algoritmu.
+Vpravo od nadpisu je tedy u~třídicích algoritmů přidán přepínač, kterým si uživatelé mohou zvolit úroveň vizualizace.
 Návrh \imageref{fig:wire_sorting} je velmi jednoduchý, neboť zde není nutné uživateli předávat mnoho informací.
-\textit{Ovládání} simulace je umístěno pod nadpisem, opět s možností krokování a také s posuvníkem pro úpravu rychlosti animací.
-Na pravé straně je pak malý informační panel nadepsaný \textit{Krok}, předávající detailnější informaci o momentálním kroku.
-Hlavní část, tedy samotná \textit{Vizualizace pole}, je roztažena přes celou spodní část stránky, aby byl maximalizován prostor, a tudíž množství prvků v poli.
+\textit{Ovládání} simulace je umístěno pod nadpisem, opět s~možností krokování a~také s~posuvníkem pro úpravu rychlosti animací.
+Na pravé straně je pak malý informační panel nadepsaný \textit{Krok}, předávající detailnější informaci o~momentálním kroku.
+Hlavní část, tedy samotná \textit{Vizualizace pole}, je roztažena přes celou spodní část stránky, aby byl maximalizován prostor, a~tudíž množství prvků v~poli.
 
 \begin{figure}[ht]
     \centering
@@ -112,64 +112,64 @@ Hlavní část, tedy samotná \textit{Vizualizace pole}, je roztažena přes cel
     \label{fig:wire_detail}
 \end{figure}
 
-Jako poslední z návrhů je přiloženo rozvržení detailního vizuálu třídicího algoritmu \imageref{fig:wire_detail}.
-Pro \textit{Ovládání} i \textit{Krok} jsou využity identické komponenty jako u přehledu.
+Jako poslední z~návrhů je přiloženo rozvržení detailního vizuálu třídicího algoritmu \imageref{fig:wire_detail}.
+Pro \textit{Ovládání} i~\textit{Krok} jsou využity identické komponenty jako u~přehledu.
 Přepínač mezi úrovněmi je nyní přesunut na druhou stranu, uživatel se tak může kdykoli vrátit zpět.
-\textit{Vizualizace pole} je značně zmenšena, pro detailní popis algoritmu totiž není potřeba velké pole s mnoha prvky, jako tomu bylo u prvního pohledu.
+\textit{Vizualizace pole} je značně zmenšena, pro detailní popis algoritmu totiž není potřeba velké pole s~mnoha prvky, jako tomu bylo u~prvního pohledu.
 Důležitým rozšířením je blok \textit{Pseudokód}, kde má uživatel příležitost sledovat řídící tok algoritmu během krokování, přičemž aktuální řádek kódu bude zvýrazněn barevným pozadím.
 
-Vizualizace vyhledávacích algoritmů má velmi podobné rozvržení jako detail třídicích algoritmů, obsahuje tedy vizualizaci pole, pseudokód a ovládací prvky pro krokování.
-Hlavní rozdíl je v tom, že není poskytnut obecný pohled a místo přepínače je vpravo od nadpisu umístěn výběr konkrétního algoritmu, který chce uživatel simulovat.
-Tato část výukové aplikace tedy plně využívá již navržené komponenty a jednoduše umožní uživateli studovat základní vyhledávací algoritmy jako je lineární a binární vyhledávání.
+Vizualizace vyhledávacích algoritmů má velmi podobné rozvržení jako detail třídicích algoritmů, obsahuje tedy vizualizaci pole, pseudokód a~ovládací prvky pro krokování.
+Hlavní rozdíl je v~tom, že není poskytnut obecný pohled a~místo přepínače je vpravo od nadpisu umístěn výběr konkrétního algoritmu, který chce uživatel simulovat.
+Tato část výukové aplikace tedy plně využívá již navržené komponenty a~jednoduše umožní uživateli studovat základní vyhledávací algoritmy jako je lineární a~binární vyhledávání.
 
-\subsection{Interaktivita a ovládání}
+\subsection{Interaktivita a~ovládání}
 \label{subsec:interactivity-controls}
 
-Pro příjemné UX a efektivní předání informací uživateli byly kontrolní prvky simulace rozvrženy pomocí Gestalt zákonů, především tedy zákona blízkosti.
-Tlačítka pro ovládání simulace a krokování jsou tedy u sebe v běžném, uživatelům známém uspořádání.
-Při interakci tlačítka dávají uživateli zpětnou vazbu změnou odstínu a drobným pohybem.
-Uživateli je také dána možnost měnit vstup zamícháním pole nebo vygenerováním datové struktury s náhodnými prvky.
+Pro příjemné UX a~efektivní předání informací uživateli byly kontrolní prvky simulace rozvrženy pomocí Gestalt zákonů, především tedy zákona blízkosti.
+Tlačítka pro ovládání simulace a~krokování jsou tedy u~sebe v~běžném, uživatelům známém uspořádání.
+Při interakci tlačítka dávají uživateli zpětnou vazbu změnou odstínu a~drobným pohybem.
+Uživateli je také dána možnost měnit vstup zamícháním pole nebo vygenerováním datové struktury s~náhodnými prvky.
 
-Speciálně u datových struktur je také nutné definovat specifické operace, které se nad nimi dají provádět.
+Speciálně u~datových struktur je také nutné definovat specifické operace, které se nad nimi dají provádět.
 Téměř všechny stromy sdílí jednotnou sadu operací, vyvstává zde tedy příležitost generického ovládání.
-U specifických struktur jako \textit{fronta} nebo \textit{halda} jsou pak jejich operace definovány zvlášť.
+U~specifických struktur jako \textit{fronta} nebo \textit{halda} jsou pak jejich operace definovány zvlášť.
 Pro vložení, odebrání nebo nalezení prvku má uživatel možnost zadat vstupní hodnotu pomocí číselného vstupního pole.
 
 \subsection{Responzivita}
 \label{subsec:responsivity}
 
-Výuková aplikace musí podporovat responzivní chování, neboť uživatelé ji nebudou používat pouze na desktopových zařízeních, ale i na přenosných počítačích, tabletech či mobilních zařízeních.
-Z tohoto důvodu je důležité zmínit responzivitu a definovat, jak se bude aplikace v takových případech chovat.
+Výuková aplikace musí podporovat responzivní chování, neboť uživatelé ji nebudou používat pouze na desktopových zařízeních, ale i~na přenosných počítačích, tabletech či mobilních zařízeních.
+Z~tohoto důvodu je důležité zmínit responzivitu a~definovat, jak se bude aplikace v~takových případech chovat.
 
 Pro flexibilní rozložení bude využito přeskupování, jednotlivé stavební bloky uživatelského rozhraní se tedy přesunou tak, aby byl prostor maximálně využit.
-U detailní vizualizace třídicího algoritmu to může znamenat přesun pseudokódu pod vizualizaci pole, aby uživatel stále mohl interagovat s celým obsahem na vertikálním prostoru displeje.
-Další úprava pro responzivní zobrazení se týká horní navigační lišty, jejíž položky se na menších obrazovkách sbalí do tzv. \textit{hamburger menu} namísto svého původního vzhledu, čímž bude umožněna navigace stránkami i na mobilních zařízeních.
+U~detailní vizualizace třídicího algoritmu to může znamenat přesun pseudokódu pod vizualizaci pole, aby uživatel stále mohl interagovat s~celým obsahem na vertikálním prostoru displeje.
+Další úprava pro responzivní zobrazení se týká horní navigační lišty, jejíž položky se na menších obrazovkách sbalí do tzv. \textit{hamburger menu} namísto svého původního vzhledu, čímž bude umožněna navigace stránkami i~na mobilních zařízeních.
 
 \section{Návrh vizualizačních komponent}
 \label{sec:visualization-components}
 
-V předchozí kapitole bylo definováno obecné rozvržení pro všechny stránky, byly však vynechány jedny z nejdůležitějších vizuálních prvků výukové aplikace -- samotná reprezentace datových struktur a také pole, které se mění s průběhem algoritmů.
-Tato kapitola tedy poskytuje bližší pohled na tyto komponenty a způsob, jakým budou zobrazeny.
+V~předchozí kapitole bylo definováno obecné rozvržení pro všechny stránky, byly však vynechány jedny z~nejdůležitějších vizuálních prvků výukové aplikace -- samotná reprezentace datových struktur a~také pole, které se mění s~průběhem algoritmů.
+Tato kapitola tedy poskytuje bližší pohled na tyto komponenty a~způsob, jakým budou zobrazeny.
 
 \subsection{Vizualizace datových struktur}
 \label{subsec:structure-visualization}
 
-Co se týče datových struktur, základem jejich vizualizace je grafová knihovna, která byla zvolena v předchozí analýze \chapterref{sec:graph_library}, tedy \textit{vis-network}.
-Grafy zobrazené pomocí této knihovny se vykreslují do elementu \texttt{canvas} a je u nich zařízena efektivní funkčnost i pro větší datové sady.
+Co se týče datových struktur, základem jejich vizualizace je grafová knihovna, která byla zvolena v~předchozí analýze \chapterref{sec:graph_library}, tedy \textit{vis-network}.
+Grafy zobrazené pomocí této knihovny se vykreslují do elementu \texttt{canvas} a~je u~nich zařízena efektivní funkčnost i~pro větší datové sady.
 Pro vizualizaci stromů je využíván hierarchický layout, který zajišťuje, že uzly jsou uspořádány do vrstev podle své hloubky ve stromu, pro lineární datové struktury postačí základní rozvržení.
 
-Jelikož u některých datových struktur je třeba zobrazovat doplňující informace (např. informace o vyvážení uzlu AVL~stromu nebo identifikace začátku a konce fronty), je u vizualizace nutné implementovat určitý způsob anotace grafu.
-Anotace se využívá nejen pro zmíněné informace, ale také pro komentář k aktuální operaci a kroku, uživatel tak bude mít další pomocnou vysvětlivku směřující jeho pozornost k důležitým uzlům grafu.
+Jelikož u~některých datových struktur je třeba zobrazovat doplňující informace (např. informace o~vyvážení uzlu AVL~stromu nebo identifikace začátku a~konce fronty), je u~vizualizace nutné implementovat určitý způsob anotace grafu.
+Anotace se využívá nejen pro zmíněné informace, ale také pro komentář k~aktuální operaci a~kroku, uživatel tak bude mít další pomocnou vysvětlivku směřující jeho pozornost k~důležitým uzlům grafu.
 Tyto popisky jsou vykresleny taktéž do elementu \texttt{canvas}, využívaje API knihovny pro zjištění konkrétních souřadnic jednotlivých uzlů grafu.
-Samotný návrh vizuálu tedy není přiložen, jedná se totiž o základní vykreslení grafu knihovnou \textit{vis-network} zobrazeným výše na \customref{Obrázku}{fig:vis_tree}, rozšířené o informační popisky.
+Samotný návrh vizuálu tedy není přiložen, jedná se totiž o~základní vykreslení grafu knihovnou \textit{vis-network} zobrazeným výše na \customref{Obrázku}{fig:vis_tree}, rozšířené o~informační popisky.
 
 \subsection{Obecná vizualizace pole}
 \label{subsec:general-array-visualization}
 
 První ze dvou úrovní vizualizace třídicích algoritmů je ta obecná, která zobrazuje pouze pole ve velmi zjednodušené formě bez nadbytečných detailů.
-Slouží primárně k předvedení, jak algoritmus s polem pracuje ze širšího pohledu; uživatele zde nezajímají konkrétní hodnoty, ale spíše tvar dat a jejich změna v každé iteraci.
-Proto je tato vizualizace, zobrazená na \customref{Obrázku}{fig:wire_sorting_big}, složená pouze z prostých obdélníků, které reprezentují jednotlivé hodnoty na daném indexu.
-Na levé straně je vyobrazeno setříděné pole a na pravé straně pole s náhodně rozloženými daty.
+Slouží primárně k~předvedení, jak algoritmus s~polem pracuje ze širšího pohledu; uživatele zde nezajímají konkrétní hodnoty, ale spíše tvar dat a~jejich změna v~každé iteraci.
+Proto je tato vizualizace, zobrazená na \customref{Obrázku}{fig:wire_sorting_big}, složená pouze z~prostých obdélníků, které reprezentují jednotlivé hodnoty na daném indexu.
+Na levé straně je vyobrazeno setříděné pole a~na pravé straně pole s~náhodně rozloženými daty.
 Rozdílné rozměry prvků uživateli vizuálně usnadňují identifikaci jejich správného pořadí pro výsledný stav simulace.
 
 \begin{figure}[ht]
@@ -180,15 +180,15 @@ Rozdílné rozměry prvků uživateli vizuálně usnadňují identifikaci jejich
 \end{figure}
 
 Jednotlivé prvky pole jsou reprezentovány HTML elementy, jejichž výška odpovídá hodnotě daného prvku, což lze jednoduše realizovat pomocí CSS.
-Jsou jednobarevné, jejich obarvení je tedy uživatelem lehce zaznamenatelné a umožní názorné zvýraznění momentálně aktivních prvků.
-Protože se jedná o HTML elementy, je také možné využít CSS animace pro plynulé přechody mezi iteracemi a při přehození prvků.
+Jsou jednobarevné, jejich obarvení je tedy uživatelem lehce zaznamenatelné a~umožní názorné zvýraznění momentálně aktivních prvků.
+Protože se jedná o~HTML elementy, je také možné využít CSS animace pro plynulé přechody mezi iteracemi a~při přehození prvků.
 
 \subsection{Detailní vizualizace pole}
 \label{subsec:detailed-array-visualization}
 
-Pro detailní vizualizaci pole, která je zaměřena na předání hlubšího porozumění algoritmu, je potřeba přidat další informace a vizuální prvky, které pomohou uživateli pochopit, co se v daném kroku děje.
-Proto je reprezentace na \customref{Obrázku}{fig:wire_sorting_detail} složená z menšího počtu bloků stejné velikosti namísto sloupců, aby bylo možné lépe využít prostor.
-Levá část opět představuje setříděné pole a pravá pole s náhodně uspořádanými daty.
+Pro detailní vizualizaci pole, která je zaměřena na předání hlubšího porozumění algoritmu, je potřeba přidat další informace a~vizuální prvky, které pomohou uživateli pochopit, co se v~daném kroku děje.
+Proto je reprezentace na \customref{Obrázku}{fig:wire_sorting_detail} složená z~menšího počtu bloků stejné velikosti namísto sloupců, aby bylo možné lépe využít prostor.
+Levá část opět představuje setříděné pole a~pravá pole s~náhodně uspořádanými daty.
 
 \begin{figure}[ht]
     \centering
@@ -197,24 +197,24 @@ Levá část opět představuje setříděné pole a pravá pole s náhodně usp
     \label{fig:wire_sorting_detail}
 \end{figure}
 
-Myšlenka obdélníků s velikostí odpovídající hodnotě prvků zůstává, ale stává se spíše doplňujícím elementem, přidaným na levou stranu každého prvku pole.
-Samotné prvky jsou zde reprezentovány jako bloky stejné výšky, které obsahují informaci jak o indexu v poli, tak hodnotě daného prvku.
+Myšlenka obdélníků s~velikostí odpovídající hodnotě prvků zůstává, ale stává se spíše doplňujícím elementem, přidaným na levou stranu každého prvku pole.
+Samotné prvky jsou zde reprezentovány jako bloky stejné výšky, které obsahují informaci jak o~indexu v~poli, tak hodnotě daného prvku.
 Je zde také naznačena animace probíhající při prohazování prvků -- vizuální přesun po křivce (jednoduchá oblouková trajektorie).
-Tento plynulý přesun dodává celému procesu na názornosti, protože uživatel neztrácí kontext o tom, kam se prvek přemístil.
-I tato data jsou reprezentována jako HTML elementy, je tedy využita možnost stylů a animací poskytovaných CSS.
+Tento plynulý přesun dodává celému procesu na názornosti, protože uživatel neztrácí kontext o~tom, kam se prvek přemístil.
+I~tato data jsou reprezentována jako HTML elementy, je tedy využita možnost stylů a~animací poskytovaných CSS.
 
-\section{Vizuální styl a sémantika barev}
+\section{Vizuální styl a~sémantika barev}
 \label{sec:visual-style-colors}
 
-Vizuální styl výukové aplikace neslouží jen k estetickému dojmu, ale je sám o sobě jedním z důležitých nosičů informací.
-Správné použití barev a typografie snižuje kognitivní zátěž studenta a pomáhá mu lépe sledovat průběh algoritmu.
+Vizuální styl výukové aplikace neslouží jen k~estetickému dojmu, ale je sám o~sobě jedním z~důležitých nosičů informací.
+Správné použití barev a~typografie snižuje kognitivní zátěž studenta a~pomáhá mu lépe sledovat průběh algoritmu.
 
 \subsection{Barevná paleta}
 \label{subsec:color-palette}
 
-Výběr barevné palety pro uživatelské rozhraní se opírá o základní principy teorie barev a zaměřuje se na podporu pochopení principů učiva.
+Výběr barevné palety pro uživatelské rozhraní se opírá o~základní principy teorie barev a~zaměřuje se na podporu pochopení principů učiva.
 Vzorník barev je přiložen na \customref{Obrázku}{fig:palette}.
-Zvolené barvy jsou převážně přirozené a méně saturované, aby u uživatelů nedocházelo k únavě očí při delším používání aplikace a zároveň aby vizuální prvky nebyly rušivé.
+Zvolené barvy jsou převážně přirozené a~méně saturované, aby u~uživatelů nedocházelo k~únavě očí při delším používání aplikace a~zároveň aby vizuální prvky nebyly rušivé.
 
 \begin{figure}[ht]
     \centering
@@ -223,31 +223,31 @@ Zvolené barvy jsou převážně přirozené a méně saturované, aby u uživat
     \label{fig:palette}
 \end{figure}
 
-Základní barevné schéma uživatelského rozhraní tvoří neutrální šedá, která vytváří čisté a nerušivé pozadí.
+Základní barevné schéma uživatelského rozhraní tvoří neutrální šedá, která vytváří čisté a~nerušivé pozadí.
 Jako doplňující akcent je zvolena zelená barva.
-Ta je využívána pro interaktivní prvky a nadpisy, čímž dodává aplikaci vizuální identitu a zdůrazňuje důležité součásti rozhraní.
-Zbylé barvy z palety jsou vyhrazeny striktně pro sémantické obarvování interaktivních vizualizací, aby uživatel snadno rozpoznal jednotlivé stavy algoritmů.
+Ta je využívána pro interaktivní prvky a~nadpisy, čímž dodává aplikaci vizuální identitu a~zdůrazňuje důležité součásti rozhraní.
+Zbylé barvy z~palety jsou vyhrazeny striktně pro sémantické obarvování interaktivních vizualizací, aby uživatel snadno rozpoznal jednotlivé stavy algoritmů.
 
 \subsection{Sémantické barvy vizualizací}
 \label{subsec:semantic-colors}
 
-Pro správné pochopení datových struktur a algoritmů hraje barva důležitou roli, neboť slouží jako hlavní nositel informace o aktuálním stavu vizualizovaného prvku.
+Pro správné pochopení datových struktur a~algoritmů hraje barva důležitou roli, neboť slouží jako hlavní nositel informace o~aktuálním stavu vizualizovaného prvku.
 Barevná sémantika je rozdělena do dvou hlavních kategorií podle typu vizualizace.
 
-U \textbf{datových struktur} je výchozí barvou uzlů zelená.
+U~\textbf{datových struktur} je výchozí barvou uzlů zelená.
 Během průchodu strukturou mění uzly svou barvu podle prováděné operace: azurová barva indikuje hledaný prvek, zatímco modrá označuje nalezený uzel nebo potomka.
 Pokud je uzel označen ke smazání, je zvýrazněn varovnou červenou barvou.
 Specifický přístup vyžadují červeno\=/černé stromy, kde samotná podstata struktury závisí na barvě uzlu.
-V tomto případě jsou uzly obarveny tmavě šedou (reprezentující černé uzly) a tlumenou červenou barvou.
-Aby nedocházelo ke konfliktu s indikací mazání, je odstranění uzlu v těchto stromech řešeno pomocí výplně odlišného odstínu.
-Mezi další specifické sémantické barvy patří žlutá, která indikuje informace o vyvážení uzlu AVL~stromu, a modrá, sloužící ke zvýraznění porovnávaných prvků u haldy.
+V~tomto případě jsou uzly obarveny tmavě šedou (reprezentující černé uzly) a~tlumenou červenou barvou.
+Aby nedocházelo ke konfliktu s~indikací mazání, je odstranění uzlu v~těchto stromech řešeno pomocí výplně odlišného odstínu.
+Mezi další specifické sémantické barvy patří žlutá, která indikuje informace o~vyvážení uzlu AVL~stromu, a~modrá, sloužící ke zvýraznění porovnávaných prvků u~haldy.
 
-U \textbf{třídicích algoritmů} je výchozím stavem neutrální šedá barva.
+U~\textbf{třídicích algoritmů} je výchozím stavem neutrální šedá barva.
 Pozornost uživatele je při krokování směrována pomocí červené barvy, jež značí aktuálně porovnávanou dvojici prvků.
-Pokud dojde k jejich přesunu či prohození, barva se mění na modrou.
-Jakmile prvek dosáhne své finální pozice a je prokazatelně setříděn, získá zelenou barvu.
+Pokud dojde k~jejich přesunu či prohození, barva se mění na modrou.
+Jakmile prvek dosáhne své finální pozice a~je prokazatelně setříděn, získá zelenou barvu.
 To uživateli vizuálně usnadňuje oddělit již vyřešenou část pole od stále probíhajícího algoritmu.
-Při rozdělování pole u složitějších algoritmů (Quick sort a Merge sort) se kombinuje fialová a tyrkysová barva pro vizuální oddělení levé a pravé části.
+Při rozdělování pole u~složitějších algoritmů (Quick sort a~Merge sort) se kombinuje fialová a~tyrkysová barva pro vizuální oddělení levé a~pravé části.
 
 % \subsection{Typografie}
 % \label{subsec:typography}
@@ -263,38 +263,38 @@ Při rozdělování pole u složitějších algoritmů (Quick sort a Merge sort)
 \section{Konceptuální model řízení simulace}
 \label{sec:simulation-control-model}
 
-Základním stavebním kamenem každé interaktivní výukové aplikace je způsob, jakým systém pracuje se stavem simulace v reálném čase a jak umožňuje uživateli tento stav ovládat.
-Nedílnou součástí simulace je možnost jejího pozastavení a obousměrného krokování.
-Uživatel tak získává detailní přehled o stavu algoritmu a konkrétních změnách v každém kroku.
-Z tohoto důvodu bylo nutné již ve fázi návrhu opustit myšlenku naivního přístupu, kdy by se algoritmus vykonával v reálném čase a uživatel by pouze pozoroval jeho průběh, a místo toho navrhnout komplexní konceptuální model, který umožní plnou kontrolu nad simulací.
+Základním stavebním kamenem každé interaktivní výukové aplikace je způsob, jakým systém pracuje se stavem simulace v~reálném čase a~jak umožňuje uživateli tento stav ovládat.
+Nedílnou součástí simulace je možnost jejího pozastavení a~obousměrného krokování.
+Uživatel tak získává detailní přehled o~stavu algoritmu a~konkrétních změnách v~každém kroku.
+Z~tohoto důvodu bylo nutné již ve fázi návrhu opustit myšlenku naivního přístupu, kdy by se algoritmus vykonával v~reálném čase a~uživatel by pouze pozoroval jeho průběh, a~místo toho navrhnout komplexní konceptuální model, který umožní plnou kontrolu nad simulací.
 
 \subsection{Předpočítaná historie stavů}
 \label{subsec:precomputed-state-history}
 
-Pro simulaci obou typů vizualizací, tedy datových struktur i třídicích algoritmů, byl zvolen architektonický vzor založený na předpočítání historie stavů (\textit{Pre-computed State Queue}).
-Tento koncept spočívá v tom, že při inicializaci simulace s danými vstupními daty se celý proces okamžitě provede na pozadí.
-Během tohoto běhu nedochází k přímým úpravám uživatelského rozhraní, ale při každé významné atomické operaci se vygeneruje snímek aktuálního stavu (\textit{snapshot}).
+Pro simulaci obou typů vizualizací, tedy datových struktur i~třídicích algoritmů, byl zvolen architektonický vzor založený na předpočítání historie stavů (\textit{Pre-computed State Queue}).
+Tento koncept spočívá v~tom, že při inicializaci simulace s~danými vstupními daty se celý proces okamžitě provede na pozadí.
+Během tohoto běhu nedochází k~přímým úpravám uživatelského rozhraní, ale při každé významné atomické operaci se vygeneruje snímek aktuálního stavu (\textit{snapshot}).
 
 Všechny tyto snímky jsou následně uloženy do sekvenčního pole.
-Samotná vizualizace pak funguje na principu přehrávače, přičemž řídicí logika si pamatuje pouze aktuální index v tomto poli.
-Při požadavku na další krok se index inkrementuje a uživatelské rozhraní se překreslí podle dat v novém snímku.
+Samotná vizualizace pak funguje na principu přehrávače, přičemž řídicí logika si pamatuje pouze aktuální index v~tomto poli.
+Při požadavku na další krok se index inkrementuje a~uživatelské rozhraní se překreslí podle dat v~novém snímku.
 Tento přístup přináší zásadní výhody:
 \begin{itemize}
-    \item \textbf{Okamžitý krok zpět:} Návrat v čase nevyžaduje implementaci složité reverzní logiky, stačí pouze snížit index v poli historie.
-    \item \textbf{Oddělení logiky a zobrazení:} Samotný algoritmus nemusí řešit časování ani synchronizaci s CSS animacemi.
-    \item \textbf{Předvídatelnost:} Protože je celý průběh znám dopředu, systém dokáže vyčíslit celkový počet operací nezbytných pro seřazení pole. Uživatel má díky tomu k dispozici ukazatel procentuálního průběhu i možnost okamžitě dokončit celý algoritmus a zobrazit finální výsledek.
+    \item \textbf{Okamžitý krok zpět:} Návrat v~čase nevyžaduje implementaci složité reverzní logiky, stačí pouze snížit index v~poli historie.
+    \item \textbf{Oddělení logiky a~zobrazení:} Samotný algoritmus nemusí řešit časování ani synchronizaci s~CSS animacemi.
+    \item \textbf{Předvídatelnost:} Protože je celý průběh znám dopředu, systém dokáže vyčíslit celkový počet operací nezbytných pro seřazení pole. Uživatel má díky tomu k~dispozici ukazatel procentuálního průběhu i~možnost okamžitě dokončit celý algoritmus a~zobrazit finální výsledek.
 \end{itemize}
 
 \subsection{Mechanismy krokování}
 \label{subsec:stepping-mechanisms}
 
-Zatímco krokování u třídicích algoritmů je striktně lineární, datové struktury vyžadují komplexnější přístup.
-Operace nad nimi totiž mají přirozeně hierarchický charakter -- požadavek na vložení prvku do stromu je z pohledu uživatele jedinou akcí, ale z pohledu algoritmu se jedná o sekvenci kroků, které musí být provedeny v určitém pořadí.
+Zatímco krokování u~třídicích algoritmů je striktně lineární, datové struktury vyžadují komplexnější přístup.
+Operace nad nimi totiž mají přirozeně hierarchický charakter -- požadavek na vložení prvku do stromu je z~pohledu uživatele jedinou akcí, ale z~pohledu algoritmu se jedná o~sekvenci kroků, které musí být provedeny v~určitém pořadí.
 
-Z tohoto důvodu byl koncept krokování u datových struktur navržen dvouúrovňově:
+Z~tohoto důvodu byl koncept krokování u~datových struktur navržen dvouúrovňově:
 \begin{enumerate}
     \item \textbf{Úroveň operací (Makroúroveň):} Reprezentuje celistvé požadavky uživatele (např. Vložení, Smazání, Vyhledání prvku). Uživatel má možnost nechat celou operaci plynule proběhnout bez nutnosti manuálního zasahování.
-    \item \textbf{Úroveň kroků (Mikroúroveň):} Reprezentuje jednotlivé atomické úkony uvnitř dané operace. Pokud chce uživatel pochopit detailní fungování struktury, může si operaci pozastavit a procházet ji krok za krokem, přičemž systém mu vizualizuje každý posun ukazatele či změnu v grafu.
+    \item \textbf{Úroveň kroků (Mikroúroveň):} Reprezentuje jednotlivé atomické úkony uvnitř dané operace. Pokud chce uživatel pochopit detailní fungování struktury, může si operaci pozastavit a~procházet ji krok za krokem, přičemž systém mu vizualizuje každý posun ukazatele či změnu v~grafu.
 \end{enumerate}
 
 Tento model zajišťuje, že aplikace je vhodná jak pro rychlé demonstrace vlastností datových struktur, tak pro detailní studium jejich vnitřních mechanismů.
@@ -302,28 +302,28 @@ Tento model zajišťuje, že aplikace je vhodná jak pro rychlé demonstrace vla
 \subsection{Mapování logiky na pseudokód}
 \label{subsec:pseudocode-mapping}
 
-Pro efektivní výuku je nezbytné, aby uživatel viděl přímou souvislost mezi vizuální reprezentací algoritmu a jeho teoretickým zápisem.
+Pro efektivní výuku je nezbytné, aby uživatel viděl přímou souvislost mezi vizuální reprezentací algoritmu a~jeho teoretickým zápisem.
 Za tímto účelem byl navržen systém mapování kroků pomocí abstraktních identifikátorů, interně nazvaných jako části kódu (\texttt{codeParts}).
 
-Při generování transakční historie si každý krok třídicího algoritmu nenese informaci o konkrétním textu, ale obsahuje pouze identifikátory těch logických bloků, které se v danou chvíli vykonávají.
-Uživatelské rozhraní následně tyto identifikátory dynamicky spáruje s jedním či více řádky aktuálně zobrazeného pseudokódu a vizuálně je zvýrazní.
+Při generování transakční historie si každý krok třídicího algoritmu nenese informaci o~konkrétním textu, ale obsahuje pouze identifikátory těch logických bloků, které se v~danou chvíli vykonávají.
+Uživatelské rozhraní následně tyto identifikátory dynamicky spáruje s~jedním či více řádky aktuálně zobrazeného pseudokódu a~vizuálně je zvýrazní.
 
 Zásadní výhodou tohoto oddělení aplikační logiky od prezentační vrstvy je značná flexibilita.
-Systém tak umožňuje snadné přepínání pseudokódu do různých programovacích jazyků za běhu aplikace, přičemž synchronizace mezi běžící animací a zvýrazněnými řádky kódu zůstává plně a bezchybně zachována.
+Systém tak umožňuje snadné přepínání pseudokódu do různých programovacích jazyků za běhu aplikace, přičemž synchronizace mezi běžící animací a~zvýrazněnými řádky kódu zůstává plně a~bezchybně zachována.
 Tento způsob řešení je díky možnosti mapovat jeden krok na více řádků pseudokódu také ideální pro algoritmy, které mají složitější vnitřní strukturu.
-Simulace tak zůstává přehledná a uživatel má vždy jasnou představu o tom, co se v daném kroku děje, a jaké části algoritmu jsou právě aktivní.
+Simulace tak zůstává přehledná a~uživatel má vždy jasnou představu o~tom, co se v~daném kroku děje, a~jaké části algoritmu jsou právě aktivní.
 
-\section{Datový model a abstrakce}
+\section{Datový model a~abstrakce}
 \label{sec:data-model-abstraction}
 
-Pro úspěšnou implementaci a plynulou vizualizaci je nezbytné striktně oddělit aplikační logiku algoritmů od vykreslovací vrstvy.
+Pro úspěšnou implementaci a~plynulou vizualizaci je nezbytné striktně oddělit aplikační logiku algoritmů od vykreslovací vrstvy.
 Pouhá reprezentace dat pomocí surových čísel je pro interaktivní aplikaci nedostačující.
-Datové modely proto musí obsahovat i dodatečná metadata potřebná pro sledování animací, identifikaci prvků a jejich sémantické obarvování.
+Datové modely proto musí obsahovat i~dodatečná metadata potřebná pro sledování animací, identifikaci prvků a~jejich sémantické obarvování.
 
 \subsection{Reprezentace datových struktur}
 \label{subsec:structure-representation}
 
-Abstraktní datový model struktur je navržen s ohledem na maximální univerzálnost a snadnou rozšiřitelnost.
+Abstraktní datový model struktur je navržen s~ohledem na maximální univerzálnost a~snadnou rozšiřitelnost.
 Jeho zjednodušený konceptuální návrh je znázorněn na \customref{Obrázku}{fig:class_data_structures}.
 
 \begin{figure}[ht]
@@ -333,20 +333,20 @@ Jeho zjednodušený konceptuální návrh je znázorněn na \customref{Obrázku}
     \label{fig:class_data_structures}
 \end{figure}
 
-Na nejnižší úrovni je třída \texttt{DataNode} reprezentující každý prvek grafu identifikován unikátním \texttt{id}, pomocí něhož je možné datovou strukturu spárovat s vykreslovací knihovnou \textit{vis-network}.
-Z tohoto základu dědí specifické třídy uzlů (např. pro binární stromy či zásobník), které jej obohacují o samotnou hodnotu, potřebné ukazatele na další uzly a případně specifické metody, například pro aktualizaci informací o vyvážení u AVL~stromů.
+Na nejnižší úrovni je třída \texttt{DataNode} reprezentující každý prvek grafu identifikován unikátním \texttt{id}, pomocí něhož je možné datovou strukturu spárovat s~vykreslovací knihovnou \textit{vis-network}.
+Z~tohoto základu dědí specifické třídy uzlů (např. pro binární stromy či zásobník), které jej obohacují o~samotnou hodnotu, potřebné ukazatele na další uzly a~případně specifické metody, například pro aktualizaci informací o~vyvážení u~AVL~stromů.
 
 Společné rozhraní všech struktur zastřešuje abstraktní třída \texttt{DataStructure}.
-Ta automatizuje přidělování identifikátorů a definuje metodu pro tvorbu neměnných snímků stavu grafu (\texttt{snapshot}).
-Specifické datové struktury pak implementují své vlastní operace, které generují tyto snímky a ukládají je do historie.
-Provádění samotných operací je abstrakcí rozděleno do dvou úrovní, které odráží hierarchický návrh krokování: \texttt{OperationData} obaluje celou operaci  (včetně stavu před a po), zatímco \texttt{StepData} slouží pro uložení dílčích atomických kroků uvnitř operace.
-Každý krok v sobě navíc může nést specifická data určující, které uzly se mají v danou chvíli zvýraznit.
+Ta automatizuje přidělování identifikátorů a~definuje metodu pro tvorbu neměnných snímků stavu grafu (\texttt{snapshot}).
+Specifické datové struktury pak implementují své vlastní operace, které generují tyto snímky a~ukládají je do historie.
+Provádění samotných operací je abstrakcí rozděleno do dvou úrovní, které odráží hierarchický návrh krokování: \texttt{OperationData} obaluje celou operaci  (včetně stavu před a~po), zatímco \texttt{StepData} slouží pro uložení dílčích atomických kroků uvnitř operace.
+Každý krok v~sobě navíc může nést specifická data určující, které uzly se mají v~danou chvíli zvýraznit.
 Díky této jednotné architektuře dokáže vizuální vrstva vykreslit jakoukoliv strukturu bez nutnosti znát její vnitřní implementační detaily.
 
 \subsection{Rozhraní pro třídicí algoritmy}
 \label{subsec:algorithm-interface}
 
-Rovněž návrh třídicích algoritmů striktně dodržuje modulární přístup, aby bylo možné algoritmy snadno testovat a rozšiřovat.
+Rovněž návrh třídicích algoritmů striktně dodržuje modulární přístup, aby bylo možné algoritmy snadno testovat a~rozšiřovat.
 Třídní diagram této části je přiložen na \customref{Obrázku}{fig:class_sorting_algorithms}.
 
 \begin{figure}[ht]
@@ -357,11 +357,11 @@ Třídní diagram této části je přiložen na \customref{Obrázku}{fig:class_
 \end{figure}
 
 Nejnižší logickou jednotkou je třída \texttt{Item}, která obaluje číselnou hodnotu prvku.
-Obsahuje unikátní \texttt{id} pro plynulé sledování DOM elementů během CSS animací a atribut \texttt{highlightType}, jenž řídí sémantické obarvení prvku.
+Obsahuje unikátní \texttt{id} pro plynulé sledování DOM elementů během CSS animací a~atribut \texttt{highlightType}, jenž řídí sémantické obarvení prvku.
 
 Záznam výpočetní historie algoritmu deleguje systém na třídu \texttt{DetailedTraceBuilder}.
-Ta si udržuje aktuální stav pole (\texttt{workingArray}) a postupně do paměti ukládá jednotlivé snímky pomocí metody \texttt{record}.
+Ta si udržuje aktuální stav pole (\texttt{workingArray}) a~postupně do paměti ukládá jednotlivé snímky pomocí metody \texttt{record}.
 Výsledkem je vygenerované pole kroků.
-Z důvodu podpory dvou úrovní vizualizace existují i dva typy kroků: \texttt{SortStep} nese pouze základní informace o stavu pole, zatímco \texttt{DetailedSortStep} je rozšířen o dvourozměrnou mřížku pro vizualizaci úrovní u rekurzivních algoritmů (Quick sort, Merge sort) a o mapovací identifikátor \texttt{codePartId} napojující aktuální část pseudokódu.
+Z~důvodu podpory dvou úrovní vizualizace existují i~dva typy kroků: \texttt{SortStep} nese pouze základní informace o~stavu pole, zatímco \texttt{DetailedSortStep} je rozšířen o~dvourozměrnou mřížku pro vizualizaci úrovní u~rekurzivních algoritmů (Quick sort, Merge sort) a~o~mapovací identifikátor \texttt{codePartId} napojující aktuální část pseudokódu.
 
-Definice samotného pseudokódu je uložena v šabloně \texttt{DetailedCodeTemplate}, která pro daný algoritmus specifikuje řádky (\texttt{CodeLine}) nezávisle na zvoleném programovacím jazyce. Hlavní třída \texttt{SortingAlgorithm} tak funguje pouze jako zastřešující entita -- přijme vstupní pole a pomocí definovaných metod (\texttt{generateSteps}) vrátí standardizovanou sekvenci těchto kroků, jež si uživatelské rozhraní plynule přehraje.
+Definice samotného pseudokódu je uložena v~šabloně \texttt{DetailedCodeTemplate}, která pro daný algoritmus specifikuje řádky (\texttt{CodeLine}) nezávisle na zvoleném programovacím jazyce. Hlavní třída \texttt{SortingAlgorithm} tak funguje pouze jako zastřešující entita -- přijme vstupní pole a~pomocí definovaných metod (\texttt{generateSteps}) vrátí standardizovanou sekvenci těchto kroků, jež si uživatelské rozhraní plynule přehraje.
