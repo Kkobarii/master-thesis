@@ -225,14 +225,14 @@ Poskytuje taktéž velmi užitečnou možnost odposlouchávání událostí, jak
 
 Pro zajištění efektivního vývoje a nasazení aplikace je důležité implementovat procesy pro kontinuální integraci a kontinuální nasazení (CI/CD).
 Tyto procesy umožňují automatizovat kontrolu, kompilaci a nasazení aplikace, čímž zrychlují vývoj a udržují aplikaci vždy v aktuálním stavu.
-Pro tento projekt bude využit GitHub Actions, nástroj pro automatizaci pracovních postupů přímo integrovaný do platformy GitHub.
+Pro tento projekt bude využit \mbox{GitHub} Actions, nástroj pro automatizaci pracovních postupů přímo integrovaný do platformy \mbox{GitHub}.
 
 \subsection{GitHub Actions}
 \label{subsec:github_actions}
 
-Tato platforma pro CI/CD dokáže kompilovat, testovat a nasazovat kód přímo z repozitáře ve službě GitHub.
+Tato platforma pro CI/CD dokáže kompilovat, testovat a nasazovat kód přímo z repozitáře ve službě \mbox{GitHub}.
 Tyto procesy se spouštějí automaticky na základě definovaných událostí, jako je typicky akce push nebo nový pull request.
-Spouštění pracovních postupů se provádí na virtuálních strojích, které jsou k dispozici pro různé operační systémy a prostředí a jsou poskytnuty zdarma platformou GitHub.~\cite{actions}
+Spouštění pracovních postupů se provádí na virtuálních strojích, které jsou k dispozici pro různé operační systémy a prostředí a jsou poskytnuty zdarma platformou \mbox{GitHub}.~\cite{actions}
 
 \begin{listing}[ht]
     \inputminted{yaml}{code/technologies/gh_actions.yml}
@@ -248,17 +248,17 @@ Tento proces má následující fáze:
     \item \textbf{Příprava prostředí (\texttt{Checkout} \& \texttt{Setup})}: Virtuální stroj stáhne zdrojový kód z repozitáře a připraví potřebné prostředí (Node.js).
     \item \textbf{Instalace závislostí (\texttt{Install})}: Stažení všech externích knihoven definovaných v projektu, které jsou nezbytné pro sestavení aplikace.
     \item \textbf{Sestavení aplikace (\texttt{Build})}: Kompilace zdrojového kódu, převedení Svelte komponent do jazyka JavaScript a generování optimalizovaných statických souborů připravených pro nasazení.
-    \item \textbf{Nasazení (\texttt{Deploy})}: Automatické nahrání výsledných souborů na hosting (GitHub Pages), čímž se nová verze okamžitě zpřístupní uživatelům.
+    \item \textbf{Nasazení (\texttt{Deploy})}: Automatické nahrání výsledných souborů na hosting (\mbox{GitHub} Pages), čímž se nová verze okamžitě zpřístupní uživatelům.
 \end{enumerate}
 
 Tento přístup minimalizuje riziko chyb při ručním nasazování a zaručuje, že verze aplikace na produkčním serveru vždy odpovídá aktuálnímu stavu zdrojového kódu v hlavní větvi repozitáře.
-Ve spojení s využitím platformy Github pro verzování a správu kódu bude využití GitHub Actions přirozenou volbou pro implementaci CI/CD procesu, který je efektivní pro vývoj a nasazení výukové aplikace.
+Ve spojení s využitím platformy \mbox{GitHub} pro verzování a správu kódu bude využití \mbox{GitHub} Actions přirozenou volbou pro implementaci CI/CD procesu, který je efektivní pro vývoj a nasazení výukové aplikace.
 
 \subsection{GitHub Pages}
 \label{subsec:github_pages}
 
-Pro hosting statické webové aplikace bude využita služba GitHub Pages, která umožňuje snadné a bezplatné nasazení statických stránek přímo z repozitáře na platformě GitHub.
-GitHub Pages představuje efektivní řešení pro hosting statických webových stránek bez nutnosti správy vlastního serveru či plateb za externí hostingové služby.
+Pro hosting statické webové aplikace bude využita služba \mbox{GitHub} Pages, která umožňuje snadné a bezplatné nasazení statických stránek přímo z repozitáře na platformě \mbox{GitHub}.
+\mbox{GitHub} Pages představuje efektivní řešení pro hosting statických webových stránek bez nutnosti správy vlastního serveru či plateb za externí hostingové služby.
 Proces nasazení spočívá pouze v nahrání vygenerovaných souborů do zdrojového repozitáře a konfiguraci publikační větve.
 Aplikace je následně okamžitě dostupná na veřejné URL adrese.~\cite{pages}
 
@@ -272,5 +272,5 @@ Jako framework byl zvolen \textbf{Svelte} a s ním spojený meta-framework \text
 Využití jazyka \textbf{TypeScript} v rámci celého vývoje zajišťuje typovou bezpečnost při práci se složitými datovými strukturami.
 
 Pro samotnou vizualizaci grafů a stromů byla vybrána knihovna \textbf{vis-network}, která díky svému hierarchickému rozvržení a možnosti odposlouchávání událostí umožňuje přehledné a interaktivní zobrazení jak pro jednoduché, tak i složitější datové struktury.
-Celý proces sestavení a nasazení aplikace je automatizován pomocí \textbf{GitHub Actions} a výsledná statická aplikace je hostována na \textbf{GitHub Pages}, aby byl vývoj co nejvíce ulehčen a aby byla omezena lidská chyba.
+Celý proces sestavení a nasazení aplikace je automatizován pomocí \textbf{\mbox{GitHub} Actions} a výsledná statická aplikace je hostována na \textbf{\mbox{GitHub} Pages}, aby byl vývoj co nejvíce ulehčen a aby byla omezena lidská chyba.
 Soubor těchto technologií poskytuje solidní základ pro vývoj výukové aplikace, která bude funkční, rychlá a uživatelsky přívětivá.

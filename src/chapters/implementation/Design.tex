@@ -98,7 +98,7 @@ Celkový návrh pro tuto vizualizaci je znázorněn na \customref{Obrázku}{fig:
     \label{fig:wire_sorting}
 \end{figure}
 
-Jak již bylo definováno výše, stránky pro simulaci třídicích algoritmů mají dvě úrovně vizualizace, přičemž první z nich je obecná, která zobrazuje pouze pole a jeho prvky, jež se mění v průběhu algoritmu.
+Jak již bylo definováno výše, stránky pro simulaci třídicích algoritmů mají dvě úrovně vizualizace, přičemž první z nich je obecná, která zobrazuje pouze pole a jeho prvky, jež se mění v průběhu chodu algoritmu.
 Vpravo od nadpisu je tedy u třídicích algoritmů přidán přepínač, kterým si uživatelé mohou zvolit úroveň vizualizace.
 Návrh \imageref{fig:wire_sorting} je velmi jednoduchý, neboť zde není nutné uživateli předávat mnoho informací.
 \textit{Ovládání} simulace je umístěno pod nadpisem, opět s možností krokování a také s posuvníkem pro úpravu rychlosti animací.
@@ -158,10 +158,10 @@ Co se týče datových struktur, základem jejich vizualizace je grafová knihov
 Grafy zobrazené pomocí této knihovny se vykreslují do elementu \texttt{canvas} a je u nich zařízena efektivní funkčnost i pro větší datové sady.
 Pro vizualizaci stromů je využíván hierarchický layout, který zajišťuje, že uzly jsou uspořádány do vrstev podle své hloubky ve stromu, pro lineární datové struktury postačí základní rozvržení.
 
-Jelikož u některých datových struktur je třeba zobrazovat doplňující informace (např. informace o vyvážení uzlu AVL stromu nebo identifikace začátku a konce fronty), je u vizualizace nutné implementovat určitý způsob anotace grafu.
+Jelikož u některých datových struktur je třeba zobrazovat doplňující informace (např. informace o vyvážení uzlu AVL~stromu nebo identifikace začátku a konce fronty), je u vizualizace nutné implementovat určitý způsob anotace grafu.
 Anotace se využívá nejen pro zmíněné informace, ale také pro komentář k aktuální operaci a kroku, uživatel tak bude mít další pomocnou vysvětlivku směřující jeho pozornost k důležitým uzlům grafu.
 Tyto popisky jsou vykresleny taktéž do elementu \texttt{canvas}, využívaje API knihovny pro zjištění konkrétních souřadnic jednotlivých uzlů grafu.
-Samotný návrh vizuálu tedy není přiložen, jedná se totiž o základní vykreslení grafu knihovnou vis-network zobrazeným výše na \customref{Obrázku}{fig:vis_tree}, rozšířené o informační popisky.
+Samotný návrh vizuálu tedy není přiložen, jedná se totiž o základní vykreslení grafu knihovnou \textit{vis-network} zobrazeným výše na \customref{Obrázku}{fig:vis_tree}, rozšířené o informační popisky.
 
 \subsection{Obecná vizualizace pole}
 \label{subsec:general-array-visualization}
@@ -237,10 +237,10 @@ Barevná sémantika je rozdělena do dvou hlavních kategorií podle typu vizual
 U \textbf{datových struktur} je výchozí barvou uzlů zelená.
 Během průchodu strukturou mění uzly svou barvu podle prováděné operace: azurová barva indikuje hledaný prvek, zatímco modrá označuje nalezený uzel nebo potomka.
 Pokud je uzel označen ke smazání, je zvýrazněn varovnou červenou barvou.
-Specifický přístup vyžadují červeno-černé stromy, kde samotná podstata struktury závisí na barvě uzlu.
+Specifický přístup vyžadují červeno\=/černé stromy, kde samotná podstata struktury závisí na barvě uzlu.
 V tomto případě jsou uzly obarveny tmavě šedou (reprezentující černé uzly) a tlumenou červenou barvou.
 Aby nedocházelo ke konfliktu s indikací mazání, je odstranění uzlu v těchto stromech řešeno pomocí výplně odlišného odstínu.
-Mezi další specifické sémantické barvy patří žlutá, která indikuje informace o vyvážení uzlu AVL stromu, a modrá, sloužící ke zvýraznění porovnávaných prvků u haldy.
+Mezi další specifické sémantické barvy patří žlutá, která indikuje informace o vyvážení uzlu AVL~stromu, a modrá, sloužící ke zvýraznění porovnávaných prvků u haldy.
 
 U \textbf{třídicích algoritmů} je výchozím stavem neutrální šedá barva.
 Pozornost uživatele je při krokování směrována pomocí červené barvy, jež značí aktuálně porovnávanou dvojici prvků.
@@ -334,7 +334,7 @@ Jeho zjednodušený konceptuální návrh je znázorněn na \customref{Obrázku}
 \end{figure}
 
 Na nejnižší úrovni je třída \texttt{DataNode} reprezentující každý prvek grafu identifikován unikátním \texttt{id}, pomocí něhož je možné datovou strukturu spárovat s vykreslovací knihovnou \textit{vis-network}.
-Z tohoto základu dědí specifické třídy uzlů (např. pro binární stromy či zásobník), které jej obohacují o samotnou hodnotu, potřebné ukazatele na další uzly a případně specifické metody, například pro aktualizaci informací o vyvážení u AVL stromů.
+Z tohoto základu dědí specifické třídy uzlů (např. pro binární stromy či zásobník), které jej obohacují o samotnou hodnotu, potřebné ukazatele na další uzly a případně specifické metody, například pro aktualizaci informací o vyvážení u AVL~stromů.
 
 Společné rozhraní všech struktur zastřešuje abstraktní třída \texttt{DataStructure}.
 Ta automatizuje přidělování identifikátorů a definuje metodu pro tvorbu neměnných snímků stavu grafu (\texttt{snapshot}).

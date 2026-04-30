@@ -21,7 +21,7 @@ První aplikací, kterou tato práce analyzuje, je \textit{Gnarley Trees}, inter
 \subsubsection*{Obsah}
 
 Aplikace se zaměřuje především na stromy a haldy, v kontextu různých způsobů ukládání dat a jejich efektivity.
-U stromů jde například o binární vyhledávací stromy, červeno-černé stromy, AVL stromy, B-stromy a různé další varianty těchto struktur.
+U stromů jde například o binární vyhledávací stromy, červeno\=/černé stromy, AVL~stromy, B\=/stromy a různé další varianty těchto struktur.
 U front a hald jsou to například prioritní fronty implementované pomocí binárních hald, Fibonacciho hald a dalších.
 
 Každý typ datové struktury má možnost vizualizace základních operací, u stromů například vkládání, mazání a vyhledávání uzlů, u hald a front pak vkládání, inkrementaci hodnoty prvku a odstraňování prvků s nejvyšší prioritou.
@@ -56,7 +56,7 @@ Animace pro jednotlivé operace jsou velmi jednoduché a oproti předchozí apli
 Krokování funguje opět vpřed i vzad, včetně možnosti nastavení rychlosti animace.
 Jako nedostatek lze uvést i absenci možnosti naplnění datové struktury náhodnými hodnotami, což by zrychlilo testování a experimentování s různými scénáři.
 Třídicí algoritmy jsou velmi jednoduché, umožňují uživateli náhodně zamíchat pole čísel, zvolit si algoritmus a sledovat jeho průběh.
-Jako velmi zajímavé rozšíření aplikace poskytuje možnost napsat si vlastní algoritmus a vizualizovat jeho průběh.
+Jako velmi zajímavé rozšíření aplikace poskytuje možnost napsat si vlastní algoritmus a vizualizovat, jak pracuje nad zadaným polem.
 
 \subsubsection*{Vizuál}
 
@@ -72,14 +72,14 @@ Aplikace je dostupná pouze v angličtině.
 \subsection{B Plus Tree}
 \label{subsec:other_apps_ds_b_plus_tree}
 
-Poslední aplikací zaměřující se na datové struktury, jejíž analýzu tato práce provede, je \textit{B Plus Tree}, interaktivní nástroj pro vizualizaci B+ stromů.~\cite{bPlusTree}
+Poslední aplikací zaměřující se na datové struktury, jejíž analýzu tato práce provede, je \textit{B Plus Tree}, interaktivní nástroj pro vizualizaci B+~stromů.~\cite{bPlusTree}
 
 \subsubsection*{Obsah}
 
-Aplikace se specializuje výhradně na B+ stromy, neobsahuje tedy jiné datové struktury.
-U B+ stromů jsou k dispozici vizualizace základních operací, jako je vkládání, mazání a vyhledávání klíčů.
+Aplikace se specializuje výhradně na B+~stromy, neobsahuje tedy jiné datové struktury.
+U těchto stromů jsou k dispozici vizualizace základních operací, jako je vkládání, mazání a vyhledávání klíčů.
 Mimo tyto poskytuje i možnost nastavit danému stromu maximální počet klíčů na vnitřní uzel nebo list a také možnost generování náhodných klíčů pro rychlé naplnění stromu.
-Chybí zde vysvětlivky k jednotlivým operacím, krátký popis struktury se věnuje spíše využití B+ stromů v databázových systémech než jejich vnitřní struktuře a fungování.
+Chybí zde vysvětlivky k jednotlivým operacím, krátký popis struktury se věnuje spíše využití B+~stromů v databázových systémech než jejich vnitřní struktuře a fungování.
 
 Interakce s vizualizacemi je intuitivní, uživatel může zadávat hodnoty prostřednictvím vstupních polí a sledovat, jak se strom mění v reálném čase.
 Animace nemají možnost krokování, po provedení operace se strom aktualizuje rovnou do nového stavu, a také je není možné krokovat zpět.
@@ -129,10 +129,10 @@ Dále byla provedena analýza a porovnání konkrétních datových struktur, kt
             \textbf{Datová struktura} & \textbf{Gnarley Trees}                                & \textbf{Data Structure Visualizations} & \textbf{B Plus Tree} \\
             \midrule
             Binární vyhledávací strom & Ano                                                   & Ano                                    & Ne                   \\
-            AVL strom                 & Ano                                                   & Ano                                    & Ne                   \\
-            Červeno-černý strom       & Ano                                                   & Ano                                    & Ne                   \\
-            B-strom                   & Ano                                                   & Ano                                    & Ne                   \\
-            B+ strom                  & Ne                                                    & Ano                                    & Ano                  \\
+            AVL~strom                 & Ano                                                   & Ano                                    & Ne                   \\
+            Červeno\=/černý strom     & Ano                                                   & Ano                                    & Ne                   \\
+            B\=/strom                 & Ano                                                   & Ano                                    & Ne                   \\
+            B+~strom                  & Ne                                                    & Ano                                    & Ano                  \\
             Spojový seznam            & Ano\tablefootnote{Pouze v teoretické části.\label{t}} & Ne                                     & Ne                   \\
             Zásobník                  & Ano\footref{t}                                        & Ano                                    & Ne                   \\
             Fronta                    & Ano\footref{t}                                        & Ano                                    & Ne                   \\
@@ -145,7 +145,7 @@ Dále byla provedena analýza a porovnání konkrétních datových struktur, kt
 
 Z uvedeného shrnutí je patrné, že nejkomplexnější podporu datových struktur nabízí aplikace \textit{Data Structure Visualizations}, která pokrývá téměř všechny uvedené struktury.
 \textit{Gnarley Trees} nabízí také širokou škálu datových struktur, ale některé z nich jsou dostupné pouze v teoretické části aplikace a nejsou vizualizovány interaktivně.
-Nejméně obsáhlá je aplikace \textit{B Plus Tree}, která se sice specializuje pouze na B+ stromy, ale zato je v této oblasti velmi dobře propracovaná.
+Nejméně obsáhlá je aplikace \textit{B Plus Tree}, která se sice specializuje pouze na B+~stromy, ale zato je v této oblasti velmi dobře propracovaná.
 
 \section{Simulace algoritmů}
 \label{sec:other_apps_sorting_algorithms}
@@ -159,8 +159,7 @@ Aplikace \textit{Sort Visualizer} je interaktivní nástroj pro vizualizaci růz
 
 \subsubsection*{Obsah}
 
-Sort Visualizer nabízí simulace několika běžných třídicích algoritmů, které dělí na logaritmické (Quick sort, Merge sort, Heap sort), kvadratické (Bubble sort, Insertion sort, Selection sort) a další (např.
-Radix sort).
+Sort Visualizer nabízí simulace několika běžných třídicích algoritmů, které jsou v navigačních prvcích děleny na logaritmické (Quick sort, Merge sort, Heap sort), kvadratické (Bubble sort, Insertion sort, Selection sort) a další (např. Radix sort).
 Přidává také možnost vytvořit si vlastní algoritmus a sledovat, jak pracuje nad zadaným polem.
 
 Interakce se simulací je značně omezená, uživatel si může pouze zvolit algoritmus, velikost pole a rychlost animace.
@@ -276,7 +275,7 @@ Z analyzovaných aplikací ani jedna nenabízí simulaci vyhledávacích algorit
 Analýza existujících řešení, provedená v této kapitole, poskytla cenné poznatky o současných nástrojích pro vizualizaci datových struktur a algoritmů.
 Z analýzy vyplynulo, že zatímco některé aplikace nabízejí širokou škálu funkcí a interakcí, jiné se zaměřují na specifické datové struktury nebo algoritmy s omezenými možnostmi přizpůsobení.
 
-Na základě porovnání podporovaných datových struktur bylo rozhodnuto, že modelová aplikace bude zahrnovat vizualizaci následujících datových struktur: binární vyhledávací strom, AVL strom, červeno-černý strom, B-strom, B+ strom, spojový seznam, zásobník, fronta a halda.
+Na základě porovnání podporovaných datových struktur bylo rozhodnuto, že modelová aplikace bude zahrnovat vizualizaci následujících datových struktur: binární vyhledávací strom, AVL~strom, červeno\=/černý strom, B\=/strom, B+~strom, spojový seznam, zásobník, fronta a halda.
 Tato volba byla učiněna s ohledem na jejich význam v oblasti informatiky a jejich časté využití v praxi.
 
 Co se týče třídicích algoritmů, modelová aplikace bude podporovat vizualizaci následujících algoritmů: Bubble sort, Insertion sort, Selection sort, Merge sort, Quick sort a Heap sort.

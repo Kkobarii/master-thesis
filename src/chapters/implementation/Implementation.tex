@@ -132,9 +132,8 @@ Při emisi události o změně kroku je nutné abstraktní datový záznam (nap�
 K tomuto překladu slouží architektonický vzor \textit{Strategy}, implementovaný prostřednictvím systému handler tříd.
 
 Základem je abstraktní třída \texttt{StepHandlerBase}, jejíž rozhraní je uvedeno ve \customref{Výpisu}{code:step_handler_base}.
-Každá datová struktura (např.
-AVL strom) implementuje vlastního potomka této třídy.
-Životní cyklus zpracování jednoho kroku je zde rozdělen do tří fází: \texttt{stepSetup} (příprava plátna a aplikace datového snapshotu), \texttt{stepRoute} (samotné spuštění animace) a \texttt{stepCleanup} (zajištění konzistentního stavu po ukončení animace).
+Každá datová struktura (např. AVL~strom) implementuje vlastního potomka této třídy.
+Životní cyklus zpracování jednoho kroku je zde rozdělen do tří fází: \texttt{stepSetup} (příprava plátna a aplikace datového snímku), \texttt{stepRoute} (samotné spuštění animace) a \texttt{stepCleanup} (zajištění konzistentního stavu po ukončení animace).
 
 \begin{listing}[ht]
     \inputminted{typescript}{code/implementation/stepHandlerBase.ts}
@@ -151,7 +150,7 @@ Tímto přístupem je zajištěno, že samotný vizualizační engine zůstává
 \label{sec:visualization-engine}
 
 Posledním stěžejním prvkem implementační architektury je vizualizační engine, který má za úkol plynule převádět diskrétní datové modely algoritmů a struktur na srozumitelné animace.
-Při návrhu této vrstvy bylo nutné vyřešit několik netriviálních technologických výzev, od reprezentace rekurze na frontendové mřížce až po obcházení limitů externích grafických knihoven.
+Při návrhu této vrstvy bylo nutné vyřešit několik netriviálních technologických výzev, od reprezentace rekurze na CSS mřížce až po obcházení limitů externích grafických knihoven.
 
 \subsection{Vizuální reprezentace rekurzivních algoritmů}
 \label{subsec:recursion-viz}
@@ -211,31 +210,31 @@ Tato nezávislá vrstva umožňuje vykreslovat hned několik typů anotací:
 \label{subsec:btree-limitations}
 
 Navzdory robustnímu systému tříd \texttt{Annotator} a \texttt{Animator} existují scénáře, ve kterých zvolená knihovna naráží na své nepřekročitelné architektonické limity.
-Tímto scénářem jsou především B-stromy.
+Tímto scénářem jsou především B\=/stromy.
 
 Hierarchický auto-layout knihovny \textit{vis-network} interně počítá se zhruba konstantní šířkou všech uzlů a udržuje pevnou horizontální vzdálenost mezi sourozenci v dané úrovni stromu.
-Podstata B-stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje.
+Podstata B\=/stromů však spočívá v tom, že uzel může dynamicky měnit svou velikost podle toho, kolik klíčů aktuálně obsahuje.
 Tato vlastnost způsobuje, že při zvýšení počtu klíčů uzlu nedokáže hierarchický layout správně přepočítat relativní vzdálenosti v dané úrovni.
 Tento stav ve specifických případech vede k vizuálnímu překryvu sousedních prvků.
 Zmíněný nedostatek nelze plně korigovat bez opuštění použité grafické knihovny a naprogramování vlastního vykreslovacího modelu, a představuje tak akceptované omezení implementace.
 Ve výsledné aplikaci je proto mezi uzly nastavená pevná minimální vzdálenost, která eliminuje překryvy na úkor občasných větších mezer mezi listy stromu.
 
 Zvolená knihovna rovněž neumožňuje explicitně definovat pořadí potomků uzlu.
-Tento problém vyvstal až během implementace B-stromu, neboť u binárních stromů jsou uzly implicitně řazeny v pořadí jejich přidání do grafu.
+Tento problém vyvstal až během implementace B\=/stromu, neboť u binárních stromů jsou uzly implicitně řazeny v pořadí jejich přidání do grafu.
 U struktur s více než dvěma potomky však toto chování neplatí a algoritmus rozložení namísto toho sourozence seřazuje primárně podle jejich identifikátoru (\texttt{id}).
-Pro korektní zobrazení B-stromu tak bylo nutné při každém přidání či odebrání uzlu kompletně přepočítat identifikátory a přiřadit je na základě průchodu \textit{post-order}.
+Pro korektní zobrazení B\=/stromu tak bylo nutné při každém přidání či odebrání uzlu kompletně přepočítat identifikátory a přiřadit je na základě průchodu \textit{post-order}.
 Aby zároveň zůstala plynulá animace přechodů, byla změna indexů doplněna o překladové pole mapující relace mezi původními a novými identifikátory jednotlivých uzlů.
 
 \section{Uživatelské testování a iterativní vývoj}
 \label{sec:testing_and_iteration}
 
 Během vývoje aplikace proběhlo uživatelské testování cílovou skupinou, kterou tvořili vysokoškolští studenti.
-Získané podněty a nalezené nedostatky byly systematicky evidovány pomocí nástroje GitHub Issues.
+Získané podněty a nalezené nedostatky byly systematicky evidovány pomocí nástroje \mbox{GitHub} Issues.
 Samotné testování potvrdilo vysokou úroveň navrženého uživatelského prostředí.
 Uživatelé od počátku intuitivně chápali význam jednotlivých ovládacích prvků a nevykazovali žádné problémy s navigací či pochopením logiky a ovládání systému.
 
 I přes velmi pozitivní hodnocení celkové ergonomie vedla zpětná vazba k implementaci řady funkčních vylepšení.
-V oblasti simulace datových struktur se vývoj zaměřil na pokrytí okrajových případů (\textit{edge-cases}), a to primárně u složitějších operací v B-stromech.
+V oblasti simulace datových struktur se vývoj zaměřil na pokrytí okrajových případů (\textit{edge-cases}), a to primárně u složitějších operací v B\=/stromech.
 Do aplikace přibyla možnost volby mezi vygenerováním zcela prázdné, nebo naopak předvyplněné datové struktury.
 Rozšíření se dočkala také srovnávací matice třídicích algoritmů, kam byla doplněna počítadla provedených porovnání a výměn včetně celkového pořadí.
 Paralelně s těmito vylepšeními docházelo ke průběžnému odstraňování drobných chyb a celkové optimalizaci stability aplikace.
@@ -246,7 +245,7 @@ Z produkční verze byly skryty vývojářské nástroje, jako jsou detailní in
 Úpravou prošly rovněž samotné studijní materiály, u nichž došlo k detailnějšímu rozvedení náročnějších pasáží pro maximální srozumitelnost probírané teorie.
 
 % - Testováno několika studenty (mými kolegy)
-% - Podněty byly sledovány pomocí Github Issues
+% - Podněty byly sledovány pomocí GitHub Issues
 % - UI improvements - responzivita, rozdělení ovládání struktur do sekcí
 % - Skrytí debugovacích nástrojů - informační výpisky, detailní zobrazení kroků, dev ovládací prvky
 % - Přidání možností vytvoření prázdné nebo předvyplněné datové struktury (původně byla jen ta předvyplněná)
@@ -260,9 +259,9 @@ Z produkční verze byly skryty vývojářské nástroje, jako jsou detailní in
 \label{subsec:implementation-cicd}
 
 Pro zajištění kontinuální dostupnosti aplikace pro koncové uživatele a eliminaci chyb při manuálním nasazování byl implementován plně automatizovaný proces sestavení a publikace.
-Tento proces využívá platformu GitHub Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
+Tento proces využívá platformu \mbox{GitHub} Actions a je definován v konfiguračním souboru \texttt{deploy.yml}.
 
-Ačkoliv je aplikace technicky nasazena v infrastruktuře GitHub Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména odpovídající zvolenému jménu nástroje.
+Ačkoliv je aplikace technicky nasazena v infrastruktuře \mbox{GitHub} Pages, pro zvýšení důvěryhodnosti a snadnější zapamatovatelnost byla v rámci implementace nastavena vlastní doména odpovídající zvolenému jménu nástroje.
 Aplikace je tak vždy dostupná na nastavené adrese\footnote{\href{https://treeline.kkobari.eu}{https://treeline.kkobari.eu}}, přičemž veškeré aktualizace jsou automaticky publikovány bez nutnosti manuálního zásahu.
 
 \section{Uživatelské rozhraní a další funkcionality}
@@ -285,7 +284,7 @@ V rámci implementace byl pro výukovou aplikaci zvolen název \textbf{Treeline}
     \label{fig:structure_page}
 \end{figure}
 
-Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur na příkladu AVL stromu.
+Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur na příkladu AVL~stromu.
 Pro graf je vyhrazena většina horizontálního prostoru, zatímco ovládací prvky pro manipulaci se strukturou (vkládání, mazání, hledání) jsou umístěny v pravé postranní liště.
 
 Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující pohledy.
@@ -400,10 +399,10 @@ Cílem tohoto srovnání je demonstrovat, do jaké míry se podařilo naplnit st
 V oblasti vizualizace datových struktur je výsledná aplikace nejvíce srovnatelná s nástrojem \textit{Data Structure Visualizations}.
 Oproti němu přináší výrazně modernější a sjednocené uživatelské rozhraní, plnou responzivitu a lokalizaci do českého jazyka.
 Oproti aplikaci \textit{Gnarley Trees} zase nabízí lepší uživatelské přizpůsobení a vyšší míru interaktivity v rámci simulace.
-V původním návrhu se počítalo rovněž s vizualizací B+ stromů, pro kterou byla analyzována dedikovaná aplikace \textit{B Plus Tree}.
+V původním návrhu se počítalo rovněž s vizualizací B+~stromů, pro kterou byla analyzována dedikovaná aplikace \textit{B Plus Tree}.
 Během vývoje však narazila implementace na architektonická omezení zvolené grafické knihovny.
-Z důvodu těchto technologických limitů a pro zachování stability a plynulosti aplikace bylo nakonec od implementace B+ stromů upuštěno.
-Tento krok umožnil věnovat větší kapacity detailnímu odladění zbývajících komplexních struktur, jako jsou B-stromy a červeno-černé stromy.~\cite{gnarleyTrees,dataStructureVisualization,bPlusTree}
+Z důvodu těchto technologických limitů a pro zachování stability a plynulosti aplikace bylo nakonec od implementace B+~stromů upuštěno.
+Tento krok umožnil věnovat větší kapacity detailnímu odladění zbývajících komplexních struktur, jako jsou B\=/stromy a červeno\=/černé stromy.~\cite{gnarleyTrees,dataStructureVisualization,bPlusTree}
 
 Přehledné srovnání vlastností v oblasti datových struktur poskytuje \customref{Tabulka}{tab:final_comparison_ds}.
 
