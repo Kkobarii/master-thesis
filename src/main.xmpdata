@@ -1,7 +1,7 @@
 \setRGBcolorprofile{sRGBIEC1966-2.1.icm}{sRGB IEC61966-2.1}{IEC sRGB}{http://www.iec.ch}
 
 \Title{Interaktivní nástroj pro vizualizaci algoritmů a datových struktur}
-\Author{Barbora Kovalská}
+\Author{Bc. Barbora Kovalská}
 \Subject{Diplomová práce o návrhu a implementaci interaktivní webové aplikace pro vizualizaci algoritmů a datových struktur.}
 \Keywords{vizualizace algoritmů, datové struktury, třídicí algoritmy, výuková webová aplikace, SvelteKit, TypeScript, softwarová architektura, e-learning}
 \Language{cs-CZ}

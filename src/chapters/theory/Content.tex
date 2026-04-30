@@ -301,7 +301,7 @@ V šedých kruzích u jednotlivých uzlů je znázorněn index, který odpovíd�
 \end{figure}
 
 Binární halda může být také efektivně reprezentována polem \imageref{img:heap_array}, kde pro každý prvek v poli platí následující vztahy: pro prvek na indexu $i$ je jeho levý potomek na indexu $2i + 1$, pravý potomek na indexu $2i + 2$ a rodičovský uzel na indexu $\lfloor (i - 1) / 2 \rfloor$.
-Tato reprezentace umožňuje efektivní přístup k prvkům haldy, dovoluje algoritmům pracovat s daty bez nutnosti explicitní reprezentace stromové struktury, a je často používána v implementacích algoritmů, jako je Heapsort.~\cite{cormen}
+Tato reprezentace umožňuje efektivní přístup k prvkům haldy, dovoluje algoritmům pracovat s daty bez nutnosti explicitní reprezentace stromové struktury, a je často používána v implementacích algoritmů, jako je \textit{Heap sort}.~\cite{cormen}
 
 \begin{figure}[ht]
     \centering
@@ -322,7 +322,7 @@ Proces se opět opakuje až do splnění vlastnosti haldy nebo dosažení listu 
 
 Operace vkládání a odebrání prvku s nejvyšší prioritou v binární haldě mají složitost $O(\log n)$.
 Tato vlastnost z ní činí efektivní datovou strukturu pro implementaci prioritních front a pro použití v algoritmech, které vyžadují rychlý přístup k prvkům s nejvyšší prioritou, jako jsou například algoritmy pro hledání nejkratší cesty nebo plánování úloh.
-Její časté využití je také v třídicím algoritmu Heapsort, který bude detailněji popsán v \customref{Kapitole}{subsec:logarithmic_algorithms}.~\cite{cormen}
+Její časté využití je také v třídicím algoritmu \textit{Heap sort}, který bude detailněji popsán v \customref{Kapitole}{subsec:logarithmic_algorithms}.~\cite{cormen}
 
 \subsection{Srovnání popsaných datových struktur}
 \label{sec:data_structures_comparison}
