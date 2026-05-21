@@ -2,6 +2,9 @@ name: Compile LaTeX (Master)
 
 on:
   push:
+    branches:
+      - master
+      - actions
   pull_request:
   workflow_dispatch:
 
