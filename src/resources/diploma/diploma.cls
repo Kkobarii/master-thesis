@@ -73,7 +73,7 @@
 \setcounter{Dipl@CurrentThesisType}{\Dipl@MasterThesis}
 \newcounter{Dipl@CurrentThesisLanguage}
 \setcounter{Dipl@CurrentThesisLanguage}{\Dipl@CzechLanguage}
-\LoadClass[11pt,openany]{book}
+\LoadClass[11pt,openany,a4paper]{book}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
 \RequirePackage{geometry}

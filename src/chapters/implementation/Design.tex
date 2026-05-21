@@ -30,9 +30,11 @@ Sitemap diagram aplikace \imageref{fig:sitemap} znázorňuje hierarchii stránek
 \textit{Hlavní stránka} aplikace slouží jako její primární vstupní bod; účelem jejího atraktivního vizuálního zpracování je zaujmout uživatele a~motivovat jej k~dalšímu prozkoumání nabízeného obsahu.
 Tato stránka obsahuje odkazy směřující uživatele do jedné z~dvou hlavních větví: \textit{Datové struktury} a~\textit{Třídicí algoritmy}.
 Ve větvi \textit{Datové struktury} se aplikace dále větví na jednotlivé struktury, přičemž každá z~nich má svou dedikovanou stránku, která v~sobě integruje veškerou teorii i~samotnou simulaci.
+
 Stejnou strukturou se vyznačuje rovněž část \textit{Třídicí algoritmy}.
 Pro každý algoritmus je připraven úvodní přehled s~obecnou simulací, jehož cílem je představit danou problematiku v~širším kontextu.
 K~důkladnějšímu studiu následně slouží obrazovka \textit{Detail}, která nabízí detailnější průběh simulace obohacený o~krokování zdrojového kódu.
+
 Mezi ostatními třídicími algoritmy je v~této větvi zahrnuta také stránka zaměřená na \textit{Vyhledávací algoritmy}.
 K~tomuto rozhodnutí vedl primárně malý počet algoritmů, které bylo v~této kategorii možné zahrnout, a~proto by bylo zbytečné věnovat každému z~nich samostatnou stránku.
 Závěr větve \textit{Třídicí algoritmy} tvoří srovnávací přehled, který uživateli umožňuje vyhodnotit efektivitu jednotlivých algoritmů v~reálném čase.
@@ -174,7 +176,7 @@ Rozdílné rozměry prvků uživateli vizuálně usnadňují identifikaci jejich
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/design/sortingComponents_big.pdf}
+    \includegraphics[width=0.9\textwidth]{figures/design/sortingComponents_big.pdf}
     \caption{Návrh obecné vizualizace pole}
     \label{fig:wire_sorting_big}
 \end{figure}
@@ -192,7 +194,7 @@ Levá část opět představuje setříděné pole a~pravá pole s~náhodně usp
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/design/sortingComponents_detail.pdf}
+    \includegraphics[width=0.8\textwidth]{figures/design/sortingComponents_detail.pdf}
     \caption{Návrh detailní vizualizace pole}
     \label{fig:wire_sorting_detail}
 \end{figure}
@@ -218,7 +220,7 @@ Zvolené barvy jsou převážně přirozené a~méně saturované, aby u~uživat
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/design/palette.pdf}
+    \includegraphics[width=0.8\textwidth]{figures/design/palette.pdf}
     \caption{Barevná paleta výukové aplikace}
     \label{fig:palette}
 \end{figure}
@@ -339,6 +341,7 @@ Z~tohoto základu dědí specifické třídy uzlů (např. pro binární stromy 
 Společné rozhraní všech struktur zastřešuje abstraktní třída \texttt{DataStructure}.
 Ta automatizuje přidělování identifikátorů a~definuje metodu pro tvorbu neměnných snímků stavu grafu (\texttt{snapshot}).
 Specifické datové struktury pak implementují své vlastní operace, které generují tyto snímky a~ukládají je do historie.
+
 Provádění samotných operací je abstrakcí rozděleno do dvou úrovní, které odráží hierarchický návrh krokování: \texttt{OperationData} obaluje celou operaci  (včetně stavu před a~po), zatímco \texttt{StepData} slouží pro uložení dílčích atomických kroků uvnitř operace.
 Každý krok v~sobě navíc může nést specifická data určující, které uzly se mají v~danou chvíli zvýraznit.
 Díky této jednotné architektuře dokáže vizuální vrstva vykreslit jakoukoliv strukturu bez nutnosti znát její vnitřní implementační detaily.
@@ -364,4 +367,6 @@ Ta si udržuje aktuální stav pole (\texttt{workingArray}) a~postupně do pamě
 Výsledkem je vygenerované pole kroků.
 Z~důvodu podpory dvou úrovní vizualizace existují i~dva typy kroků: \texttt{SortStep} nese pouze základní informace o~stavu pole, zatímco \texttt{DetailedSortStep} je rozšířen o~dvourozměrnou mřížku pro vizualizaci úrovní u~rekurzivních algoritmů (Quick sort, Merge sort) a~o~mapovací identifikátor \texttt{codePartId} napojující aktuální část pseudokódu.
 
-Definice samotného pseudokódu je uložena v~šabloně \texttt{DetailedCodeTemplate}, která pro daný algoritmus specifikuje řádky (\texttt{CodeLine}) nezávisle na zvoleném programovacím jazyce. Hlavní třída \texttt{SortingAlgorithm} tak funguje pouze jako zastřešující entita -- přijme vstupní pole a~pomocí definovaných metod (\texttt{generateSteps}) vrátí standardizovanou sekvenci těchto kroků, jež si uživatelské rozhraní plynule přehraje.
+\pagebreak
+Definice samotného pseudokódu je uložena v~šabloně \texttt{DetailedCodeTemplate}, která pro daný algoritmus specifikuje řádky (\texttt{CodeLine}) nezávisle na zvoleném programovacím jazyce.
+Hlavní třída \texttt{SortingAlgorithm} tak funguje pouze jako zastřešující entita -- přijme vstupní pole a~pomocí definovaných metod (\texttt{generateSteps}) vrátí standardizovanou sekvenci těchto kroků, jež si uživatelské rozhraní plynule přehraje.

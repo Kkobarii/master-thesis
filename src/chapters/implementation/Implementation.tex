@@ -83,7 +83,7 @@ Plné znění této metody však bylo z~důvodu přehlednosti zkráceno.
     \label{code:trace_builder}
 \end{listing}
 
-Zásadním implementačním rozhodnutím pro dodržení principu DRY je způsob generování dvou úrovní vizualizace.
+Implementačním rozhodnutím pro dodržení principu DRY je způsob generování dvou úrovní vizualizace.
 Standardní třídicí algoritmy explicitně implementují pouze metodu pro tvorbu detailních kroků (\texttt{generateDetailedSteps}).
 Metoda pro obecný pohled (\texttt{generateSteps}) si tyto detailní kroky vyžádá a~programově z~nich odfiltruje veškerou vizuální logiku kromě operací typu \textit{Porovnání} a~\textit{Prohození}.
 Výjimku tvoří složité rekurzivní algoritmy, které implementují obě metody odděleně, neboť jejich komplexní práce s~rekurzivními podúrovněmi nelze algoritmicky zjednodušit.
@@ -112,18 +112,18 @@ Z~tohoto důvodu byla logika datových struktur striktně oddělena od vizuáln�
 
 Centrálním mozkem pro řízení stavu datových struktur je třída \texttt{OperationManager}.
 Ta funguje na principu návrhového vzoru Publisher-Subscriber.
-Místo toho, aby logické modely přímo volaly funkce pro překreslení uživatelského rozhraní, emitují při jakékoliv změně specifické události definované výčtovým typem \texttt{EventType} (např.
-začátek nové operace, změna aktuálního kroku).
-Komponenty uživatelského rozhraní (stejně jako vizualizační engine) tyto události pouze poslouchají a~reaktivně se jim přizpůsobují.
-
-\texttt{OperationManager} zároveň obstarává logiku hierarchického dvouúrovňového krokování, které bylo navrženo v~\customref{Kapitole}{subsec:structure-representation}.
-Jak demonstruje zjednodušený \customref{Výpis}{code:operation_manager}, třída na základě uživatelského nastavení (\texttt{showSteps}) dynamicky rozhoduje, zda posun vpřed (\texttt{next}) znamená pouhý přechod na další atomický krok v~rámci právě probíhající operace, nebo zda má přeskočit rovnou na začátek operace následující.
 
 \begin{listing}[ht]
     \inputminted{typescript}{code/implementation/operationManager.ts}
     \caption{Řízení dvouúrovňového krokování a~emitování událostí ve třídě OperationManager}
     \label{code:operation_manager}
 \end{listing}
+
+Místo toho, aby logické modely přímo volaly funkce pro překreslení uživatelského rozhraní, emitují při jakékoliv změně specifické události definované výčtovým typem \texttt{EventType} (např. začátek nové operace, změna aktuálního kroku).
+Komponenty uživatelského rozhraní (stejně jako vizualizační engine) tyto události pouze poslouchají a~reaktivně se jim přizpůsobují.
+
+\texttt{OperationManager} zároveň obstarává logiku hierarchického dvouúrovňového krokování, jež bylo navrženo v~\customref{Kapitole}{subsec:structure-representation}.
+Jak demonstruje zjednodušený \customref{Výpis}{code:operation_manager}, třída na základě uživatelského nastavení (\texttt{showSteps}) dynamicky rozhoduje, zda posun vpřed (\texttt{next}) znamená pouhý přechod na další atomický krok v~rámci právě probíhající operace, nebo zda má přeskočit rovnou na začátek operace následující.
 
 \subsection{Zpracování kroků a~systém delegace}
 \label{subsec:step-handler-system}
@@ -192,19 +192,19 @@ Tento problém byl vyřešen implementací nezávislé překryvné vrstvy (\text
 Jak ukazuje \customref{Výpis}{code:annotator_redraw}, tato třída se napojuje na událost \texttt{afterDrawing} vyvolávanou přímo vykreslovacím jádrem knihovny.
 Pokaždé, když knihovna dokončí překreslení, \texttt{DataStructureAnnotator} nad grafem na vlastním průhledném plátně vykreslí statické popisky.
 
-Tato nezávislá vrstva umožňuje vykreslovat hned několik typů anotací:
-\begin{itemize}
-    \item \textbf{InfoAnnotation:} Dynamický textový štítek umístěný pod existujícími uzly, sloužící typicky pro zobrazení textu popisujícího aktuální krok.
-    \item \textbf{ValueAnnotation:} Speciální štítek pro dočasné hodnoty, které se nevejdou přímo do těla uzlu, nebo znázorňují hodnoty v~procesu přesunu.
-    \item \textbf{IdAnnotation:} Nízkoúrovňové zobrazení unikátních identifikátorů uzlů, vykreslované pouze v~režimu ladění pro vývojáře.
-    \item \textbf{LegsAnnotation:} Vykreslování \uv{nožiček} (prázdných hran) indikujících prázdné větve listů.
-\end{itemize}
-
 \begin{listing}[ht]
     \inputminted{typescript}{code/implementation/annotator.ts}
     \caption{Napojení vlastní vrstvy DataStructureAnnotator na událost vykreslení sítě}
     \label{code:annotator_redraw}
 \end{listing}
+
+Tato nezávislá vrstva umožňuje vykreslovat hned několik typů anotací:
+\begin{itemize}
+    \item \textbf{InfoAnnotation:} Dynamický textový štítek umístěný pod existujícími uzly, sloužící typicky pro zobrazení textu popisujícího aktuální krok.
+    \item \textbf{ValueAnnotation:} Speciální štítek pro dočasné hodnoty, které se nevejdou přímo do těla uzlu, nebo znázorňují hodnoty v~procesu přesunu.
+    \item \textbf{IdAnnotation:} Nízkoúrovňové zobrazení unikátních identifikátorů uzlů, vykreslující se pouze v~režimu ladění pro vývojáře.
+    \item \textbf{LegsAnnotation:} Vykreslování \uv{nožiček} (prázdných hran) indikujících prázdné větve listů.
+\end{itemize}
 
 \subsection{Technologické limity vizualizace B-stromů}
 \label{subsec:btree-limitations}
@@ -237,7 +237,7 @@ I~přes velmi pozitivní hodnocení celkové ergonomie vedla zpětná vazba k~im
 V~oblasti simulace datových struktur se vývoj zaměřil na pokrytí okrajových případů (\textit{edge-cases}), a~to primárně u~složitějších operací v~B\=/stromech.
 Do aplikace přibyla možnost volby mezi vygenerováním zcela prázdné, nebo naopak předvyplněné datové struktury.
 Rozšíření se dočkala také srovnávací matice třídicích algoritmů, kam byla doplněna počítadla provedených porovnání a~výměn včetně celkového pořadí.
-Paralelně s~těmito vylepšeními docházelo ke průběžnému odstraňování drobných chyb a~celkové optimalizaci stability aplikace.
+Paralelně s~těmito vylepšeními docházelo ke průběžnému odstraňování chyb a~celkové optimalizaci stability aplikace.
 
 Další iterace se věnovaly úpravám zobrazení a~výukového obsahu.
 Vizuální stránka prošla revizí responzivity a~ovládací prvky datových struktur byly pro lepší přehlednost rozděleny do samostatných logických sekcí.
@@ -273,19 +273,26 @@ Dále také představuje pokročilé funkce, které zvyšují ergonomii a~edukat
 \subsection{Prezentace vizualizačních modulů}
 \label{subsec:showcase}
 
-Jednotlivé vizualizační moduly jsou přístupné z~hlavní navigace, která je implementována jako horizontální menu v~horní části obrazovky.
+Jednotlivé vizualizační moduly jsou přístupné z~hlavní navigace jako horizontální menu v~horní části obrazovky.
 Barva a~styl stránek jsou konzistentní napříč celou aplikací a~jsou v~souladu s~barevnou paletou, která byla definována v~\customref{Kapitole}{sec:visual-style-colors}.
 V~rámci implementace byl pro výukovou aplikaci zvolen název \textbf{Treeline}, který se objevuje v~logu a~dalších vizuálních prvcích.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/implementation/structurePage.png}
+    \includegraphics[width=0.9\textwidth]{figures/implementation/structurePage.png}
     \caption{Uživatelské rozhraní pro interaktivní vizualizaci datových struktur}
     \label{fig:structure_page}
 \end{figure}
 
-Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur na příkladu AVL~stromu.
+Na \customref{Obrázku}{fig:structure_page} je zachycena stránka pro simulaci datových struktur, konkrétně AVL~stromu.
 Pro graf je vyhrazena většina horizontálního prostoru, zatímco ovládací prvky pro manipulaci se strukturou (vkládání, mazání, hledání) jsou umístěny v~pravé postranní liště.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/implementation/sortingFirstPage.png}
+    \caption{Obecný přehled třídicího algoritmu s~využitím sloupcové vizualizace}
+    \label{fig:sorting_first_page}
+\end{figure}
 
 Doména třídicích algoritmů je rozdělena na dva vzájemně se doplňující pohledy.
 Obecný přehled \imageref{fig:sorting_first_page} nabízí sloupcovou vizualizaci, která je ideální pro demonstraci celkového chování algoritmu nad větším množstvím dat.
@@ -295,20 +302,13 @@ Má také možnost zvolit si různé vstupní datové sady, jako jsou náhodné,
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/implementation/sortingFirstPage.png}
-    \caption{Obecný přehled třídicího algoritmu s~využitím sloupcové vizualizace}
-    \label{fig:sorting_first_page}
+    \includegraphics[width=0.9\textwidth]{figures/implementation/sortingDetailPage.png}
+    \caption{Detailní pohled rekurzivního algoritmu s~dynamickým mapováním pseudokódu}
+    \label{fig:sorting_detail_page}
 \end{figure}
 
 Detailní pohled \imageref{fig:sorting_detail_page}, zde demonstrovaný na algoritmu Quick sort, naopak poskytuje hlubší vhled do atomických kroků, vizualizuje úrovně rekurze pomocí dvourozměrné mřížky a~dynamicky zvýrazňuje odpovídající řádky pseudokódu.
 Pole je zde zmenšeno na pouhých 16 prvků, uživatelé tak mají možnost sledovat každou operaci ve větším detailu.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{figures/implementation/sortingDetailPage.png}
-    \caption{Detailní pohled rekurzivního algoritmu s~dynamickým mapováním pseudokódu}
-    \label{fig:sorting_detail_page}
-\end{figure}
 
 Jak bylo již zmíněno výše v~návrhu, aplikace obsahuje také stránku s~vizualizací vyhledávacích algoritmů nad polem, která je implementována jako varianta detailního pohledu na třídicí algoritmy.
 Vizualizace v~tomto případě nabízí pouze jeden typ pole, a~to náhodně uspořádané.
@@ -321,10 +321,6 @@ Samozřejmě i~tato vizualizace podporuje dynamické zvýrazňování odpovídaj
 Moderní výuková aplikace musí být přístupná širokému spektru uživatelů a~zařízení.
 Adaptabilita prostředí stojí na třech hlavních pilířích: responzivitě, vizuálních motivech a~mezinárodní lokalizaci.
 
-Pro zajištění responzivity a~podpory tmavého režimu (\textit{Dark Mode}) byl použit CSS framework \devTool{Tailwind}{https://tailwindcss.com/}.
-S~využitím jeho pomocných tříd se rozložení prvků dynamicky přeskládává v~závislosti na velikosti obrazovky a~rozhraní tak umožňuje plnohodnotné používání aplikace i~na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}.
-Mezi úpravy mimo jiné patří přechod z~horizontálního menu na hamburger menu, vertikální rozložení ovládacích prvků a~zmenšení datové sady pro třídicí algoritmy na 50 a~8 prvků v~obecném a~detailním pohledu, aby se zachovala přehlednost na menších obrazovkách.
-
 \begin{figure}[ht]
     \centering
     \subfloat[Datová struktura]{\includegraphics[width=0.28\textwidth]{figures/implementation/mobile_structure.png}}
@@ -335,6 +331,10 @@ Mezi úpravy mimo jiné patří přechod z~horizontálního menu na hamburger me
     \caption{Ukázka responzivního chování na mobilním zařízení}
     \label{fig:responsive_mobile}
 \end{figure}
+
+Pro zajištění responzivity a~podpory tmavého režimu (\textit{Dark Mode}) byl použit CSS framework \devTool{Tailwind}{https://tailwindcss.com/}.
+S~využitím jeho pomocných tříd se rozložení prvků dynamicky přeskládává v~závislosti na velikosti obrazovky a~rozhraní tak umožňuje plnohodnotné používání aplikace i~na mobilních zařízeních, jak je ukázáno na \customref{Obrázku}{fig:responsive_mobile}.
+Mezi úpravy mimo jiné patří přechod z~horizontálního menu na hamburger menu, vertikální rozložení ovládacích prvků a~zmenšení datové sady pro třídicí algoritmy na 50 a~8 prvků v~obecném a~detailním pohledu, aby se zachovala přehlednost na menších obrazovkách.
 
 Aplikace plně respektuje preferenci uživatele ohledně barevného motivu.
 Inverze barev je navržena tak, aby sémantika barev zůstala zachována a~plně kontrastní v~obou režimech \imageref{fig:responsive_dark_mode}.
